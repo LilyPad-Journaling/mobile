@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Text, View, TouchableOpacity, StyleSheet
 } from 'react-native';
 
-import { colorScheme } from '../../styles/colorScheme';
+import { color } from '../../functions/providers/ColorContext';
 
 export default function Private(props) {
     const { navigation } = props;
+
     return (
         <View style={styles.container}>
             <Text>Private</Text>
@@ -17,7 +18,7 @@ export default function Private(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colorScheme.background,
+        backgroundColor: color.background,
         alignItems: "center",
         justifyContent: "center"
     }

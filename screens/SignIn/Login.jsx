@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-    Text, View, TouchableOpacity, StyleSheet
+    Text, View, TouchableOpacity, StyleSheet, AsyncStorage
 } from 'react-native';
 
-import { colorScheme } from '../../styles/colorScheme';
+import { login } from "../../functions/util/user";
+import { UserContext } from '../../functions/providers/UserContext';
+import { color } from '../../functions/providers/ColorContext';
 
 export default function Login(props) {
     const { navigation } = props;
+    const { setUser } = useContext(UserContext);
+
     return (
         <View style={styles.container}>
-            <Text>Login</Text>
+            <Text>Hello Login</Text>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Verify')}
+                onPress={() => {
+                    let data = {
+                        id: "123",
+                        name: "Hayden"
+                    }
+                    login(setUser, data);
+                    navigation.navigate('Verify');
+                }}
             >
                 <View style={styles.button}>
                     <Text>Next</Text>
@@ -24,13 +35,13 @@ export default function Login(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colorScheme.background,
+        backgroundColor: color.background,
         alignItems: "center",
         justifyContent: "center"
     },
     button: {
         height: 100,
         width: 100,
-        backgroundColor: colorScheme.primary
+        backgroundColor: color.primary
     }
   });

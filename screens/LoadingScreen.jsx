@@ -1,39 +1,37 @@
-import React, { useEffect } from "react";
-import { View, Text, AsyncStorage, StyleSheet, LogBox } from "react-native";
-import { inject, observer } from "mobx-react";
+import React, { useEffect, useContext } from "react";
+import { View, Text, StyleSheet, LogBox } from "react-native";
 
-import { colorScheme } from "../styles/colorScheme";
+import { UserContext } from "../functions/providers/UserContext";
+import { color } from "../functions/providers/ColorContext";
 
-const LoadingScreen = inject('userStore')(observer((props) => {
+const LoadingScreen = (props) => {
+    const { user } = useContext(UserContext);
     const checkIfLoggedIn = () => {
         setTimeout(() => {
-            AsyncStorage.getItem("phoneNumber").then( async (value) => {
-                if (value != null && value != "") {
-                    props.userStore.fetchUserDetails();
-                    props.navigation.navigate("HomeStack", { selected: [] });
-                } else {
-                    props.navigation.navigate("SignInStack");
-                }
-            });
+            if (user !== null && user !== "") {
+                props.navigation.navigate("HomeStack");
+            } else {
+                props.navigation.navigate("SignInStack");
+            }
         }, 300);
     };
 
     useEffect(() => {
         LogBox.ignoreLogs(["Warning: ..."]);
         checkIfLoggedIn();
-    });
+    }, []);
 
     return (
         <View style={styles.container}>
             <Text>Loading...</Text>
         </View>
     );
-}));
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colorScheme.background,
+        backgroundColor: color.background,
         alignItems: "center",
         justifyContent: "center"
     }

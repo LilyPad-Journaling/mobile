@@ -33,7 +33,7 @@ const screens = {
       return {
         headerShown: showHeader(navigation),
         gestureEnabled: false,
-        header: <Header navigation={navigation} />
+        header: () => <Header navigation={navigation} />
       }
     }
   }

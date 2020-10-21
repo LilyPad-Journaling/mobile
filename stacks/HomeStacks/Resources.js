@@ -4,7 +4,7 @@ import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import General from "../../screens/Resources/General";
 import Local from "../../screens/Resources/Local";
 import Emergency from "../../screens/Resources/Emergency";
-import { colorScheme } from "../../styles/colorScheme";
+import { color } from "../../functions/providers/ColorContext";
 
 const screens = {
     General: {
@@ -40,16 +40,16 @@ const Resources = createMaterialTopTabNavigator(screens, {
     timingConfig: 0,
     tabBarOptions: {
         upperCaseLabel: false,
-        activeTintColor: colorScheme.highlight,
-        inactiveTintColor: colorScheme.primaryText,
+        activeTintColor: color.highlight,
+        inactiveTintColor: color.primaryText,
         style: {
-          backgroundColor: colorScheme.primary,
+          backgroundColor: color.primary,
         },
         labelStyle: {
             fontSize: 16
         },
         indicatorStyle: {
-            backgroundColor: colorScheme.highlight
+            backgroundColor: color.highlight
         }
     }
 })

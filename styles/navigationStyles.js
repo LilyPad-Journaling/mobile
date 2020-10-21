@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colorScheme } from "./colorScheme";
+import { color } from "../functions/providers/ColorContext";
 
 export const navigationStyles = StyleSheet.create({
   icon: {
@@ -8,16 +8,16 @@ export const navigationStyles = StyleSheet.create({
     paddingLeft: 16,
   },
   header: {
-    backgroundColor: colorScheme.primary,
+    backgroundColor: color.primary,
   },
   headerTitle: {
-    color: colorScheme.primaryText,
+    color: color.primaryText,
     fontFamily: "Medium",
     fontSize: 20,
     width: "100%",
   },
   footer: {
-    backgroundColor: colorScheme.primary,
+    backgroundColor: color.primary,
     marginBottom: -5,
   },
 });

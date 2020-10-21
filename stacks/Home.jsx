@@ -8,7 +8,7 @@ import Journals from "./HomeStacks/Journals";
 import Moods from "./HomeStacks/Moods";
 import Resources from "./HomeStacks/Resources";
 import Profile from "./HomeStacks/Profile";
-import { colorScheme } from "../styles/colorScheme";
+import { color } from "../functions/providers/ColorContext";
 import { navigationStyles } from "../styles/navigationStyles";
 import { showNav } from "../functions/util/navigation";
 
@@ -92,16 +92,13 @@ const screens = {
 const Home = createMaterialTopTabNavigator(screens, {
     initialRouteName: "Journals",
     tabBarPosition: "bottom",
-    defaultNavigationOptions: {
-        ...TransitionPresets.FadeFromBottomAndroid
-    },
     timingConfig: 0,
     navigationOptions: {
         gestureEnabled: false
     },
     tabBarOptions: {
-        activeTintColor: colorScheme.highlight,
-        inactiveTintColor: colorScheme.inactive,
+        activeTintColor: color.highlight,
+        inactiveTintColor: color.inactive,
         style: [navigationStyles.footer],
         indicatorStyle: {
             height: 0

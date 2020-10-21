@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Text, View, TouchableOpacity, StyleSheet
 } from 'react-native';
-import { colorScheme } from '../../styles/colorScheme';
+import { color } from '../../functions/providers/ColorContext';
 
 export default function Journal(props) {
     const { navigation } = props;
+
     return (
         <View style={styles.container}>
             <Text>Journal</Text>
@@ -28,13 +29,13 @@ export default function Journal(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colorScheme.background,
+        backgroundColor: color.background,
         alignItems: "center",
         justifyContent: "center"
     },
     button: {
         height: 100,
         width: 100,
-        backgroundColor: colorScheme.primary
+        backgroundColor: color.primary
     }
 });

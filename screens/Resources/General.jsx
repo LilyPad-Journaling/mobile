@@ -3,7 +3,7 @@ import {
     Text, View, TouchableOpacity, StyleSheet
 } from 'react-native';
 
-import { colorScheme } from '../../styles/colorScheme';
+import { color } from '../../functions/providers/ColorContext';
 
 export default function General(props) {
     const { navigation } = props;
@@ -17,7 +17,7 @@ export default function General(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colorScheme.background,
+        backgroundColor: color.background,
         alignItems: "center",
         justifyContent: "center"
     }

@@ -7,7 +7,7 @@ import Starred from "../../screens/Journals/Starred";
 import Private from "../../screens/Journals/Private";
 import Journal from "../../screens/Journals/Journal";
 import Track from "../../screens/Moods/Track";
-import { colorScheme } from "../../styles/colorScheme";
+import { color } from "../../functions/providers/ColorContext";
 
 const screens = {
     Recent: {
@@ -43,16 +43,16 @@ const JournalsTabs = createMaterialTopTabNavigator(screens, {
     timingConfig: 0,
     tabBarOptions: {
         upperCaseLabel: false,
-        activeTintColor: colorScheme.highlight,
-        inactiveTintColor: colorScheme.primaryText,
+        activeTintColor: color.highlight,
+        inactiveTintColor: color.primaryText,
         style: {
-          backgroundColor: colorScheme.primary,
+          backgroundColor: color.primary,
         },
         labelStyle: {
             fontSize: 16
         },
         indicatorStyle: {
-            backgroundColor: colorScheme.highlight
+            backgroundColor: color.highlight
         }
     }
 })
