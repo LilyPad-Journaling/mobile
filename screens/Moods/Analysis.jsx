@@ -55,6 +55,8 @@ export default function Analysis(props) {
     );
 }
 
+// test 1 2
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
