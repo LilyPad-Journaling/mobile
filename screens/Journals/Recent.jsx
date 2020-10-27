@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import {
     Text, View, TouchableOpacity, StyleSheet
 } from 'react-native';
+import JournalList from './JournalList';
 
 import { color } from '../../functions/providers/ColorContext';
 
@@ -11,15 +12,33 @@ export default function Recent(props) {
     return (
         <View style={styles.container}>
             <Text>Recent</Text>
-            <TouchableOpacity
-                onPress={() => navigation.navigate('Journal')}
-                style={styles.button}
-            >
-                <Text>Journal</Text>
-            </TouchableOpacity>
+            <JournalList data={journalEntries} navigation={navigation}/>
         </View>
     );
 }
+
+const journalEntries = [
+    {
+        title: "Entry Four",
+        description: "description 4",
+        date: new Date("1/1/2020")
+    },
+    {
+        title: "Entry Three",
+        description: "description 3",
+        date: new Date("1/2/2020")
+    },
+    {
+        title: "Entry Two",
+        description: "description 2",
+        date: new Date("1/2/2020")
+    },
+    {
+        title: "Entry One",
+        description: "description 1",
+        date: new Date("1/2/2020")
+    }
+]
 
 const styles = StyleSheet.create({
     container: {
