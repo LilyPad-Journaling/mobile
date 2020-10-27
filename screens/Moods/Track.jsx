@@ -14,7 +14,12 @@ export default function Track(props) {
                 onPress={() => navigation.goBack()}
                 style={styles.button}
             >
-                <Text>Back</Text>
+                <Text style={{
+                    fontSize: 20,
+                    color: color.inactive
+                }}>
+                    
+                    Complete</Text>
             </TouchableOpacity>
         </View>
     );
@@ -28,8 +33,14 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     button: {
-        height: 100,
-        width: 100,
-        backgroundColor: color.primary
+        height: 40,
+        width: 175,
+        borderRadius: 10,
+        backgroundColor: color.primary,
+        alignItems: "center",
+        justifyContent: "center",
+        position: "absolute", 
+        bottom: 0,
+        marginBottom: "5%"
     }
   });
