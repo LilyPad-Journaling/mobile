@@ -70,8 +70,10 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         backgroundColor: color.highlight,
         alignItems: "center",
-        justifyContent: "center"
-
+        justifyContent: "center",
+        position: "absolute", 
+        bottom: 0,
+        right: 0
     },
     graph: {
         height: 100,
