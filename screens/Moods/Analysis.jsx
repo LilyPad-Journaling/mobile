@@ -31,7 +31,10 @@ export default function Analysis(props) {
             >
                 <Text style={{
                     fontSize: 40,
-                    color: color.primary
+                    color: color.primary,
+                    alignItems: "center",
+                    alignContent: "center",
+                    textAlign: "center"
                 }}>
                     +
                 </Text>
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         position: "absolute", 
         bottom: 0,
-        right: 0
+        right: 0,
     },
     graph: {
         height: 100,
