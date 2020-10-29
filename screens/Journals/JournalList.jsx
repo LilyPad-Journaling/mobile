@@ -1,8 +1,38 @@
 import React, { useContext } from 'react';
 import {
-    Text, TouchableOpacity, StyleSheet, FlatList
+    Text, TouchableOpacity, StyleSheet, FlatList, View
 } from 'react-native';
 import { color } from '../../functions/providers/ColorContext';
+
+function dateToDay(date) {
+    if (new Date().toDateString() === date.toDateString()) {
+        return "Today";
+    } else {
+        switch (date.getDay()) {
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            case 6:
+                return "Saturday";
+            default:
+                return "Sunday";
+        }
+    }
+}
+
+function dateToMDY(date) {
+    let month = date.getUTCMonth() + 1;
+    let day = date.getUTCDate();
+    let year = date.getUTCFullYear();
+    return month + "/" + day + "/" + year
+}
 
 function Entry(props) {
 
@@ -33,45 +63,55 @@ function Entry(props) {
 
 
 function JournalList(props) {
-    for (let i = 0; i < props.data.length; ++i) {
+
+    let journals = props.data.reverse()
+
+    for (let i = 0; i < journals.length; ++i) {
         // If this is the first entry or its date comes before the previous entry's date
-        if (i === 0 || props.data[i].date.getTime() !== props.data[i-1].date.getTime()) {
+        if (i === 0 || journals[i].date.getTime() !== journals[i - 1].date.getTime()) {
             // If this is the last entry or its date comes before the next entry's date
-            if (i === props.data.length - 1 || props.data[i+1].date.getTime() !== props.data[i].date.getTime()) {
-                props.data[i].style = 'both';
+            if (i === journals.length - 1 || journals[i + 1].date.getTime() !== journals[i].date.getTime()) {
+                journals[i].style = 'both';
             } else {
-                props.data[i].style = 'top';
+                journals[i].style = 'top';
             }
-        // Otherwise, if this is the last entry or its date comes before the next entry's date
-        } else if (i === props.data.length - 1 || props.data[i+1].date.getTime() !== props.data[i].date.getTime()) {
-            props.data[i].style = 'bottom';
+            // Otherwise, if this is the last entry or its date comes before the next entry's date
+        } else if (i === journals.length - 1 || journals[i + 1].date.getTime() !== journals[i].date.getTime()) {
+            journals[i].style = 'bottom';
         }
     }
 
     let data = [];
 
-    for (entry of props.data) {
-        if (data.length === 0 || data[data.length-1][0].date.getTime() !== entry.date.getTime()) {
+    for (entry of journals) {
+        if (data.length === 0 || data[data.length - 1][0].date.getTime() !== entry.date.getTime()) {
             data.push([entry]);
         } else {
-            data[data.length-1].push(entry);
+            data[data.length - 1].push(entry);
         }
     }
 
     return <FlatList
         data={data}
         keyExtractor={item => item[0].date.toString()}
-        renderItem={({item, index, separators}) => (
-            <FlatList 
+        renderItem={({ item, index, separators }) => (
+            <FlatList
                 data={item}
                 keyExtractor={item => item.title}
-                renderItem={({item, index, separators}) => (
-                    <Entry title={item.title} description={item.description} navigation={props.navigation} style={item.style}/>
+                ListHeaderComponent={() => (
+                    <Text style={{fontWeight: "bold"}}>
+                        <Text>{dateToDay(item[0].date)}</Text>
+                        <Text> </Text>
+                        <Text style={{color: color.inactive}}>{dateToMDY(item[0].date)}</Text>
+                    </Text>
+                )}
+                renderItem={({ item, index, separators }) => (
+                    <Entry title={item.title} description={item.description} navigation={props.navigation} style={item.style} />
                 )}
             />
         )}
     />
-    
+
 }
 
 export default JournalList;
