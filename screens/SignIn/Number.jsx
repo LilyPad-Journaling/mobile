@@ -1,3 +1,14 @@
+import React, { useContext } from 'react';
+import {
+    Text, View, TouchableOpacity, TextInput
+} from 'react-native';
+import { FontAwesome as Icon } from '@expo/vector-icons/';
+
+import { login } from "../../functions/util/user";
+import { UserContext } from '../../functions/providers/UserContext';
+import { color } from '../../functions/providers/ColorContext';
+import styles from '../../styles/signInStyles';
+
 export default function Number(props) {
     const { navigation } = props;
     const { setUser } = useContext(UserContext);
@@ -13,24 +24,29 @@ export default function Number(props) {
             <TextInput 
                 placeholder="(123)-456-7890"
                 placeholderTextColor={color.inactive}
-                
+                keyboardType="phone-pad"
                 style={{
                     fontSize: 20
                 }}
             />
             <TouchableOpacity
+                style={styles.button}
                 onPress={() => {
                     let data = {
                         id: "123",
+                        number: "8185191330",
                         name: "Hayden"
                     }
                     login(setUser, data);
                     navigation.navigate('Verify');
                 }}
             >
-                <View style={styles.button}>
-                    <Text style={{color: color.primary}}>Next</Text>
-                </View>
+                <Icon
+                    name="chevron-right"
+                    color={color.primary}
+                    size={28}
+                    style={{marginLeft: 3, marginTop: 2 }}
+                />
             </TouchableOpacity>
         </View>
     );

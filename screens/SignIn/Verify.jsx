@@ -1,37 +1,52 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-    Text, View, TouchableOpacity, StyleSheet
+    Text, View, TouchableOpacity, StyleSheet, TextInput
 } from 'react-native';
 
+import { login } from "../../functions/util/user";
+import { UserContext } from '../../functions/providers/UserContext';
 import { color } from '../../functions/providers/ColorContext';
+import styles from '../../styles/signInStyles';
 
-export default function Verify(props) {
+export default function Number(props) {
     const { navigation } = props;
+    const { setUser } = useContext(UserContext);
 
     return (
         <View style={styles.container}>
-            <Text>Verify</Text>
+            <Text style={styles.headerText}>
+                What's your verification code?
+            </Text>
+            <Text style={styles.subHeaderText}>
+                You should receive an SMS verification code shortly.
+            </Text>
+            <TextInput 
+                placeholder="123456"
+                placeholderTextColor={color.inactive}
+                keyboardType="number-pad"
+                style={{
+                    fontSize: 20
+                }}
+            />
             <TouchableOpacity
-                onPress={() => navigation.navigate('Onboarding')}
+                style={styles.button}
+                onPress={() => {
+                    let data = {
+                        id: "123",
+                        number: "8185191330",
+                        name: "Hayden"
+                    }
+                    login(setUser, data);
+                    navigation.navigate('Onboarding');
+                }}
             >
-                <View style={styles.button}>
-                    <Text>Next</Text>
-                </View>
+                <Icon
+                    name="chevron-right"
+                    color={color.primary}
+                    size={28}
+                    style={{marginLeft: 3, marginTop: 2 }}
+                />
             </TouchableOpacity>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: color.background,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    button: {
-        height: 100,
-        width: 100,
-        backgroundColor: color.primary
-    }
-  });

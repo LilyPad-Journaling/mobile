@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import {
-    Text, View, TouchableOpacity, StyleSheet, AsyncStorage
+    Text, View, TouchableOpacity, TextInput
 } from 'react-native';
+import { FontAwesome as Icon } from '@expo/vector-icons';
 
 import { login } from "../../functions/util/user";
 import { UserContext } from '../../functions/providers/UserContext';
 import { color } from '../../functions/providers/ColorContext';
-import { TextInput } from 'react-native-gesture-handler';
+import styles from '../../styles/signInStyles';
 
 export default function Name(props) {
     const { navigation } = props;
@@ -28,50 +29,18 @@ export default function Name(props) {
                 }}
             />
             <TouchableOpacity
+                style={styles.button}
                 onPress={() => {
-                    let data = {
-                        id: "123",
-                        name: "Hayden"
-                    }
-                    login(setUser, data);
-                    navigation.navigate('Verify');
+                    navigation.navigate('Number');
                 }}
             >
-                <View style={styles.button}>
-                    <Text style={{color: color.primary}}>Next</Text>
-                </View>
+                <Icon
+                    name="chevron-right"
+                    color={color.primary}
+                    size={28}
+                    style={{marginLeft: 3, marginTop: 2 }}
+                />
             </TouchableOpacity>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: color.primary,
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100%",
-        width: "100%"
-    },
-    button: {
-        height: 50,
-        width: 50,
-        borderRadius: 25,
-        backgroundColor: color.highlight,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    headerText: {
-        fontSize: 24,
-        color: color.primaryText,
-        marginBottom: 30 
-    },
-    subHeaderText: {
-        fontSize: 16,
-        color: color.primaryText,
-        marginBottom: 40,
-        textAlign: "center",
-        marginHorizontal: 30
-    }
-  });
