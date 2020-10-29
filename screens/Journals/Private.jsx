@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 
 import { color } from '../../functions/providers/ColorContext';
+import JournalList from './JournalList';
 
 export default function Private(props) {
     const { navigation } = props;

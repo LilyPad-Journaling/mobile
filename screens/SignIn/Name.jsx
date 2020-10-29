@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import {
-    Text, View, TouchableOpacity, TextInput
+    Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard
 } from 'react-native';
 import { FontAwesome as Icon } from '@expo/vector-icons';
 
@@ -14,6 +14,7 @@ export default function Name(props) {
     const { setUser } = useContext(UserContext);
 
     return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
             <Text style={styles.headerText}>
                 What's your name?
@@ -42,5 +43,6 @@ export default function Name(props) {
                 />
             </TouchableOpacity>
         </View>
+        </TouchableWithoutFeedback>
     );
 }

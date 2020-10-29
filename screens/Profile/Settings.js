@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-    Text, View, TouchableOpacity, StyleSheet, Image, FlatList, TouchableWithoutFeedback, Keyboard, ScrollView
+    Text, View, TouchableOpacity, StyleSheet, Image, FlatList, TouchableWithoutFeedback, Keyboard
 } from 'react-native';
 
 import { color } from '../../functions/providers/ColorContext';
