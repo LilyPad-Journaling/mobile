@@ -11,7 +11,6 @@ export default function Recent(props) {
 
     return (
         <View style={styles.container}>
-            <Text>Recent</Text>
             <JournalList data={journalEntries} navigation={navigation} />
         </View>
     );
