@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import {
     Text, View, TouchableOpacity, StyleSheet, TextInput
 } from 'react-native';
+import { FontAwesome as Icon } from '@expo/vector-icons';
 
 import { login } from "../../functions/util/user";
 import { UserContext } from '../../functions/providers/UserContext';
