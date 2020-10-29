@@ -12,7 +12,7 @@ export default function Intro(props) {
         <View style={styles.container}>
             <Text>Intro</Text>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate('Name')}
             >
                 <View style={styles.button}>
                     <Text>Next</Text>

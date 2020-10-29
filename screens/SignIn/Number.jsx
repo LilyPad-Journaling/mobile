@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import {
-    Text, View, TouchableOpacity, StyleSheet, TextInput
+    Text, View, TouchableOpacity, TextInput
 } from 'react-native';
+import { FontAwesome as Icon } from '@expo/vector-icons/';
 
 import { login } from "../../functions/util/user";
 import { UserContext } from '../../functions/providers/UserContext';
@@ -15,15 +16,15 @@ export default function Number(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>
-                What's your verification code?
+                What's your number?
             </Text>
             <Text style={styles.subHeaderText}>
-                You should receive an SMS verification code shortly.
+                We just need your number for verification and won't spam you or sell your data.
             </Text>
             <TextInput 
-                placeholder="123456"
+                placeholder="(123)-456-7890"
                 placeholderTextColor={color.inactive}
-                keyboardType="number-pad"
+                keyboardType="phone-pad"
                 style={{
                     fontSize: 20
                 }}
@@ -37,7 +38,7 @@ export default function Number(props) {
                         name: "Hayden"
                     }
                     login(setUser, data);
-                    navigation.navigate('Onboarding');
+                    navigation.navigate('Verify');
                 }}
             >
                 <Icon
