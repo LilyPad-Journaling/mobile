@@ -2,7 +2,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 
 import Intro from "../screens/SignIn/Intro";
-import Login from "../screens/SignIn/Login";
+import Login from "../screens/SignIn/Name";
 import Verify from "../screens/SignIn/Verify";
 import Onboarding from "../screens/SignIn/Onboarding";
 

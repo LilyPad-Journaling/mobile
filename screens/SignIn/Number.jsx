@@ -5,7 +5,7 @@ import {
 
 import { color } from '../../functions/providers/ColorContext';
 
-export default function Verify(props) {
+export default function Number(props) {
     const { navigation } = props;
 
     return (

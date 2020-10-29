@@ -8,26 +8,16 @@ import { UserContext } from '../../functions/providers/UserContext';
 import { color } from '../../functions/providers/ColorContext';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default function Login(props) {
+export default function Name(props) {
     const { navigation } = props;
     const { setUser } = useContext(UserContext);
 
     return (
         <View style={styles.container}>
-            <Text style={{
-                fontSize: 24,
-                color: color.primaryText,
-                marginBottom: 30            
-            }}>
+            <Text style={styles.headerText}>
                 What's your name?
             </Text>
-            <Text style={{
-                fontSize: 16,
-                color: color.primaryText,
-                marginBottom: 40,
-                textAlign: "center",
-                marginHorizontal: 30
-            }}>
+            <Text style={styles.subHeaderText}>
                 This is what we’ll call you inside the app and it won’t be shared with anyone.
             </Text>
             <TextInput 
@@ -48,7 +38,7 @@ export default function Login(props) {
                 }}
             >
                 <View style={styles.button}>
-                    <Text style={{ color: color.primary}}>Next</Text>
+                    <Text style={{color: color.primary}}>Next</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -71,5 +61,17 @@ const styles = StyleSheet.create({
         backgroundColor: color.highlight,
         alignItems: "center",
         justifyContent: "center"
+    },
+    headerText: {
+        fontSize: 24,
+        color: color.primaryText,
+        marginBottom: 30 
+    },
+    subHeaderText: {
+        fontSize: 16,
+        color: color.primaryText,
+        marginBottom: 40,
+        textAlign: "center",
+        marginHorizontal: 30
     }
   });
