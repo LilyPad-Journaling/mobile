@@ -1,10 +1,5 @@
 const { AsyncStorage } = require("react-native");
 
-const login = (setUser, data) => {
-    AsyncStorage.setItem("id", "123");
-    setUser(data);
-}
-
 const queryLogin = async id => {
     // Make firebase query
     const user = {
@@ -25,5 +20,4 @@ const init = ({ setUser }) => {
     });
 }
 
-exports.login = login;
 exports.userInit = init;

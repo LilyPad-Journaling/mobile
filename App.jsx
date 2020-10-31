@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import MainStack from "./stacks/Main";
 import { decode, encode } from "base-64";
-import { TextInput, Text, BackHandler } from "react-native";
+import { TextInput, Text, BackHandler, AsyncStorage } from "react-native";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
@@ -9,8 +9,8 @@ import { SafeAreaProvider } from "react-native-safe-area-view";
 
 import { UserContext } from "./functions/providers/UserContext";
 import { ColorContext, color as colorScheme } from "./functions/providers/ColorContext";
-const { fbInit } = require("./functions/util/fb");
-const { userInit } = require("./functions/util/user");
+// const { fbInit } = require("./functions/util/fb");
+// const { userInit } = require("./functions/util/user");
 // const { mp } = require("./functions/util/mixpanel");
 
 const globalAny = global;
@@ -45,14 +45,26 @@ const App = () => {
     TextInput.defaultProps = TextInput.defaultProps || {};
     TextInput.defaultProps.allowFontScaling = false;
 
-    return () => { // componentWillUnmount equivalent
-      BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
-    };
+    // return () => { // componentWillUnmount equivalent
+    //   BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
+    // };
   }, []);
 
   useEffect(() => {
-    userInit(userProvider);
+    AsyncStorage.getItem('user', (err, userObj) => {
+      if (userObj !== null && userObj !== '') {
+        console.log('Get', userObj)
+        setUser(JSON.parse(userObj));
+      }
+    })
+    // userInit(userProvider);
   }, []);
+
+  useEffect(() => {
+    if (user !== null && user !== '') {
+      AsyncStorage.setItem('user', JSON.stringify(user));
+    }
+  }, [user]);
 
   const loadFonts = () => {
     setFontsLoaded(true);
