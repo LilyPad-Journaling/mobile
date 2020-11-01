@@ -57,7 +57,6 @@ const App = () => {
         setUser(JSON.parse(userObj));
       }
     })
-    // userInit(userProvider);
   }, []);
 
   useEffect(() => {

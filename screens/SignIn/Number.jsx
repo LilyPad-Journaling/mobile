@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard
 } from 'react-native';
 import { FontAwesome as Icon } from '@expo/vector-icons/';
 
-import { login } from "../../functions/util/user";
 import { UserContext } from '../../functions/providers/UserContext';
 import { color } from '../../functions/providers/ColorContext';
 import styles from '../../styles/signInStyles';
 
 export default function Number(props) {
+    const [number, setNumber] = useState('');
     const { navigation } = props;
-    const { setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -22,24 +22,23 @@ export default function Number(props) {
             <Text style={styles.subHeaderText}>
                 We just need your number for verification and won't spam you or sell your data.
             </Text>
-            <TextInput 
+            <TextInput
                 placeholder="(123)-456-7890"
                 placeholderTextColor={color.inactive}
                 keyboardType="phone-pad"
-                style={{
-                    fontSize: 20
-                }}
+                style={{fontSize: 20}}
+                onChangeText={setNumber}
             />
             <TouchableOpacity
-                style={styles.button}
+                style={[
+                    styles.button,
+                    number.length > 9 ? {} : { backgroundColor: color.inactive }
+                ]}
                 onPress={() => {
-                    let data = {
-                        id: "123",
-                        number: "8185191330",
-                        name: "Hayden"
+                    if (number.length > 9) {
+                        setUser({ ...user, number });
+                        navigation.navigate('Verify');
                     }
-                    login(setUser, data);
-                    navigation.navigate('Verify');
                 }}
             >
                 <Icon

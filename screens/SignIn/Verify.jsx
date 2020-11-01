@@ -1,55 +1,69 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from "react";
 import {
-    Text, View, TouchableOpacity, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard
-} from 'react-native';
-import { FontAwesome as Icon } from '@expo/vector-icons';
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+  AsyncStorage,
+} from "react-native";
+import { FontAwesome as Icon } from "@expo/vector-icons";
 
-import { login } from "../../functions/util/user";
-import { UserContext } from '../../functions/providers/UserContext';
-import { color } from '../../functions/providers/ColorContext';
-import styles from '../../styles/signInStyles';
+import { UserContext } from "../../functions/providers/UserContext";
+import { color } from "../../functions/providers/ColorContext";
+import styles from "../../styles/signInStyles";
+import { useEffect } from "react";
 
 export default function Number(props) {
-    const { navigation } = props;
-    const { setUser } = useContext(UserContext);
+  const secretCode = "123456";
+  const [code, setCode] = useState("");
+  const { navigation } = props;
+  const { user, setUser } = useContext(UserContext);
 
-    return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
-            <Text style={styles.headerText}>
-                What's your verification code?
-            </Text>
-            <Text style={styles.subHeaderText}>
-                You should receive an SMS verification code shortly.
-            </Text>
-            <TextInput 
-                placeholder="123456"
-                placeholderTextColor={color.inactive}
-                keyboardType="number-pad"
-                style={{
-                    fontSize: 20
-                }}
-            />
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                    let data = {
-                        id: "123",
-                        number: "8185191330",
-                        name: "Hayden"
-                    }
-                    login(setUser, data);
-                    navigation.navigate('Onboarding');
-                }}
-            >
-                <Icon
-                    name="chevron-right"
-                    color={color.primary}
-                    size={28}
-                    style={{marginLeft: 3, marginTop: 2 }}
-                />
-            </TouchableOpacity>
-        </View>
-        </TouchableWithoutFeedback>
-    );
+  useEffect(() => {
+    if (code === secretCode) {
+      AsyncStorage.setItem('loggedIn', 'true');
+      navigation.navigate("Onboarding");
+    }
+  }, [code]);
+
+  return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Text style={styles.headerText}>What's your verification code?</Text>
+        <Text style={styles.subHeaderText}>
+          You should receive an SMS verification code shortly.
+        </Text>
+        <TextInput
+          placeholder="123456"
+          placeholderTextColor={color.inactive}
+          keyboardType="number-pad"
+          style={{ fontSize: 20 }}
+          onChangeText={setCode}
+        />
+        <TouchableOpacity
+          style={[
+            styles.button,
+            code.length > 5
+              ? { backgroundColor: "red" }
+              : { backgroundColor: color.inactive },
+          ]}
+          onPress={() => {
+            if (code.length > 5 && code !== secretCode) {
+              Alert.alert("Invalid Code");
+            }
+          }}
+        >
+          <Icon
+            name="chevron-right"
+            color={color.primary}
+            size={28}
+            style={{ marginLeft: 3, marginTop: 2 }}
+          />
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
+  );
 }
