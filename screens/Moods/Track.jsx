@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-    Text, View, TouchableOpacity, StyleSheet, FlatList
+    Text, View, TouchableOpacity, StyleSheet, FlatList, 
 } from 'react-native';
 
+import Slider from "react-native-slider";
+
 import { color } from '../../functions/providers/ColorContext';
+
 
 const data = [
     {
@@ -30,10 +33,10 @@ export default function Track(props) {
         data={data}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => {
-          console.log(item);
           return (
             <View>
               <Text>{item.name}</Text>
+              <SliderBar/>
               {/* <View style={styles.graph}>
                 <Text>Graph</Text>
               </View> */}
@@ -49,8 +52,8 @@ export default function Track(props) {
                     fontSize: 20,
                     color: color.inactive
                 }}>
-                    
-                    Complete</Text>
+                  Complete
+                </Text>
             </TouchableOpacity>
         </View>
     );
@@ -75,3 +78,26 @@ const styles = StyleSheet.create({
         marginBottom: "5%"
     }
   });
+
+const SliderBar = () => {
+  const [value, setValue] = useState(0);
+
+  return (
+    <View>
+      <Slider
+        value={value}
+        onValueChange={setValue}
+        // trackStyle={}
+        thumbStyle={{
+          height: 40,
+          width: 40,
+          borderRadius: 20,
+          backgroundColor: "#fff",
+          borderColor: "black"
+        }}
+        minimumTrackTintColor="red"
+        maximumTrackTintColor="white"
+      />
+    </View>
+  )
+};

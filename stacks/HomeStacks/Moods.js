@@ -9,7 +9,8 @@ const screens = {
         screen: Analysis,
         navigationOptions: () => {
             return {
-                headerShown: false
+                headerShown: false,
+                gestureEnabled: false,
             }
         }
     },
@@ -17,7 +18,8 @@ const screens = {
         screen: Track,
         navigationOptions: () => {
             return {
-                headerShown: false
+                headerShown: false,
+                gestureEnabled: false,
             }
         }
     }
@@ -26,7 +28,12 @@ const screens = {
 const Moods = createStackNavigator(screens, {
     initialRouteName: "Analysis",
     defaultNavigationOptions: {
-        ...TransitionPresets.FadeFromBottomAndroid
+        ...TransitionPresets.FadeFromBottomAndroid,
+        gestureEnabled: false,
+    },
+    gestureEnabled: false,
+    navigationOptions: {
+        gestureEnabled: false,
     }
 })
 

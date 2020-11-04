@@ -96,6 +96,7 @@ const Home = createMaterialTopTabNavigator(screens, {
     navigationOptions: {
         gestureEnabled: false
     },
+    gestureEnabled: false,
     tabBarOptions: {
         activeTintColor: color.highlight,
         inactiveTintColor: color.inactive,

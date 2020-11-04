@@ -12,6 +12,7 @@
     "@expo/react-native-action-sheet": "^3.8.0",
     "@expo/vector-icons": "^10.2.1",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/slider": "^3.0.3",
     "base-64": "^1.0.0",
     "expo": "~39.0.2",
     "expo-cli": "^3.28.1",
@@ -25,10 +26,12 @@
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "^2.11.0",
+    "react-native-slider": "^0.11.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.2",
     "react-navigation-stack": "^2.8.4",
-    "react-navigation-tabs": "^2.9.2"
+    "react-navigation-tabs": "^2.9.2",
+    "rsuite": "^4.8.4"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
