@@ -37,7 +37,7 @@ export default function Analysis(props) {
     //     </TouchableOpacity>
     // </View>
     <View style={styles.container}>
-      <Text
+      {/* <Text
         style={{
           fontSize: 24,
           color: color.primaryText,
@@ -46,7 +46,7 @@ export default function Analysis(props) {
         }}
       >
         Mood
-      </Text>
+      </Text> */}
       <FlatList
         style={{ width: '90%' }}
         data={data}
@@ -55,7 +55,9 @@ export default function Analysis(props) {
           console.log(item);
           return (
             <View>
-              <Text>{item.name}</Text>
+              <Text style={{ fontSize: 20, marginBottom: 10, marginTop: 10 }}>
+                {item.name}
+              </Text>
               <View style={styles.graph}>
                 <Text>Graph</Text>
               </View>
@@ -74,9 +76,10 @@ export default function Analysis(props) {
             alignItems: "center",
             alignContent: "center",
             textAlign: "center",
+            fontFamily: "bold"
           }}
         >
-            +
+          +
         </Text>
       </TouchableOpacity>
     </View>
