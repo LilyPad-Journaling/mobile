@@ -23,7 +23,7 @@ if (!globalAny.atob) {
   globalAny.atob = decode;
 }
 
-fbInit();
+// fbInit();
 
 const App = () => {
   const [user, setUser] = useState(null);
