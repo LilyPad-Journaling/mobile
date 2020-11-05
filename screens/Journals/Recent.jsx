@@ -16,26 +16,34 @@ export default function Recent(props) {
     );
 }
 
-const journalEntries = [
+let journalEntries = [
     {
         title: "Entry One",
-        description: "description 1",
-        date: new Date("10/27/2020")
+        body: "This is the body of entry one.",
+        private: false,
+        starred: false,
+        timeCreated: new Date("10/27/2020")
     },
     {
         title: "Entry Two",
-        description: "description 2",
-        date: new Date("10/27/2020")
+        body: "The body of this entry will be hidden.",
+        private: true,
+        starred: true,
+        timeCreated: new Date("10/27/2020")
     },
     {
         title: "Entry Three",
-        description: "description 3",
-        date: new Date("10/27/2020")
+        body: "The body of this entry is long to test the truncation of journal bodies when they are above 50 characters long. I also want to make sure that the format is proper!",
+        private: false,
+        starred: true,
+        timeCreated: new Date("10/27/2020")
     },
     {
         title: "Entry Four",
-        description: "description 4",
-        date: new Date("10/29/2020")
+        body: "This journal is starred. This is the body.",
+        private: false,
+        starred: true,
+        timeCreated: new Date("10/29/2020")
     }
 ]
 

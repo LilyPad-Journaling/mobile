@@ -49,13 +49,23 @@ function Entry(props) {
         style.push(styles.entryBottom);
     }
 
+    let description;
+    if (props.private === true) {
+        description = "This journal is private."
+    }
+    else if (props.body.length <= 50) {
+        description = props.body;
+    } else {
+        description = props.body.slice(0,50) + "...";
+    }
+
     return (
         <TouchableOpacity
             onPress={() => props.navigation.navigate('Journal')}
             style={style}
         >
             <Text style={styles.entryTitle}>{props.title}</Text>
-            <Text style={styles.entryDescription}>{props.description}</Text>
+            <Text style={styles.entryDescription}>{description}</Text>
         </TouchableOpacity>
     )
 
@@ -68,15 +78,15 @@ function JournalList(props) {
 
     for (let i = 0; i < journals.length; ++i) {
         // If this is the first entry or its date comes before the previous entry's date
-        if (i === 0 || journals[i].date.getTime() !== journals[i - 1].date.getTime()) {
+        if (i === 0 || journals[i].timeCreated.getTime() !== journals[i - 1].timeCreated.getTime()) {
             // If this is the last entry or its date comes before the next entry's date
-            if (i === journals.length - 1 || journals[i + 1].date.getTime() !== journals[i].date.getTime()) {
+            if (i === journals.length - 1 || journals[i + 1].timeCreated.getTime() !== journals[i].timeCreated.getTime()) {
                 journals[i].style = 'both';
             } else {
                 journals[i].style = 'top';
             }
             // Otherwise, if this is the last entry or its date comes before the next entry's date
-        } else if (i === journals.length - 1 || journals[i + 1].date.getTime() !== journals[i].date.getTime()) {
+        } else if (i === journals.length - 1 || journals[i + 1].timeCreated.getTime() !== journals[i].timeCreated.getTime()) {
             journals[i].style = 'bottom';
         }
     }
@@ -84,7 +94,7 @@ function JournalList(props) {
     let data = [];
 
     for (entry of journals) {
-        if (data.length === 0 || data[data.length - 1][0].date.getTime() !== entry.date.getTime()) {
+        if (data.length === 0 || data[data.length - 1][0].timeCreated.getTime() !== entry.timeCreated.getTime()) {
             data.push([entry]);
         } else {
             data[data.length - 1].push(entry);
@@ -93,20 +103,20 @@ function JournalList(props) {
 
     return <FlatList
         data={data}
-        keyExtractor={item => item[0].date.toString()}
+        keyExtractor={item => item[0].timeCreated.toString()}
         renderItem={({ item, index, separators }) => (
             <FlatList
                 data={item}
                 keyExtractor={item => item.title}
                 ListHeaderComponent={() => (
                     <Text style={{fontWeight: "bold"}}>
-                        <Text>{dateToDay(item[0].date)}</Text>
+                        <Text>{dateToDay(item[0].timeCreated)}</Text>
                         <Text> </Text>
-                        <Text style={{color: color.inactive}}>{dateToMDY(item[0].date)}</Text>
+                        <Text style={{color: color.inactive}}>{dateToMDY(item[0].timeCreated)}</Text>
                     </Text>
                 )}
                 renderItem={({ item, index, separators }) => (
-                    <Entry title={item.title} description={item.description} navigation={props.navigation} style={item.style} />
+                    <Entry title={item.title} body={item.body} private={item.private} navigation={props.navigation} style={item.style} />
                 )}
             />
         )}
