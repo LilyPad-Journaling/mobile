@@ -14,10 +14,13 @@ const data = [
     name: "Mood",
   },
   {
+    name: "Anxiety",
+  },
+  {
     name: "Energy",
   },
   {
-    name: "Stress",
+    name: "Activity",
   },
 ];
 
