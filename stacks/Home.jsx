@@ -76,9 +76,6 @@ const Home = createMaterialTopTabNavigator(screens, {
   initialRouteName: "Journals",
   tabBarPosition: "bottom",
   timingConfig: 0,
-  navigationOptions: {
-    gestureEnabled: false,
-  },
   tabBarOptions: {
     activeTintColor: color.highlight,
     inactiveTintColor: color.inactive,
@@ -95,6 +92,7 @@ const Home = createMaterialTopTabNavigator(screens, {
       },
     ],
   },
+  swipeEnabled: false,
 });
 
-export default createAppContainer(Home);
+export default Home;

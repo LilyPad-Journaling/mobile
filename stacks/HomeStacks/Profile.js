@@ -1,4 +1,3 @@
-import { createAppContainer } from "react-navigation";
 import { createStackNavigator, TransitionPresets } from "react-navigation-stack";
 
 import Settings from "../../screens/Profile/Settings";
@@ -21,4 +20,4 @@ const Profile = createStackNavigator(screens, {
     }
 })
 
-export default createAppContainer(Profile);
+export default Profile;

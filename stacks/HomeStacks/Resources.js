@@ -1,4 +1,3 @@
-import { createAppContainer } from "react-navigation";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 
 import General from "../../screens/Resources/General";
@@ -54,4 +53,4 @@ const Resources = createMaterialTopTabNavigator(screens, {
     }
 })
 
-export default createAppContainer(Resources);
+export default Resources;

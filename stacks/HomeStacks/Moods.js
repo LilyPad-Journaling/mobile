@@ -1,4 +1,3 @@
-import { createAppContainer } from "react-navigation";
 import { createStackNavigator, TransitionPresets } from "react-navigation-stack";
 
 import Analysis from "../../screens/Moods/Analysis";
@@ -9,7 +8,8 @@ const screens = {
         screen: Analysis,
         navigationOptions: () => {
             return {
-                headerShown: false
+                headerShown: false,
+                gestureEnabled: false
             }
         }
     },
@@ -17,7 +17,8 @@ const screens = {
         screen: Track,
         navigationOptions: () => {
             return {
-                headerShown: false
+                headerShown: false,
+                gestureEnabled: false
             }
         }
     }
@@ -30,4 +31,4 @@ const Moods = createStackNavigator(screens, {
     }
 })
 
-export default createAppContainer(Moods);
+export default Moods;

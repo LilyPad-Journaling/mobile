@@ -54,4 +54,4 @@ const screens = {
 }
 
 const SignIn = createStackNavigator(screens);
-export default createAppContainer(SignIn);
+export default SignIn;
