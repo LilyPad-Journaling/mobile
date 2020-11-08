@@ -3,6 +3,7 @@ import { FontAwesome as Icon } from '@expo/vector-icons/';
 import {
     Text, View, TouchableOpacity, StyleSheet, FlatList
 } from 'react-native';
+import * as Linking from 'expo-linking';
 
 import { color } from '../../functions/providers/ColorContext';
 
@@ -13,13 +14,19 @@ const categories = [
             {
                 title: "8 ways to calm anxious thoughts",
                 source: "Medical News Today",
-                url: "http://blahblhabhfjkasdfhkals",
+                url: "https://www.medicalnewstoday.com/articles/326115",
                 starred: true
             },
             {
-                title: "4 useful breathing techniques",
+                title: "8 Breathing Exercises to Try When You Feel Anxious",
+                source: "Healthline",
+                url: "https://www.healthline.com/health/breathing-exercises-for-anxiety",
+                starred: false
+            },
+            {
+                title: "50 Surprisingly Simple Coping Mechanisms To Chase Away Anxiety",
                 source: "Thought Catalog",
-                url: "http://blahblhabhfjkasdfhkals",
+                url: "https://thoughtcatalog.com/january-nelson/2019/01/50-surprisingly-simple-coping-mechanisms-to-chase-away-anxiety/",
                 starred: false
             }
         ]
@@ -30,7 +37,7 @@ const categories = [
             {
                 title: "Woo you can do it",
                 source: "The Sportsball Motivator",
-                url: "http://google.com",
+                url: "https://www.google.com/search?sxsrf=ALeKk00HdKw6tszuba8PcHJP2gxt40ZlqQ%3A1604820779370&source=hp&ei=K5-nX8GaEPKg_QaZy4ywBQ&q=sports&oq=sports&gs_lcp=CgZwc3ktYWIQAzIECAAQQzIECAAQQzIECAAQQzIECAAQQzIHCAAQsQMQQzIECAAQQzIECAAQQzIECAAQQzIKCC4QxwEQowIQQzIECAAQQzoECCMQJzoFCAAQkQI6CAgAELEDEIMBOggILhCxAxCDAToCCAA6BAguECc6BwguECcQkwI6BAguEENQ7ARYjAtg9wxoAHAAeACAAaUCiAGDCpIBBTAuMy4zmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwiB3Oejt_LsAhVyUN8KHZklA1YQ4dUDCAk&uact=5",
                 starred: false
             }
         ]
@@ -41,7 +48,7 @@ const categories = [
             {
                 title: "Ohmmmmmmm",
                 source: "Resistance is Futile",
-                url: "http://ieee.org",
+                url: "https://en.wikipedia.org/wiki/Ohm",
                 starred: false
             }
         ]
@@ -50,9 +57,9 @@ const categories = [
         name: "Yoga",
         contents:  [
             {
-                title: "Best Calming Yoga Positions",
-                source: "Planet Fitness",
-                url: "http://planetfitness.com",
+                title: "16 Yoga Poses to Find Instant Calm and Peace",
+                source: "yoga journal",
+                url: "https://www.yogajournal.com/practice/16-yoga-poses-find-instant-calm-peace",
                 starred: false
             }
         ]
@@ -108,7 +115,11 @@ export default function General(props) {
                                                 </TouchableOpacity>
                                                 <View style={styles.categoryContainer}>
                                                 <TouchableOpacity>
-                                                    <Text style={styles.title}>{item.title}</Text>
+                                                    <Text style={styles.title}
+                                                        onPress={() => Linking.openURL(item.url)}
+                                                    >
+                                                        {item.title}
+                                                    </Text>
                                                     <Text style={styles.source}>{item.source}</Text>
                                                 </TouchableOpacity>
                                                 </View>
@@ -145,7 +156,7 @@ const styles = StyleSheet.create({
         color: color.primaryText
     },
     contentContainer: {
-        // width: "95%",
+        width: "95%",
         // borderRadius: 25,
         padding: 5,
         borderTopWidth: 1,
