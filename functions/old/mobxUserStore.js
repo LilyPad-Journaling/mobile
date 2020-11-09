@@ -1,12 +1,12 @@
 import { observable, computed, action } from "mobx";
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage } from "react-native";
 
 import firebase from "firebase";
 
 export default class UserStore {
-    @observable uid = '';
-    @observable name = '';
-    @observable phoneNumber = '';
+    @observable uid = "";
+    @observable name = "";
+    @observable phoneNumber = "";
 
     constructor() {
         this.userHasOnboardedBefore()
@@ -19,26 +19,26 @@ export default class UserStore {
 
     @action
     manuallyResetState() {
-        this.uid = '';
-        this.name = '';
-        this.phoneNumber = '';
+        this.uid = "";
+        this.name = "";
+        this.phoneNumber = "";
     }
 
     @action
     async fetchUserDetails() {
-        let uid = await AsyncStorage.getItem('userUid')
+        let uid = await AsyncStorage.getItem("userUid")
         if (uid == null) return
         const db = firebase.firestore()
         this.uid = uid
-        db.collection('users')
+        db.collection("users")
             .doc(this.uid)
             .get()
             .then((doc: firebase.firestore.DocumentSnapshot) => {
                 if (doc.exists) {
                     const userData = doc.data();
 
-                    if (userData['name']) {
-                        this.name = userData['name']
+                    if (userData["name"]) {
+                        this.name = userData["name"]
                     }
                 } else {
                     throw "Error fetching user document (Document might not exist)"
@@ -48,7 +48,7 @@ export default class UserStore {
 
     @action
     userHasOnboardedBefore = async () => {
-        const hasOnboarded = await AsyncStorage.getItem('hasOnboarded')
+        const hasOnboarded = await AsyncStorage.getItem("hasOnboarded")
         if (hasOnboarded !== null) {
             this.shouldShowOnbaording = !JSON.parse(hasOnboarded)
         } else {
@@ -58,7 +58,7 @@ export default class UserStore {
 
     @action
     completeOnboarding = async () => {
-        await AsyncStorage.setItem('hasOnboarded', JSON.stringify(true));
+        await AsyncStorage.setItem("hasOnboarded", JSON.stringify(true));
         this.shouldShowOnbaording = false;
     }
 

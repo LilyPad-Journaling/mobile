@@ -41,7 +41,7 @@ const App = () => {
 
     Text.defaultProps = Text.defaultProps || {};
     Text.defaultProps.allowFontScaling = false;
-    Text.defaultProps.fontFamily = 'regular';
+    Text.defaultProps.fontFamily = "regular";
     TextInput.defaultProps = TextInput.defaultProps || {};
     TextInput.defaultProps.allowFontScaling = false;
 
@@ -51,17 +51,17 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, userObj) => {
-      if (userObj !== null && userObj !== '') {
-        console.log('Get', userObj)
+    AsyncStorage.getItem("user", (err, userObj) => {
+      if (userObj !== null && userObj !== "") {
+        console.log("Get", userObj)
         setUser(JSON.parse(userObj));
       }
     })
   }, []);
 
   useEffect(() => {
-    if (user !== null && user !== '') {
-      AsyncStorage.setItem('user', JSON.stringify(user));
+    if (user !== null && user !== "") {
+      AsyncStorage.setItem("user", JSON.stringify(user));
     }
   }, [user]);
 

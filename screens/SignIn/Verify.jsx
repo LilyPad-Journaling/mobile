@@ -24,7 +24,7 @@ export default function Number(props) {
 
   useEffect(() => {
     if (code === secretCode) {
-      AsyncStorage.setItem('loggedIn', 'true');
+      AsyncStorage.setItem("loggedIn", "true");
       navigation.navigate("Onboarding");
     }
   }, [code]);

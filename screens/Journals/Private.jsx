@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from "react";
 import {
-    Text, View, TouchableOpacity, StyleSheet
-} from 'react-native';
+    View, StyleSheet
+} from "react-native";
 
-import { color } from '../../functions/providers/ColorContext';
-import JournalList from './JournalList';
+import { color } from "../../functions/providers/ColorContext";
+import JournalList from "./JournalList";
+import IconButton from "../../components/General/Button";
 
 export default function Private(props) {
     const { navigation } = props;
@@ -12,6 +13,12 @@ export default function Private(props) {
     return (
         <View style={styles.container}>
             <JournalList data={journalEntries} navigation={navigation} />
+            <IconButton
+              onPress={() => navigation.navigate("Journal")}
+              style={{}}
+              icon="plus"
+              size={36}
+            />
         </View>
     );
 }

@@ -7,6 +7,7 @@ import Private from "../../screens/Journals/Private";
 import Journal from "../../screens/Journals/Journal";
 import Track from "../../screens/Moods/Track";
 import { color } from "../../functions/providers/ColorContext";
+import generalStyles from "../../styles/generalStyles";
 
 const screens = {
     Recent: {
@@ -46,9 +47,11 @@ const JournalsTabs = createMaterialTopTabNavigator(screens, {
         inactiveTintColor: color.primaryText,
         style: {
           backgroundColor: color.primary,
+          ...generalStyles.shadow
         },
         labelStyle: {
-            fontSize: 16
+            fontSize: 18,
+            fontFamily: 'medium'
         },
         indicatorStyle: {
             backgroundColor: color.highlight

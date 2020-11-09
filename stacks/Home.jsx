@@ -1,7 +1,9 @@
 import React from "react";
-import { createAppContainer } from "react-navigation";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
-import { FontAwesome as Icon } from "@expo/vector-icons/";
+import {
+  FontAwesome5 as FA5Icon,
+  Feather as FEIcon,
+} from "@expo/vector-icons/";
 
 import Journals from "./HomeStacks/Journals";
 import Moods from "./HomeStacks/Moods";
@@ -10,6 +12,7 @@ import Profile from "./HomeStacks/Profile";
 import { color } from "../functions/providers/ColorContext";
 import { navigationStyles } from "../styles/navigationStyles";
 import { showNav } from "../functions/util/navigation";
+import generalStyles from "../styles/generalStyles";
 
 const tabHeight = Platform.OS === "ios" ? 40 : 25;
 
@@ -23,7 +26,7 @@ const screens = {
         gestureEnabled: false,
         title: "",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="pencil" color={tintColor} size={32} />
+          <FA5Icon name="pen-nib" color={tintColor} size={30} />
         ),
       };
     },
@@ -37,7 +40,7 @@ const screens = {
         gestureEnabled: false,
         title: "",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="user" color={tintColor} size={32} />
+          <FEIcon name="smile" color={tintColor} size={30} />
         ),
       };
     },
@@ -51,7 +54,7 @@ const screens = {
         gestureEnabled: false,
         title: "",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="link" color={tintColor} size={32} />
+          <FA5Icon name="link" color={tintColor} size={30} />
         ),
       };
     },
@@ -65,7 +68,7 @@ const screens = {
         gestureEnabled: false,
         title: "",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="user" color={tintColor} size={32} />
+          <FA5Icon name="user" color={tintColor} size={30} />
         ),
       };
     },
@@ -79,7 +82,7 @@ const Home = createMaterialTopTabNavigator(screens, {
   tabBarOptions: {
     activeTintColor: color.highlight,
     inactiveTintColor: color.inactive,
-    style: [navigationStyles.footer],
+    style: [navigationStyles.footer, generalStyles.shadow],
     indicatorStyle: {
       height: 0,
     },
@@ -89,6 +92,7 @@ const Home = createMaterialTopTabNavigator(screens, {
         height: tabHeight,
         alignItems: "center",
         shadowRadius: 0.3,
+        width: 32,
       },
     ],
   },

@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Text, View, TouchableOpacity, StyleSheet, FlatList, SafeAreaView
-} from 'react-native';
+} from "react-native";
 
-import { FontAwesome as Icon } from '@expo/vector-icons/';
+import { FontAwesome as Icon } from "@expo/vector-icons/";
 import Slider from "react-native-slider";
 
-import { color } from '../../functions/providers/ColorContext';
-import { ColorAndroid } from 'react-native/Libraries/StyleSheet/PlatformColorValueTypesAndroid';
-
+import { color } from "../../functions/providers/ColorContext";
 
 const data = [
   {
@@ -31,7 +29,7 @@ export default function Track(props) {
     <View style={styles.container}>
       <Header navigation={navigation} />
       <FlatList
-        style={{ width: '90%' }}
+        style={{ width: "90%" }}
         data={data}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => {
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%"
   },
   header: {
-    width: '100%',
+    width: "100%",
     height: 50,
     backgroundColor: color.primary,
     alignItems: "center",

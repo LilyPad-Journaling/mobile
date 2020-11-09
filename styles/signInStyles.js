@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { color } from '../functions/providers/ColorContext';
+import { StyleSheet } from "react-native";
+import { color } from "../functions/providers/ColorContext";
 
 const styles = StyleSheet.create({
     container: {
@@ -11,12 +11,12 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     button: {
-        height: 50,
-        width: 50,
-        borderRadius: 25,
-        position: 'absolute',
-        bottom: 10,
-        right: 10,
+        height: 55,
+        width: 55,
+        borderRadius: 27.5,
+        position: "absolute",
+        bottom: 15,
+        right: 15,
         backgroundColor: color.highlight,
         alignItems: "center",
         justifyContent: "center"

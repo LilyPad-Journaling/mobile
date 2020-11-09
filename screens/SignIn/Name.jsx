@@ -23,7 +23,7 @@ export default function Name(props) {
       <View style={styles.container}>
         <Text style={styles.headerText}>What's your name?</Text>
         <Text style={styles.subHeaderText}>
-          This is what we’ll call you inside the app and it won’t be shared with
+          This is what we'll call you inside the app and it won’t be shared with
           anyone.
         </Text>
         <TextInput

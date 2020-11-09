@@ -1,13 +1,11 @@
 import React from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-} from "react-native";
+import { Text, View, StyleSheet, FlatList, Dimensions } from "react-native";
 
 import { color } from "../../functions/providers/ColorContext";
+import IconButton from "../../components/General/Button";
+import generalStyles from "../../styles/generalStyles";
+
+const windowWidth = Dimensions.get("window").width;
 
 const data = [
   {
@@ -27,76 +25,35 @@ const data = [
 export default function Analysis(props) {
   const { navigation } = props;
   return (
-    // <View style = {styles.container}>
-    //     <Text>Mooooood Analysis</Text>
-    //     <TouchableOpacity>
-    //         onPress={() => navigation.navigate('Track')}
-    //         style = {styles.button}
-    //     >
-    //     <Text>Track</Text>
-    //     </TouchableOpacity>
-    // </View>
     <View style={styles.container}>
-      {/* <Text
-        style={{
-          fontSize: 24,
-          color: color.primaryText,
-          marginBottom: 5,
-          textAlign: "left",
-        }}
-      >
-        Mood
-      </Text> */}
       <FlatList
-        style={{ width: '90%' }}
         data={data}
+        contentContainerStyle={{ marginTop: 5 }}
         keyExtractor={(item) => item.name}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           console.log(item);
           return (
             <View>
-              <Text style={{ fontSize: 20, marginBottom: 10, marginTop: 10 }}>
+              <Text style={{ fontSize: 18, margin: 7 }}>
                 {item.name}
               </Text>
-              <View style={styles.graph}>
-                <Text>Graph</Text>
-              </View>
+                <View style={[styles.graph, generalStyles.shadow]}>
+                  <Text>Graph</Text>
+                </View>
             </View>
           );
         }}
       />
-      <TouchableOpacity
+      <IconButton
         onPress={() => navigation.navigate("Track")}
-        style={styles.button}
-      >
-        <Text
-          style={{
-            fontSize: 40,
-            color: color.primary,
-            alignItems: "center",
-            alignContent: "center",
-            textAlign: "center",
-            fontFamily: "bold"
-          }}
-        >
-          +
-        </Text>
-      </TouchableOpacity>
+        style={{}}
+        icon="plus"
+        size={36}
+      />
     </View>
-
-    // <View style={styles.button}>
-    //     <Text>Mooooood Analysis</Text>
-    //     <TouchableOpacity
-    //         onPress={() => navigation.navigate('Track')}
-    //         style={styles.button}
-    //     >
-    //     <Text>Track</Text>
-    //     </TouchableOpacity>
-    // </View>
   );
 }
-
-// test 1 2
 
 const styles = StyleSheet.create({
   container: {
@@ -117,11 +74,11 @@ const styles = StyleSheet.create({
     right: 10,
   },
   graph: {
-    height: 150,
-    width: '100%',
+    height: 175,
+    width: windowWidth*.95,
     backgroundColor: color.primary,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 25
+    borderRadius: 25,
   },
 });

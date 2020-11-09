@@ -1,6 +1,6 @@
-const firebase = require('firebase');
+const firebase = require("firebase");
 import "firebase/firestore";
-import { getEnvVars } from '../../environments/environment'
+import { getEnvVars } from "../../environments/environment"
 
 // Firebase startup
 exports.fbInit = async () => {

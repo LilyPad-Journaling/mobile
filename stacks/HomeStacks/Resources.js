@@ -4,6 +4,7 @@ import General from "../../screens/Resources/General";
 import Local from "../../screens/Resources/Local";
 import Emergency from "../../screens/Resources/Emergency";
 import { color } from "../../functions/providers/ColorContext";
+import generalStyles from "../../styles/generalStyles";
 
 const screens = {
     General: {
@@ -43,9 +44,11 @@ const Resources = createMaterialTopTabNavigator(screens, {
         inactiveTintColor: color.primaryText,
         style: {
           backgroundColor: color.primary,
+          ...generalStyles.shadow
         },
         labelStyle: {
-            fontSize: 16
+            fontSize: 18,
+            fontFamily: 'medium'
         },
         indicatorStyle: {
             backgroundColor: color.highlight

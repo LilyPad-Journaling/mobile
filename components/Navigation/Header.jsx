@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import {
     Text, View, TouchableOpacity, StyleSheet
-} from 'react-native';
-import { SafeAreaView } from 'react-navigation';
-import { color } from '../../functions/providers/ColorContext';
+} from "react-native";
+import { SafeAreaView } from "react-navigation";
+import { color } from "../../functions/providers/ColorContext";
 
 export default function Header(props) {
     const { navigation } = props;
@@ -21,7 +21,7 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
+        width: "100%",
         height: 50,
         backgroundColor: color.primary,
         justifyContent: "center"

@@ -1,15 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
 import {
     Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard
-} from 'react-native';
-import { FontAwesome as Icon } from '@expo/vector-icons/';
+} from "react-native";
+import { FontAwesome as Icon } from "@expo/vector-icons/";
 
-import { UserContext } from '../../functions/providers/UserContext';
-import { color } from '../../functions/providers/ColorContext';
-import styles from '../../styles/signInStyles';
+import { UserContext } from "../../functions/providers/UserContext";
+import { color } from "../../functions/providers/ColorContext";
+import styles from "../../styles/signInStyles";
 
 export default function Number(props) {
-    const [number, setNumber] = useState('');
+    const [number, setNumber] = useState("");
     const { navigation } = props;
     const { user, setUser } = useContext(UserContext);
 
@@ -37,7 +37,7 @@ export default function Number(props) {
                 onPress={() => {
                     if (number.length > 9) {
                         setUser({ ...user, number });
-                        navigation.navigate('Verify');
+                        navigation.navigate("Verify");
                     }
                 }}
             >

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-    Text, View, TouchableOpacity, StyleSheet, Image, FlatList, TouchableWithoutFeedback, Keyboard
-} from 'react-native';
+    Text, View, TouchableOpacity, StyleSheet, Image, FlatList, TouchableWithoutFeedback, Keyboard, AsyncStorage
+} from "react-native";
 
-import { color } from '../../functions/providers/ColorContext';
-import { TextInput } from 'react-native-gesture-handler';
+import { color } from "../../functions/providers/ColorContext";
+import { TextInput } from "react-native-gesture-handler";
+import { NavigationActions } from "react-navigation";
 
-const image = require('../../assets/X_paint_icon.png');
+const image = require("../../assets/X_paint_icon.png");
 
 const Input = props => {
     const { placeholder, keyboardType } = props;
@@ -90,7 +91,13 @@ export default function Settings(props) {
 
                 </View >
 
-                <TouchableOpacity onPress={() => { navigation.navigate('Onboarding') }}>
+                <TouchableOpacity onPress={async () => { 
+                    // ugly solution to logout / rerender
+                    await AsyncStorage.clear();
+                    navigation.push("LoadingScreen", {
+                        update: Math.random()
+                    })
+                }}>
                     <Text style={styles.logout}>Logout</Text>
                 </TouchableOpacity>
 

@@ -11,7 +11,7 @@ const queryLogin = async id => {
 
 const init = ({ setUser }) => {
     AsyncStorage.getItem("id", async id => {
-        if (id !== null && id !== '') {
+        if (id !== null && id !== "") {
             const data = await queryLogin(id);
             setUser(data);
         } else {
