@@ -1,4 +1,3 @@
-import { createAppContainer } from "react-navigation";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import { createStackNavigator, TransitionPresets } from "react-navigation-stack";
 
@@ -84,4 +83,4 @@ const Journals = createStackNavigator({
     }
 })
 
-export default createAppContainer(Journals);
+export default Journals;

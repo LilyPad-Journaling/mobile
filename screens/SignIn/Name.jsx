@@ -6,53 +6,41 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
-  AsyncStorage,
 } from "react-native";
 import { FontAwesome as Icon } from "@expo/vector-icons";
 
 import { UserContext } from "../../functions/providers/UserContext";
 import { color } from "../../functions/providers/ColorContext";
 import styles from "../../styles/signInStyles";
-import { useEffect } from "react";
 
-export default function Number(props) {
-  const secretCode = "123456";
-  const [code, setCode] = useState("");
+export default function Name(props) {
+  const [name, setName] = useState("");
   const { navigation } = props;
   const { user, setUser } = useContext(UserContext);
-
-  useEffect(() => {
-    if (code === secretCode) {
-      AsyncStorage.setItem('loggedIn', 'true');
-      navigation.navigate("Onboarding");
-    }
-  }, [code]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
-        <Text style={styles.headerText}>What's your verification code?</Text>
+        <Text style={styles.headerText}>What's your name?</Text>
         <Text style={styles.subHeaderText}>
-          You should receive an SMS verification code shortly.
+          This is what we’ll call you inside the app and it won’t be shared with
+          anyone.
         </Text>
         <TextInput
-          placeholder="123456"
+          placeholder="Johnny Appleseed"
           placeholderTextColor={color.inactive}
-          keyboardType="number-pad"
           style={{ fontSize: 20 }}
-          onChangeText={setCode}
+          onChangeText={setName}
         />
         <TouchableOpacity
           style={[
             styles.button,
-            code.length > 5
-              ? { backgroundColor: "red" }
-              : { backgroundColor: color.inactive },
+            name.length > 2 ? {} : { backgroundColor: color.inactive },
           ]}
           onPress={() => {
-            if (code.length > 5 && code !== secretCode) {
-              Alert.alert("Invalid Code");
+            if (name.length > 2) {
+              setUser({ ...user, name });
+              navigation.navigate("Number");
             }
           }}
         >

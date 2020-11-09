@@ -1,4 +1,3 @@
-import { createAppContainer } from "react-navigation";
 import { createStackNavigator, TransitionPresets } from "react-navigation-stack";
 
 import Analysis from "../../screens/Moods/Analysis";
@@ -37,4 +36,4 @@ const Moods = createStackNavigator(screens, {
     }
 })
 
-export default createAppContainer(Moods);
+export default Moods;

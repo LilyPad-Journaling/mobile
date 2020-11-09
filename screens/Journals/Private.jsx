@@ -4,16 +4,50 @@ import {
 } from 'react-native';
 
 import { color } from '../../functions/providers/ColorContext';
+import JournalList from './JournalList';
 
 export default function Private(props) {
     const { navigation } = props;
 
     return (
         <View style={styles.container}>
-            <Text>Private</Text>
+            <JournalList data={journalEntries} navigation={navigation} />
         </View>
     );
 }
+
+let journalEntries = [
+    {
+        title: "Entry One",
+        body: "This is the body of entry one.",
+        private: false,
+        starred: false,
+        timeCreated: new Date("10/27/2020")
+    },
+    {
+        title: "Entry Two",
+        body: "The body of this entry will be hidden.",
+        private: true,
+        starred: true,
+        timeCreated: new Date("10/27/2020")
+    },
+    {
+        title: "Entry Three",
+        body: "The body of this entry is long to test the truncation of journal bodies when they are above 50 characters long. I also want to make sure that the format is proper!",
+        private: false,
+        starred: true,
+        timeCreated: new Date("10/27/2020")
+    },
+    {
+        title: "Entry Four",
+        body: "This journal is starred. This is the body.",
+        private: false,
+        starred: true,
+        timeCreated: new Date("10/29/2020")
+    }
+]
+
+journalEntries = journalEntries.filter(entry => entry.private);
 
 const styles = StyleSheet.create({
     container: {

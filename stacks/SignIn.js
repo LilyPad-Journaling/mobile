@@ -2,7 +2,8 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 
 import Intro from "../screens/SignIn/Intro";
-import Login from "../screens/SignIn/Login";
+import Name from "../screens/SignIn/Name";
+import Number from "../screens/SignIn/Number";
 import Verify from "../screens/SignIn/Verify";
 import Onboarding from "../screens/SignIn/Onboarding";
 
@@ -16,8 +17,16 @@ const screens = {
             }
         }
     },
-    Login: {
-        screen: Login,
+    Name: {
+        screen: Name,
+        navigationOptions: () => {
+            return {
+                headerShown: false
+            }
+        }
+    },
+    Number: {
+        screen: Number,
         navigationOptions: () => {
             return {
                 headerShown: false
@@ -45,4 +54,4 @@ const screens = {
 }
 
 const SignIn = createStackNavigator(screens);
-export default createAppContainer(SignIn);
+export default SignIn;
