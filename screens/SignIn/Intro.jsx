@@ -8,10 +8,14 @@ export default function Intro(props) {
 
   return (
     <View style={styles.container}>
-      <Text>Intro</Text>
+      <Text style={styles.headerText}>SSW 423 - Senior Design</Text>
+      <Text style={styles.subHeaderText}>Mental Health Journaling Application</Text>
+      <View style={{ height: 50 }} />
+      <Text style={styles.bodyText}>Contributors: Angie, Brittany, Eric, Hayden, John, Olivia, and Scott</Text>
+      <View style={{ height: 50 }} />
       <TouchableOpacity onPress={() => navigation.navigate("Name")}>
         <View style={styles.button}>
-          <Text>Next</Text>
+          <Text>Enter!</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -21,13 +25,27 @@ export default function Intro(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: color.primary,
     alignItems: "center",
     justifyContent: "center",
   },
   button: {
-    height: 100,
+    height: 50,
     width: 100,
-    backgroundColor: color.primary,
+    backgroundColor: color.background,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10
   },
+  headerText: {
+    fontSize: 24
+  },
+  subHeaderText: {
+    fontSize: 20
+  },
+  bodyText: {
+    fontSize: 15,
+    textAlign: 'center',
+    width: '75%'
+  }
 });
