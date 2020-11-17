@@ -35,7 +35,7 @@ export default function Journal(props) {
   useEffect(() => {
     var date = moment()
                   .utcOffset('-05:00')
-                  .format(' MMMM Do YYYY, hh:mm a');
+                  .format(' MMM Do YYYY, hh:mm a');
     setCurrentDate(date);
   }, []);
 
@@ -81,7 +81,8 @@ export default function Journal(props) {
                 fontWeight: "bold",
               }}
             />
-            <Text style={styles.regtext}>{currentDate}</Text>
+            <Text style={styles.regtext}>{'Created: ' + currentDate}</Text>
+            <Text style={styles.regtext}>{'Updated: ' + currentDate}</Text>
           </View>
           <View style={styles.notesui}>
             <TextInput

@@ -30,6 +30,7 @@ export default function Track(props) {
       <Header navigation={navigation} />
       <FlatList
         style={{ width: "90%" }}
+        scrollEnabled={false}
         data={data}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => {
