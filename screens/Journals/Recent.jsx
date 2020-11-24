@@ -23,30 +23,30 @@ export default function Recent(props) {
 
 let journalEntries = [
   {
-    title: "Entry One",
-    body: "This is the body of entry one.",
+    title: "Broke leg",
+    body: "Not a great day, on a run and fell off a cliff.",
     private: false,
     starred: false,
     timeCreated: new Date("10/27/2020"),
   },
   {
-    title: "Entry Two",
-    body: "The body of this entry will be hidden.",
+    title: "Got into grad school!",
+    body: "Heard back from graduate applications today and there is good news!",
     private: true,
     starred: true,
     timeCreated: new Date("10/27/2020"),
   },
   {
-    title: "Entry Three",
+    title: "OBagel Closed",
     body:
-      "The body of this entry is long to test the truncation of journal bodies when they are above 50 characters long. I also want to make sure that the format is proper!",
+      "No more french toast bagels for me because OBagel closed today",
     private: false,
     starred: true,
     timeCreated: new Date("10/27/2020"),
   },
   {
-    title: "Entry Four",
-    body: "This journal is starred. This is the body.",
+    title: "Simpsons Cancelled",
+    body: "They just announced they are ending the Simpsons :-(",
     private: false,
     starred: true,
     timeCreated: new Date("10/29/2020"),

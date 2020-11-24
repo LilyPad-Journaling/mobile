@@ -44,17 +44,17 @@ const App = () => {
     Text.defaultProps.fontFamily = "regular";
     TextInput.defaultProps = TextInput.defaultProps || {};
     TextInput.defaultProps.allowFontScaling = false;
-
-    // return () => { // componentWillUnmount equivalent
-    //   BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
-    // };
   }, []);
 
   useEffect(() => {
     AsyncStorage.getItem("user", (err, userObj) => {
       if (userObj !== null && userObj !== "") {
-        console.log("Get", userObj)
         setUser(JSON.parse(userObj));
+      }
+    })
+    AsyncStorage.getItem("color", (err, colorObj) => {
+      if (colorObj !== null && colorObj !== "") {
+        setColor(JSON.parse(colorObj));
       }
     })
   }, []);
@@ -64,6 +64,12 @@ const App = () => {
       AsyncStorage.setItem("user", JSON.stringify(user));
     }
   }, [user]);
+
+  useEffect(() => {
+    if (color !== null && color !== "") {
+      AsyncStorage.setItem("color", JSON.stringify(color));
+    }
+  }, [color])
 
   const loadFonts = () => {
     setFontsLoaded(true);

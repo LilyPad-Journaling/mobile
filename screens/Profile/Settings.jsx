@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Text,
   View,
@@ -10,14 +10,14 @@ import {
   AsyncStorage,
 } from "react-native";
 
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 import { TextInput } from "react-native-gesture-handler";
-import { NavigationActions } from "react-navigation";
 import styles from "../../styles/profileStyles";
 
 const image = require("../../assets/X_paint_icon.png");
 
 const Input = (props) => {
+  const { color, setColor } = useContext(ColorContext);
   const { placeholder, keyboardType } = props;
   return (
     <TextInput
@@ -48,6 +48,14 @@ const Circle = (props) => {
 };
 
 export default function Settings(props) {
+  const { color, setColor } = useContext(ColorContext);
+  const dark = {
+    primary: "#000",
+    primaryText: "red",
+    highlight: "blue",
+    inactive: "green",
+    background: "#007aff",
+  };
   const data = [
     "#FF7C7C",
     "#FFB46F",

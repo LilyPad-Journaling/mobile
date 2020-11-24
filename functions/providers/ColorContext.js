@@ -8,4 +8,12 @@ exports.color = {
     background: "#89F1FF"
 }
 
+const dark = {
+    primary: "#000",
+    primaryText: "red",
+    highlight: "blue",
+    inactive: "green",
+    background: "#007aff"
+}
+
 exports.ColorContext = createContext("");
