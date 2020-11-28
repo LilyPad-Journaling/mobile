@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
     View, StyleSheet
 } from "react-native";
 
+import { UserContext } from "../../functions/providers/UserContext";
 import { color } from "../../functions/providers/ColorContext";
 import JournalList from "./JournalList";
 import IconButton from "../../components/General/Button";
 
 export default function Starred(props) {
     const { navigation } = props;
+    const { journals } = useContext(UserContext);
 
     return (
         <View style={styles.container}>
-            <JournalList data={journalEntries} navigation={navigation} />
+            <JournalList data={journals.filter(journal => journal.starred)} navigation={navigation} />
             <IconButton
               onPress={() => navigation.navigate("Journal")}
               style={{}}

@@ -77,7 +77,7 @@ function Entry(props) {
 }
 
 function JournalList(props) {
-  let journals = props.data.reverse();
+  let journals = props.data;
 
   for (let i = 0; i < journals.length; ++i) {
     // If this is the first entry or its date comes before the previous entry's date
