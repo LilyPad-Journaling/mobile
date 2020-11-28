@@ -20,7 +20,7 @@ const dark1 = {
 
 // VS Code style
 const dark2 = {
-	primary: "#111111",
+	primary: "#252526",
 	primaryText: "#ffffff",
 	highlight: "#7abada",
 	inactive: "#aaaaaa",
@@ -93,5 +93,5 @@ const blue = {
     background: "#c5dfff"
 }
 
-exports.color = green
+exports.color = dark2
 exports.ColorContext = createContext("");
