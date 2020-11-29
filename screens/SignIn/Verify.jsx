@@ -20,7 +20,7 @@ export default function Number(props) {
   const secretCode = "123456";
   const [code, setCode] = useState("");
   const { navigation } = props;
-  const { user, setUser } = useContext(UserContext);
+  // const { newUser } = useContext(UserContext);
 
   useEffect(() => {
     if (code === secretCode) {

@@ -7,10 +7,11 @@ import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-view";
 
-import { UserContext } from "./functions/providers/UserContext";
-import { ColorContext, color as colorScheme } from "./functions/providers/ColorContext";
-// const { fbInit } = require("./functions/util/fb");
-// const { userInit } = require("./functions/util/user");
+import { UserContext, useUser } from "./functions/providers/UserContext";
+import {
+  ColorContext,
+  color as colorScheme,
+} from "./functions/providers/ColorContext";
 // const { mp } = require("./functions/util/mixpanel");
 
 const globalAny = global;
@@ -23,13 +24,11 @@ if (!globalAny.atob) {
   globalAny.atob = decode;
 }
 
-// fbInit();
-
 const App = () => {
-  const [user, setUser] = useState(null);
+  const { user, journals, moods, newUser, setNewUser, updateUser, createUser } = useUser();
   const [color, setColor] = useState(colorScheme);
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const userProvider = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const userProvider = useMemo(() => ({ user, journals, moods, newUser, setNewUser, updateUser, createUser }), [user, journals, moods, newUser, setNewUser, updateUser, createUser]);
   const colorProvider = useMemo(() => ({ color, setColor }), [color, setColor]);
 
   useEffect(() => {
@@ -44,26 +43,21 @@ const App = () => {
     Text.defaultProps.fontFamily = "regular";
     TextInput.defaultProps = TextInput.defaultProps || {};
     TextInput.defaultProps.allowFontScaling = false;
-
-    // return () => { // componentWillUnmount equivalent
-    //   BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
-    // };
   }, []);
 
   useEffect(() => {
-    AsyncStorage.getItem("user", (err, userObj) => {
-      if (userObj !== null && userObj !== "") {
-        console.log("Get", userObj)
-        setUser(JSON.parse(userObj));
+    AsyncStorage.getItem("color", (err, colorObj) => {
+      if (colorObj !== null && colorObj !== "") {
+        setColor(JSON.parse(colorObj));
       }
-    })
+    });
   }, []);
 
   useEffect(() => {
-    if (user !== null && user !== "") {
-      AsyncStorage.setItem("user", JSON.stringify(user));
+    if (color !== null && color !== "") {
+      AsyncStorage.setItem("color", JSON.stringify(color));
     }
-  }, [user]);
+  }, [color]);
 
   const loadFonts = () => {
     setFontsLoaded(true);

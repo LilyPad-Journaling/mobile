@@ -61,7 +61,12 @@ const JournalsTabs = createMaterialTopTabNavigator(screens, {
 
 const Journals = createStackNavigator({
     Journals: {
-        screen: JournalsTabs
+        screen: JournalsTabs,
+        navigationOptions: () => {
+            return {
+                headerShown: false
+            }
+        }
     },
     Journal: {
         screen: Journal,

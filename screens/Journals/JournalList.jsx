@@ -56,10 +56,10 @@ function Entry(props) {
   let description;
   if (props.private === true) {
     description = "This journal is private.";
-  } else if (props.body.length <= 50) {
+  } else if (props.body.length <= 40) {
     description = props.body;
   } else {
-    description = props.body.slice(0, 50) + "...";
+    description = props.body.slice(0, 40) + "...";
   }
 
   return (
@@ -77,7 +77,7 @@ function Entry(props) {
 }
 
 function JournalList(props) {
-  let journals = props.data.reverse();
+  let journals = props.data;
 
   for (let i = 0; i < journals.length; ++i) {
     // If this is the first entry or its date comes before the previous entry's date

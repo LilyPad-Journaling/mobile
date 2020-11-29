@@ -11,7 +11,7 @@ import styles from "../../styles/signInStyles";
 export default function Number(props) {
     const [number, setNumber] = useState("");
     const { navigation } = props;
-    const { user, setUser } = useContext(UserContext);
+    const { newUser, setNewUser } = useContext(UserContext);
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -36,7 +36,7 @@ export default function Number(props) {
                 ]}
                 onPress={() => {
                     if (number.length > 9) {
-                        setUser({ ...user, number });
+                        setNewUser({ ...newUser, number });
                         navigation.navigate("Verify");
                     }
                 }}
