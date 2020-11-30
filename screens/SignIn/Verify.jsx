@@ -20,10 +20,12 @@ export default function Number(props) {
   const secretCode = "123456";
   const [code, setCode] = useState("");
   const { navigation } = props;
-  // const { newUser } = useContext(UserContext);
+  const { createUser } = useContext(UserContext);
 
   useEffect(() => {
     if (code === secretCode) {
+      console.log("verify page");
+      createUser();
       AsyncStorage.setItem("loggedIn", "true");
       navigation.navigate("Onboarding");
     }
