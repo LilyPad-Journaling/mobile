@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const original = {
     primary: "#ffffff",
@@ -93,5 +93,22 @@ const blue = {
     background: "#c5dfff"
 }
 
+const colorSchemes = {
+    blue, periwinkle, pink, lavender, yellow, green, cyberpunk, dark3, dark2, dark1, original
+}
+
+const useColor = () => {
+    const [name, setName] = useState("original");
+    const [color, setColor] = useState(original);
+
+    useEffect(() => { 
+        setColor(colorSchemes[name])
+     },[name]);
+
+     return {color, setName, colorSchemes}
+
+}
+
+exports.useColor = useColor;
 exports.color = dark2
 exports.ColorContext = createContext("");

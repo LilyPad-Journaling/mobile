@@ -1,12 +1,10 @@
 import {
   StyleSheet
 } from "react-native";
-import { color } from "../functions/providers/ColorContext";
 
 const journalStyles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: color.backgroundColor,
+    flex: 1
   },
   topnav: {
     flexDirection: "row",

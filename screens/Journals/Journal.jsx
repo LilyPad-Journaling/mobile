@@ -62,7 +62,7 @@ export default function Journal(props) {
   return (
     <MenuProvider>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
+        <View style={{ ...styles.container, backgroundColor: color.backgroundColor}}>
           <View style={styles.topnav}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <FAIcon name="chevron-left" color={color.inactive} size={32} />
