@@ -17,6 +17,7 @@ const config = {
 firebase.initializeApp(config);
 
 const db = firebase.firestore();
+const getTimestamp = () => firebase.firestore.FieldValue.serverTimestamp()
 
 export const useUser = () => {
   // store userID
@@ -26,7 +27,7 @@ export const useUser = () => {
   // storing user fields for sign in sequence
   const [newUser, setNewUser] = useState({});
   const [journals, setJournals] = useState([]);
-  const [moods, setMoods] = useState([]);
+  const [moods, setMoods] = useState([]); 
 
   // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
   useEffect(() => {
@@ -68,7 +69,10 @@ export const useUser = () => {
       .then((querySnapshot) => {
         let journalsData = [];
         querySnapshot.forEach((snapshot) => {
-          journalsData.push(snapshot.data());
+          journalsData.push({ 
+            id: snapshot.id, 
+            ...snapshot.data() 
+          });
         });
         setJournals(
           journalsData.map((journal) => ({
@@ -109,7 +113,6 @@ export const useUser = () => {
       color: "default",
       metrics: ["mood", "anxiety", "energy", "stress"]
     };
-    console.log(userData);
     db.collection("users")
     .add(userData)
     .then(doc => {
@@ -122,20 +125,28 @@ export const useUser = () => {
   };
 
   // Creates journal document in userID's journal collection on firebase (can use hardcoded data to test!)
-  const createJournal = (id) => {
+  const createJournal = (id, callback) => {
+    const data = {
+      title: "",
+      body: "",
+      private: true,
+      starred: true,
+      lastUpdated: getTimestamp(),
+      timeCreated: getTimestamp()
+    };
     db.collection("users")
       .doc(id)
       .collection("journals")
-      .add({
-        title: "lets try this",
-        body: "I am trying something new. It is a little tricky. Fingers crossed I don't fail.",
-        private: true,
-        starred: true,
-        lastUpdated: timeStamp.now(),
-        timeCreated: timeStamp.now()
+      .add(data)
+      .then(doc => {
+        callback({
+          id: doc.id,
+          ...data,
+          // New date() just for now
+          lastUpdated: new Date(),
+          timeCreated: new Date()
+        });
       });
-
-    console.log("Hello");
   };
 
   // Creates mood document in userID's mood collection on firebase (can use hardcoded data to test!)
@@ -166,25 +177,28 @@ export const useUser = () => {
   };
 
   // Updates journal object by userID and journalID with new partial object, new fields can look like { private: true, body: "something different" }
-  const updateJournal = (userID, journalID, newFields) => {
-    bd.collection("users")
+  const updateJournal = (userID, journalID, title, body) => {
+    db.collection("users")
       .doc(userID)
       .collection("journals")
       .doc(journalID)
       .update({
-        // same issue with updateUser
+         title,
+         body
       })
-    console.log("Hello");
   };
 
   return {
     user,
+    userID,
     journals,
     moods,
     newUser,
     setNewUser,
     updateUser,
     createUser,
+    updateJournal,
+    createJournal
   };
 };
 

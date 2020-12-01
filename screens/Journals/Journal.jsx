@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Text,
   View,
@@ -23,13 +23,18 @@ import {
 import moment from 'moment';
 
 import styles from "../../styles/journalStyles";
+import useJournal from "../../functions/hooks/JournalHook";
+import { UserContext } from "../../functions/providers/UserContext";
 import { color } from "../../functions/providers/ColorContext";
 
 const { SlideInMenu } = renderers;
 
 export default function Journal(props) {
   const { navigation } = props;
-
+  const data = navigation.getParam("data");
+  console.log("Journal", data)
+  const { userID, updateJournal} = useContext(UserContext);
+  const { title, body, setTitle, setBody } = useJournal({ data, userID, updateJournal });
   const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
@@ -80,6 +85,8 @@ export default function Journal(props) {
                 fontSize: 28,
                 fontWeight: "bold",
               }}
+              value={title}
+              onChangeText={setTitle}
             />
             <Text style={styles.regtext}>{'Created: ' + currentDate}</Text>
             <Text style={styles.regtext}>{'Updated: ' + currentDate}</Text>
@@ -94,6 +101,8 @@ export default function Journal(props) {
                 width: "100%",
                 height: "100%",
               }}
+              value={body}
+              onChangeText={setBody}
             />
           </View>
         </View>

@@ -8,13 +8,20 @@ import IconButton from "../../components/General/Button";
 
 export default function Recent(props) {
   const { navigation } = props;
-  const { journals } = useContext(UserContext);
+  const { userID, journals, createJournal } = useContext(UserContext);
 
   return (
     <View style={styles.container}>
       <JournalList data={journals} navigation={navigation} />
       <IconButton
-        onPress={() => navigation.navigate("Journal")}
+        onPress={() => {
+          const callback = data => {
+            console.log("Recent", data)
+            navigation.navigate("Journal", { data });
+          }
+          createJournal(userID, callback);        
+        }
+        }
         style={{}}
         icon="plus"
         size={36}

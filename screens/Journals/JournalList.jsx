@@ -42,6 +42,7 @@ function dateToMDY(date) {
 }
 
 function Entry(props) {
+  const { data } = props;
   let style = [styles.entry];
 
   if (props.style === "top") {
@@ -64,7 +65,7 @@ function Entry(props) {
 
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate("Journal")}
+      onPress={() => props.navigation.navigate("Journal", { data })}
       style={[style, styles.entryContent]}
     >
       <View>
@@ -154,6 +155,7 @@ function JournalList(props) {
                 private={item.private}
                 navigation={props.navigation}
                 style={item.style}
+                data={item}
               />
             )}
           />
