@@ -69,7 +69,7 @@ const categories = [
 
 export default function General(props) {
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: color.background}}>
       <FlatList //flatlist of categories
         style={{ width: "95%" }}
         data={categories}

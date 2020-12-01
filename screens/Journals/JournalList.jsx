@@ -43,7 +43,7 @@ function dateToMDY(date) {
 
 function Entry(props) {
   const { data } = props;
-  let style = [styles.entry];
+  let style = [ {...styles.entry, backgroundColor: color.primary, borderColor: color.inactive}];
 
   if (props.style === "top") {
     style.push(styles.entryTop);
@@ -69,8 +69,8 @@ function Entry(props) {
       style={[style, styles.entryContent]}
     >
       <View>
-        <Text style={styles.entryTitle}>{props.title}</Text>
-        <Text style={styles.entryDescription}>{description}</Text>
+        <Text style={ {...styles.entryTitle, color: color.primaryText }}>{props.title}</Text>
+        <Text style={{ color: color.inactive}}>{description}</Text>
       </View>
       <FA5Icon name='chevron-right' color={color.inactive} size={36} />
     </TouchableOpacity>

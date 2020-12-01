@@ -26,7 +26,7 @@ const data = [
 export default function Track(props) {
   const { navigation } = props;
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: color.background}}>
       <Header navigation={navigation} />
       <FlatList
         style={{ width: "90%" }}
@@ -35,7 +35,7 @@ export default function Track(props) {
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => {
           return (
-            <View style={styles.sliderspace}>
+            <View style={{ ...styles.sliderspace, backgroundColor: color.backgrounds}}>
               <Text style={{ fontSize: 20,
               marginBottom: 10}}>
                 {item.name}
@@ -51,7 +51,7 @@ export default function Track(props) {
       />
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={styles.button}
+        style={{ ...styles.button, backgroundColor: color.primary}}
       >
         <Text style={{
           fontSize: 20,
@@ -67,7 +67,6 @@ export default function Track(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -75,7 +74,6 @@ const styles = StyleSheet.create({
     height: 40,
     width: 175,
     borderRadius: 10,
-    backgroundColor: color.primary,
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
@@ -85,7 +83,6 @@ const styles = StyleSheet.create({
   header: {
     width: "100%",
     height: 50,
-    backgroundColor: color.primary,
     alignItems: "center",
     flexDirection: "row",
     marginLeft: 10
@@ -99,7 +96,6 @@ const styles = StyleSheet.create({
   sliderspace: {
     height: 125,
     width: "100%",
-    backgroundColor: color.backgrounds,
     marginTop: 20
   }
 });
@@ -131,7 +127,7 @@ const Header = props => {
   return (
     <View style={{ backgroundColor: color.primary, width: "100%" }}>
       <SafeAreaView>
-        <View style={styles.header}>
+        <View style={{ ...styles.header, backgroundColor: color.primary}}>
           <TouchableOpacity style={{
             position: "relative",
             left: 5

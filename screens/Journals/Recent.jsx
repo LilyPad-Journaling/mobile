@@ -11,7 +11,7 @@ export default function Recent(props) {
   const { userID, journals, createJournal } = useContext(UserContext);
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: color.background}}>
       <JournalList data={journals} navigation={navigation} />
       <IconButton
         onPress={() => {
@@ -31,11 +31,11 @@ export default function Recent(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
   },
+  // seems unused
   button: {
     height: 100,
     width: 100,

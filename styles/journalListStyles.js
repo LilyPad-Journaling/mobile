@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { color } from "../functions/providers/ColorContext";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -18,8 +17,6 @@ const journalListStyles = StyleSheet.create({
   entry: {
     height: 75,
     width: windowWidth * 0.95,
-    backgroundColor: color.primary,
-    borderColor: color.inactive,
     borderBottomWidth: 1,
   },
   entryTop: {
@@ -38,13 +35,9 @@ const journalListStyles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   entryTitle: {
-    color: color.primaryText,
     fontFamily: "medium",
     fontSize: 16,
     marginBottom: 3,
-  },
-  entryDescription: {
-    color: color.inactive,
   },
 });
 

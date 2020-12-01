@@ -36,7 +36,7 @@ export default function Resource(props) {
 
   const { item } = props;
   return (
-    <View style={styles.categoryContainer}>
+    <View style={{ ...styles.categoryContainer, backgroundColor: color.primary}}>
       <View
         style={{
           flexDirection: "row",
@@ -44,14 +44,14 @@ export default function Resource(props) {
           padding: 10,
         }}
       >
-        <Text style={styles.category}>{item.name}</Text>
+        <Text style={{ ...styles.category, color: color.primaryText}}>{item.name}</Text>
         <Animated.View style={{ transform: [{ rotate }] }}>
           <TouchableOpacity onPress={toggle}>
             <Icon name="chevron-up" color={color.primaryText} size={32} />
           </TouchableOpacity>
         </Animated.View>
       </View>
-      {open && <View style={styles.contentContainer}>
+      {open && <View style={{ ...styles.contentContainer, borderTopColor: color.primaryText}}>
         <FlatList
           style={{ width: "99%" }}
           data={item.contents}
@@ -71,15 +71,15 @@ export default function Resource(props) {
                 >
                   <Icon name="star" color={color.primaryText} size={28} />
                 </TouchableOpacity>
-                <View style={styles.categoryContainer}>
+                <View style={{ ...styles.categoryContainer, backgroundColor: color.primary}}>
                   <TouchableOpacity>
                     <Text
-                      style={styles.title}
+                      style={{ ...styles.title, color: color.primaryText}}
                       onPress={() => Linking.openURL(item.url)}
                     >
                       {item.title}
                     </Text>
-                    <Text style={styles.source}>{item.source}</Text>
+                    <Text style={{ ...styles.source, color: color.inactive}}>{item.source}</Text>
                   </TouchableOpacity>
                 </View>
               </View>

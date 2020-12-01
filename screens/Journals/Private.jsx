@@ -13,7 +13,7 @@ export default function Private(props) {
     const { journals } = useContext(UserContext);
 
     return (
-        <View style={styles.container}>
+        <View style={{ ...styles.container, backgroundColor: color.background}}>
             <JournalList data={journals.filter(journal => journal.private)} navigation={navigation} />
             <IconButton
               onPress={() => navigation.navigate("Journal")}
@@ -61,7 +61,6 @@ journalEntries = journalEntries.filter(entry => entry.private);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.background,
         alignItems: "center",
         justifyContent: "center"
     }

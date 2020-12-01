@@ -33,9 +33,9 @@ export default function Number(props) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <Text style={styles.headerText}>What's your verification code?</Text>
-        <Text style={styles.subHeaderText}>
+      <View style={{ ...styles.container, backgroundColor: color.primary}}>
+        <Text style={{ ...styles.headerText, color: color.primaryText}}>What's your verification code?</Text>
+        <Text style={{ ...styles.subHeaderText, color: color.primaryText}}>
           You should receive an SMS verification code shortly.
         </Text>
         <TextInput
@@ -47,7 +47,7 @@ export default function Number(props) {
         />
         <TouchableOpacity
           style={[
-            styles.button,
+            { ...styles.button, backgroundColor: color.highlight},
             code.length > 5
               ? { backgroundColor: "red" }
               : { backgroundColor: color.inactive },

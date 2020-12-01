@@ -15,11 +15,11 @@ export default function Number(props) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
-            <Text style={styles.headerText}>
+        <View style={{ ...styles.container, backgroundColor: color.primary}}>
+            <Text style={{ ...styles.headerText, color: color.primaryText}}>
                 What's your number?
             </Text>
-            <Text style={styles.subHeaderText}>
+            <Text style={{ ...styles.subHeaderText, color: color.primaryText}}>
                 We just need your number for verification and won't spam you or sell your data.
             </Text>
             <TextInput
@@ -31,7 +31,7 @@ export default function Number(props) {
             />
             <TouchableOpacity
                 style={[
-                    styles.button,
+                    { ...styles.button, backgroundColor: color.highlight},
                     number.length > 9 ? {} : { backgroundColor: color.inactive }
                 ]}
                 onPress={() => {

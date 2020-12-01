@@ -1,6 +1,8 @@
 import { StyleSheet } from "react-native";
 import { color } from "../functions/providers/ColorContext";
 
+// file seems unused
+
 export const navigationStyles = StyleSheet.create({
   icon: {
     paddingRight: 16,
