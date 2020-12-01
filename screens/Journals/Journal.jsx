@@ -36,7 +36,7 @@ const dateToMDY = date => {
 export default function Journal(props) {
   const { navigation } = props;
   const data = navigation.getParam("data");
-  const { userID, updateJournal} = useContext(UserContext);
+  const { userID, updateJournal } = useContext(UserContext);
 
   const [title, setTitle] = useState(data.title);
   const [body, setBody] = useState(data.body);
@@ -50,7 +50,6 @@ export default function Journal(props) {
   useEffect(() => {
     titleRef.current = title;
   }, [title]);
-
 
   // Called when Journal is closed
   // componentWillUnmount equivalent https://stackoverflow.com/questions/55139386/componentwillunmount-with-react-useeffect-hook

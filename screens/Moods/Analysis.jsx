@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, View, StyleSheet, FlatList, Dimensions } from "react-native";
+import { LineChart } from "react-native-chart-kit";
 
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 import IconButton from "../../components/General/Button";
 import generalStyles from "../../styles/generalStyles";
 
@@ -24,30 +25,82 @@ const data = [
 
 export default function Analysis(props) {
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: color.background }]}>
       <FlatList
         data={data}
-        contentContainerStyle={{ marginTop: 5 }}
+        contentContainerStyle={{ marginTop: 5, paddingBottom: 20 }}
         keyExtractor={(item) => item.name}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
-          console.log(item);
           return (
             <View>
-              <Text style={{ fontSize: 18, margin: 7 }}>
-                {item.name}
-              </Text>
-                <View style={[styles.graph, generalStyles.shadow]}>
-                  <Text>Graph</Text>
-                </View>
+              <Text style={{ fontSize: 18, margin: 7, color: color.primaryText }}>{item.name}</Text>
+              <View style={[styles.graph, generalStyles.shadow, { backgroundColor: color.primary }]}>
+                <LineChart
+                  data={{
+                    labels: [
+                      "Thurs.",
+                      "Fri.",
+                      "Sat.",
+                      "Sun.",
+                      "Mon.",
+                      "Tues.",
+                      "Wed."
+                    ],
+                    datasets: [
+                      {
+                        data: [
+                          Math.round(Math.random() * 10),
+                          Math.round(Math.random() * 10),
+                          Math.round(Math.random() * 10),
+                          Math.round(Math.random() * 10),
+                          Math.round(Math.random() * 10),
+                          Math.round(Math.random() * 10),
+                          Math.round(Math.random() * 10),
+                        ],
+                      },
+                    ],
+                  }}
+                  width={Dimensions.get("window").width*.9 } // from react-native
+                  height={220}
+                  // yAxisLabel="$"
+                  // yAxisSuffix="k"
+                  yAxisMax={10}
+                  fromZero={true}
+                  yAxisInterval={2} // optional, defaults to 1
+                  chartConfig={{
+                    backgroundColor: color.primary,
+                    backgroundGradientFrom: color.primary,
+                    backgroundGradientTo: color.primary,
+                    decimalPlaces: 1, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) =>
+                      `rgba(255, 255, 255, ${opacity})`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#ffa726",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+              </View>
             </View>
           );
         }}
       />
       <IconButton
         onPress={() => navigation.navigate("Track")}
-        style={{}}
         icon="plus"
         size={36}
       />
@@ -58,25 +111,11 @@ export default function Analysis(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
     alignItems: "center",
     justifyContent: "center",
-  },
-  button: {
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    backgroundColor: color.highlight,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    bottom: 10,
-    right: 10,
   },
   graph: {
-    height: 175,
-    width: windowWidth*.95,
-    backgroundColor: color.primary,
+    width: windowWidth * 0.925,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 25,

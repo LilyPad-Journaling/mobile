@@ -79,22 +79,25 @@ const Home = createMaterialTopTabNavigator(screens, {
   initialRouteName: "Journals",
   tabBarPosition: "bottom",
   timingConfig: 0,
-  tabBarOptions: {
-    activeTintColor: color.highlight,
-    inactiveTintColor: color.inactive,
-    style: [navigationStyles.footer, generalStyles.shadow],
-    indicatorStyle: {
-      height: 0,
-    },
-    showIcon: true,
-    iconStyle: [
-      {
-        height: tabHeight,
-        alignItems: "center",
-        shadowRadius: 0.3,
-        width: 32,
+  tabBarOptions: /*() => {
+    const { color } = useContext(ColorContext);
+    return*/ {
+      activeTintColor: color.highlight,
+      inactiveTintColor: color.inactive,
+      style: [navigationStyles.footer, generalStyles.shadow, { backgroundColor: color.primary }],
+      indicatorStyle: {
+        height: 0,
       },
-    ],
+      showIcon: true,
+      iconStyle: [
+        {
+          height: tabHeight,
+          alignItems: "center",
+          shadowRadius: 0.3,
+          width: 32,
+        },
+      ],
+    // };
   },
   swipeEnabled: false,
 });
