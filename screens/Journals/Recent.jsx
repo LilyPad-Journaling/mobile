@@ -15,11 +15,9 @@ export default function Recent(props) {
       <JournalList data={journals} navigation={navigation} />
       <IconButton
         onPress={() => {
-          const callback = data => {
-            console.log("Recent", data)
+          createJournal(userID, data => {
             navigation.navigate("Journal", { data });
-          }
-          createJournal(userID, callback);        
+          });        
         }
         }
         style={{}}
@@ -29,38 +27,6 @@ export default function Recent(props) {
     </View>
   );
 }
-
-let journalEntries = [
-  {
-    title: "Broke leg",
-    body: "Not a great day, on a run and fell off a cliff.",
-    private: false,
-    starred: false,
-    timeCreated: new Date("10/27/2020"),
-  },
-  {
-    title: "Got into grad school!",
-    body: "Heard back from graduate applications today and there is good news!",
-    private: true,
-    starred: true,
-    timeCreated: new Date("10/27/2020"),
-  },
-  {
-    title: "OBagel Closed",
-    body:
-      "No more french toast bagels for me because OBagel closed today",
-    private: false,
-    starred: true,
-    timeCreated: new Date("10/27/2020"),
-  },
-  {
-    title: "Simpsons Cancelled",
-    body: "They just announced they are ending the Simpsons :-(",
-    private: false,
-    starred: true,
-    timeCreated: new Date("10/29/2020"),
-  },
-];
 
 const styles = StyleSheet.create({
   container: {

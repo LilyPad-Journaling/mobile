@@ -124,8 +124,9 @@ function JournalList(props) {
   return (
     <FlatList
       data={data}
+      style={styles.topList}
       contentContainerStyle={styles.entryList}
-      keyExtractor={(item) => item[0].timeCreated.toString()}
+      keyExtractor={(item) => item[0].timeCreated.toString() + item[0].id}
       renderItem={({ item }) => (
         <View>
           <Text
@@ -147,7 +148,7 @@ function JournalList(props) {
           <FlatList
             style={generalStyles.shadow}
             data={item}
-            keyExtractor={(item) => item.title}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <Entry
                 title={item.title}

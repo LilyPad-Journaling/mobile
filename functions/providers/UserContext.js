@@ -31,11 +31,7 @@ export const useUser = () => {
 
   // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
   useEffect(() => {
-    AsyncStorage.getItem("userID", (err, asyncUserID) => {
-      let id = "0E1qiweaBV5eId5Gp7lf";
-      if (asyncUserID !== null && asyncUserID !== "") {
-        id = asyncUserID;
-      }
+    AsyncStorage.getItem("userID", (err, id) => {
       setUserID(id);
       getUser(id);
       getJournals(id);
@@ -120,8 +116,6 @@ export const useUser = () => {
       AsyncStorage.setItem("userID", doc.id);
       setUser(userData);
     });
-    // setUser(userData);
-    // AsyncStorage.setItem("userID", userIDVar);
   };
 
   // Creates journal document in userID's journal collection on firebase (can use hardcoded data to test!)
@@ -129,8 +123,8 @@ export const useUser = () => {
     const data = {
       title: "",
       body: "",
-      private: true,
-      starred: true,
+      private: false,
+      starred: false,
       lastUpdated: getTimestamp(),
       timeCreated: getTimestamp()
     };
@@ -163,7 +157,6 @@ export const useUser = () => {
         },
         timeCreated: timeStamp.now()
       });
-    console.log("Hello");
   };
 
   // Updates user object by userID with new partial object, new fields can look like { color: "red", phoneNumber: "newnumberlol" }
@@ -173,18 +166,22 @@ export const useUser = () => {
       .update({
         // not quite sure how to access dictionary then update
       })
-    console.log("Hello");
   };
 
   // Updates journal object by userID and journalID with new partial object, new fields can look like { private: true, body: "something different" }
   const updateJournal = (userID, journalID, title, body) => {
+    console.log(userID, journalID, title, body)
     db.collection("users")
       .doc(userID)
       .collection("journals")
       .doc(journalID)
       .update({
          title,
-         body
+         body,
+         lastUpdated: getTimestamp(),
+      })
+      .then(() => {
+        getJournals(userID);
       })
   };
 
