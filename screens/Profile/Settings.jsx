@@ -11,14 +11,16 @@ import {
 } from "react-native";
 
 import { ColorContext } from "../../functions/providers/ColorContext";
+import { UserContext } from "../../functions/providers/UserContext";
 import { TextInput } from "react-native-gesture-handler";
 import styles from "../../styles/profileStyles";
 
 const image = require("../../assets/X_paint_icon.png");
 
 const Input = (props) => {
-  const { color, setColor } = useContext(ColorContext);
-  const { placeholder, keyboardType } = props;
+  const { color, setName } = useContext(ColorContext);
+  const { placeholder, keyboardType, value, onChangeText } = props;
+
   return (
     <TextInput
       placeholder={placeholder}
@@ -30,6 +32,8 @@ const Input = (props) => {
         height: "100%",
         marginLeft: 5,
       }}
+      value={value}
+      onChangeText={onChangeText}
     />
   );
 };
@@ -48,49 +52,52 @@ const Circle = (props) => {
 };
 
 export default function Settings(props) {
-  const { color, setColor } = useContext(ColorContext);
-  const dark = {
-    primary: "#000",
-    primaryText: "red",
-    highlight: "blue",
-    inactive: "green",
-    background: "#007aff",
-  };
+  const { color, setName, colorSchemes } = useContext(ColorContext);
+  const { user } = useContext(UserContext);
+  const [userName, setuName] = useState(user.name);
+  const [userPhone, setNumber] = useState(user.number);
+  const [userPIN, setPIN] = useState(user.pin);
+
   const data = [
-    "#FF7C7C",
-    "#FFB46F",
-    "#FFE600",
-    "#33E7FF",
-    "#62E06F",
-    "#EA66FF",
+    {name: "original", color: colorSchemes.original.background}, 
+    {name: "dark1", color: colorSchemes.dark1.background},
+    {name: "dark2", color: colorSchemes.dark2.background},
+    {name: "dark3", color: colorSchemes.dark3.background},
+    {name: "cyberpunk", color: colorSchemes.cyberpunk.background},
+    {name: "green", color: colorSchemes.green.background},
+    {name: "yellow", color: colorSchemes.yellow.background},
+    {name: "lavender", color: colorSchemes.lavender.background},
+    {name: "pink", color: colorSchemes.pink.background},
+    {name: "periwinkle", color: colorSchemes.periwinkle.background},
+    {name: "blue", color: colorSchemes.blue.background}
   ];
+
   const { navigation } = props;
-  const [backgroundColor, setBg] = useState(color.background);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={[styles.container, { backgroundColor }]}>
+      <View style={[ {...styles.container, backgroundColor: color.background}]}>
         <View style={styles.row}>
-          <Text style={styles.text}>Name</Text>
+          <Text style={{...styles.text, color: color.primaryText}}>Name</Text>
           <View style={styles.fieldRectangle}>
-            <Input placeholder="John" keyboardType="default" />
+            <Input placeholder={data.name} keyboardType="default" value={userName} onChangeText={setuName} />
           </View>
         </View>
 
         <View style={styles.row}>
-          <Text style={styles.text}>Phone</Text>
+          <Text style={{ ...styles.text, color: color.primaryText}}>Phone</Text>
           <View style={styles.fieldRectangle}>
-            <Input placeholder="(123)-456-7890" keyboardType="phone-pad" />
+            <Input placeholder={data.number} keyboardType="phone-pad" value={userPhone} onChangeText={setNumber} />
           </View>
         </View>
 
         <View style={styles.row}>
-          <Text style={styles.text}>PIN</Text>
+          <Text style={{ ...styles.text, color: color.primaryText}}>PIN</Text>
           <View style={styles.fieldRectangle}>
-            <Input placeholder="****" keyboardType="number-pad" />
+            <Input placeholder="****" keyboardType="number-pad" value={userPIN} onChangeText={setPIN} />
           </View>
         </View>
 
-        <Text style={{ ...styles.text, marginTop: 20 }}>Color</Text>
+        <Text style={{ ...styles.text, marginTop: 20, color: color.primaryText }}>Color</Text>
 
         <View style={styles.row}>
           <View style={styles.row}>
@@ -107,10 +114,10 @@ export default function Settings(props) {
                 return (
                   <TouchableOpacity
                     onPress={() => {
-                      setBg(item);
+                      setName(item.name);
                     }}
                   >
-                    <Circle backgroundColor={item} />
+                    <Circle backgroundColor={item.color} />
                   </TouchableOpacity>
                 );
               }}

@@ -11,6 +11,7 @@ import { UserContext, useUser } from "./functions/providers/UserContext";
 import {
   ColorContext,
   color as colorScheme,
+  useColor
 } from "./functions/providers/ColorContext";
 // const { mp } = require("./functions/util/mixpanel");
 
@@ -26,10 +27,10 @@ if (!globalAny.atob) {
 
 const App = () => {
   const { user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal } = useUser();
-  const [color, setColor] = useState(colorScheme);
+  const {color, setName, colorSchemes} = useColor();
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const userProvider = useMemo(() => ({ user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal }), [user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal]);
-  const colorProvider = useMemo(() => ({ color, setColor }), [color, setColor]);
+  const colorProvider = useMemo(() => ({ color, setName, colorSchemes }), [color, setName, colorSchemes]);
 
   useEffect(() => {
     // mp.identify(user.id);
@@ -44,20 +45,6 @@ const App = () => {
     TextInput.defaultProps = TextInput.defaultProps || {};
     TextInput.defaultProps.allowFontScaling = false;
   }, []);
-
-  useEffect(() => {
-    AsyncStorage.getItem("color", (err, colorObj) => {
-      if (colorObj !== null && colorObj !== "") {
-        setColor(JSON.parse(colorObj));
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (color !== null && color !== "") {
-      AsyncStorage.setItem("color", JSON.stringify(color));
-    }
-  }, [color]);
 
   const loadFonts = () => {
     setFontsLoaded(true);

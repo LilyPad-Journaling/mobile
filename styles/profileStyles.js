@@ -1,12 +1,10 @@
 import {
   StyleSheet
 } from "react-native";
-import { color } from "../functions/providers/ColorContext";
 
 const profileStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
     height: "100%",
   },
   text: {
@@ -28,14 +26,14 @@ const profileStyles = StyleSheet.create({
   },
   colorsRectangle: {
     width: 320,
-    height: 75,
+    height: 225,
     borderRadius: 10,
     backgroundColor: "white",
     marginLeft: 20,
     flexDirection: "row",
     paddingLeft: 5,
     paddingRight: 5,
-    alignItems: "center",
+    //alignItems: "center",
     justifyContent: "space-between",
   },
   fieldRectangle: {
