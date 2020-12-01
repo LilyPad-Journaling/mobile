@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import {
   Text,
   View,
@@ -20,24 +20,45 @@ import {
   MenuProvider,
   renderers
 } from 'react-native-popup-menu';
-import moment from 'moment';
 
 import styles from "../../styles/journalStyles";
+import { UserContext } from "../../functions/providers/UserContext";
 import { color } from "../../functions/providers/ColorContext";
-
 const { SlideInMenu } = renderers;
+
+const dateToMDY = date => {
+  let month = date.getUTCMonth() + 1;
+  let day = date.getUTCDate();
+  let year = date.getUTCFullYear();
+  return month + "/" + day + "/" + year;
+}
 
 export default function Journal(props) {
   const { navigation } = props;
+  const data = navigation.getParam("data");
+  const { userID, updateJournal} = useContext(UserContext);
 
-  const [currentDate, setCurrentDate] = useState('');
+  const [title, setTitle] = useState(data.title);
+  const [body, setBody] = useState(data.body);
+  const titleRef = useRef(title);
+  const bodyRef = useRef(body);
 
+  // Ugly workaround  ¯\_(ツ)_/¯
   useEffect(() => {
-    var date = moment()
-                  .utcOffset('-05:00')
-                  .format(' MMM Do YYYY, hh:mm a');
-    setCurrentDate(date);
-  }, []);
+    bodyRef.current = body;
+  }, [body]);
+  useEffect(() => {
+    titleRef.current = title;
+  }, [title]);
+
+
+  // Called when Journal is closed
+  // componentWillUnmount equivalent https://stackoverflow.com/questions/55139386/componentwillunmount-with-react-useeffect-hook
+  useEffect(() => {
+      return () => {
+        updateJournal(userID, data.id, titleRef.current, bodyRef.current);
+      };
+  }, [props.current]);
 
   return (
     <MenuProvider>
@@ -80,9 +101,11 @@ export default function Journal(props) {
                 fontSize: 28,
                 fontWeight: "bold",
               }}
+              value={title}
+              onChangeText={setTitle}
             />
-            <Text style={styles.regtext}>{'Created: ' + currentDate}</Text>
-            <Text style={styles.regtext}>{'Updated: ' + currentDate}</Text>
+            <Text style={styles.regtext}>{'Created: ' + dateToMDY(data.timeCreated)}</Text>
+            <Text style={styles.regtext}>{'Updated: ' + dateToMDY(data.lastUpdated)}</Text>
           </View>
           <View style={styles.notesui}>
             <TextInput
@@ -94,6 +117,8 @@ export default function Journal(props) {
                 width: "100%",
                 height: "100%",
               }}
+              value={body}
+              onChangeText={setBody}
             />
           </View>
         </View>

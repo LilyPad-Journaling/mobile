@@ -25,10 +25,10 @@ if (!globalAny.atob) {
 }
 
 const App = () => {
-  const { user, journals, moods, newUser, setNewUser, updateUser, createUser } = useUser();
+  const { user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal } = useUser();
   const [color, setColor] = useState(colorScheme);
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const userProvider = useMemo(() => ({ user, journals, moods, newUser, setNewUser, updateUser, createUser }), [user, journals, moods, newUser, setNewUser, updateUser, createUser]);
+  const userProvider = useMemo(() => ({ user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal }), [user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal]);
   const colorProvider = useMemo(() => ({ color, setColor }), [color, setColor]);
 
   useEffect(() => {
@@ -74,13 +74,14 @@ const App = () => {
     ]);
   };
 
+
   if (fontsLoaded) {
     return (
       <UserContext.Provider value={userProvider}>
         <ColorContext.Provider value={colorProvider}>
-          <ActionSheetProvider>
-            <MainStack />
-          </ActionSheetProvider>
+            <ActionSheetProvider>
+              <MainStack />
+            </ActionSheetProvider>
         </ColorContext.Provider>
       </UserContext.Provider>
     );

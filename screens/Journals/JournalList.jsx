@@ -42,6 +42,7 @@ function dateToMDY(date) {
 }
 
 function Entry(props) {
+  const { data } = props;
   let style = [styles.entry];
 
   if (props.style === "top") {
@@ -64,7 +65,7 @@ function Entry(props) {
 
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate("Journal")}
+      onPress={() => props.navigation.navigate("Journal", { data })}
       style={[style, styles.entryContent]}
     >
       <View>
@@ -123,8 +124,9 @@ function JournalList(props) {
   return (
     <FlatList
       data={data}
+      style={styles.topList}
       contentContainerStyle={styles.entryList}
-      keyExtractor={(item) => item[0].timeCreated.toString()}
+      keyExtractor={(item) => item[0].timeCreated.toString() + item[0].id}
       renderItem={({ item }) => (
         <View>
           <Text
@@ -146,7 +148,7 @@ function JournalList(props) {
           <FlatList
             style={generalStyles.shadow}
             data={item}
-            keyExtractor={(item) => item.title}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <Entry
                 title={item.title}
@@ -154,6 +156,7 @@ function JournalList(props) {
                 private={item.private}
                 navigation={props.navigation}
                 style={item.style}
+                data={item}
               />
             )}
           />
