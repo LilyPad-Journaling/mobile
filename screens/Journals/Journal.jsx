@@ -34,8 +34,8 @@ const dateToMDY = date => {
 }
 
 export default function Journal(props) {
-  const { navigation } = props;
-  const data = navigation.getParam("data");
+  const { navigation, route } = props;
+  const { data } = route.params;
   const { userID, updateJournal } = useContext(UserContext);
 
   const [title, setTitle] = useState(data.title);

@@ -6,12 +6,13 @@ import { SafeAreaView } from "react-navigation";
 import { ColorContext } from "../../functions/providers/ColorContext";
 import generalStyles from "../../styles/generalStyles"
 
-export default function Header(props) {
+export default function Header({ navigation }) {
     const { color } = useContext(ColorContext);
-    const { navigation } = props;
-    let title = navigation.state.routes[navigation.state.index].routeName;
+
+    // let title = navigation.state.routes[navigation.state.index].routeName;
+    let title = "temp"
     return (
-        <View style={[{ backgroundColor: color.primary }, title === "Moods" || title === "Profile" ? { ...generalStyles.shadow, shadowColor: color.dark } : {} ]}>
+        <View style={[{ backgroundColor: color.primary }, title === "Moods" || title === "Profile" ? { ...generalStyles.shadow, shadowColor: color.shadow } : {} ]}>
             <SafeAreaView>
                 <View style={[styles.container, { backgroundColor: color.primary }]}>
                     <Text style={[styles.text, { color: color.primaryText }]}>{title}</Text>

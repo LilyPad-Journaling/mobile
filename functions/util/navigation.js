@@ -1,17 +1,11 @@
 const noNavScreens = ["Journal", "Track", "TrackJournal"];
 
-const showNav = navigation => {
-    let routeName = navigation.state.routes[navigation.state.index].routeName;
-    return !noNavScreens.includes(routeName);
+const showNav = route => {
+    return true;
 }
 
-const showHeader = navigation => {
-    const state = navigation.state;
-    let actualRoute = state.routes[state.index];
-    while (actualRoute.routes) {
-        actualRoute = actualRoute.routes[actualRoute.index];
-    }
-    return !noNavScreens.includes(actualRoute.routeName);
+const showHeader = route => {
+    return true;
 }
 
 exports.showNav = showNav;

@@ -64,28 +64,25 @@ export default function Analysis(props) {
                       },
                     ],
                   }}
-                  width={Dimensions.get("window").width*.9 } // from react-native
+                  width={Dimensions.get("window").width*.925 } // from react-native
                   height={220}
-                  // yAxisLabel="$"
-                  // yAxisSuffix="k"
                   yAxisMax={10}
                   fromZero={true}
                   yAxisInterval={2} // optional, defaults to 1
                   chartConfig={{
-                    backgroundColor: color.primary,
                     backgroundGradientFrom: color.primary,
                     backgroundGradientTo: color.primary,
                     decimalPlaces: 1, // optional, defaults to 2dp
-                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    labelColor: (opacity = 1) =>
-                      `rgba(255, 255, 255, ${opacity})`,
+                    color: (opacity = 1) => color.inactive,
+                    labelColor: (opacity = 1) => color.primaryText,
                     style: {
                       borderRadius: 16,
+                      backgroundColor: "none"
                     },
                     propsForDots: {
                       r: "6",
                       strokeWidth: "2",
-                      stroke: "#ffa726",
+                      stroke: color.highlight,
                     },
                   }}
                   bezier

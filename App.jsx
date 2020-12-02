@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo } from "react";
-import MainStack from "./stacks/Main";
+import { TextInput, Text, BackHandler } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
 import { decode, encode } from "base-64";
-import { TextInput, Text, BackHandler, AsyncStorage } from "react-native";
-import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import 'react-native-gesture-handler';
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-view";
 
+import MainStack from "./stacks/Main";
 import { UserContext, useUser } from "./functions/providers/UserContext";
 import {
   ColorContext,
-  color as colorScheme,
   useColor
 } from "./functions/providers/ColorContext";
 // const { mp } = require("./functions/util/mixpanel");
@@ -26,11 +26,11 @@ if (!globalAny.atob) {
 }
 
 const App = () => {
-  const { user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal } = useUser();
-  const {color, setName, colorSchemes} = useColor();
+  const { user, userID, journals, moods, newUser, setUser, setUserID, setNewUser, updateUser, createUser, updateJournal, createJournal } = useUser();
+  const {color, setName, colorSchemes } = useColor();
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const userProvider = useMemo(() => ({ user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal }), [user, userID, journals, moods, newUser, setNewUser, updateUser, createUser, updateJournal, createJournal]);
-  const colorProvider = useMemo(() => ({ color, setName, colorSchemes }), [color, setName, colorSchemes]);
+  const userProvider = useMemo(() => ({ user, userID, journals, moods, newUser, setUser, setUserID, setNewUser, updateUser, createUser, updateJournal, createJournal }), [user, userID, journals, moods, newUser, setUser, setUserID, setNewUser, updateUser, createUser, updateJournal, createJournal]);
+  const colorProvider = useMemo(() => ({ color, setName, colorSchemes }), [color, setName, colorSchemes ]);
 
   useEffect(() => {
     // mp.identify(user.id);
@@ -66,9 +66,9 @@ const App = () => {
     return (
       <UserContext.Provider value={userProvider}>
         <ColorContext.Provider value={colorProvider}>
-            <ActionSheetProvider>
+            <NavigationContainer>
               <MainStack />
-            </ActionSheetProvider>
+            </NavigationContainer>
         </ColorContext.Provider>
       </UserContext.Provider>
     );

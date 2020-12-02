@@ -26,7 +26,7 @@ const journalListStyles = StyleSheet.create({
   entryBottom: {
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0,
   },
   entryContent: {
     flexDirection: "row",

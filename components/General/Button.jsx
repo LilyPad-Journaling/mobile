@@ -11,7 +11,7 @@ export default function Button(props) {
   const { color } = useContext(ColorContext);
   
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.button, generalStyles.shadow, { backgroundColor: color.highlight, shadowColor: color.dark }]}>
+    <TouchableOpacity onPress={onPress} style={[styles.button, generalStyles.shadow, { backgroundColor: color.highlight, shadowColor: color.shadow }]}>
       <FA5Icon name={icon} color={color.primary} size={size} />
     </TouchableOpacity>
   );
