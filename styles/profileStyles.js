@@ -27,7 +27,6 @@ const profileStyles = StyleSheet.create({
   colorsRectangle: {
     backgroundColor: "white",
     padding: 20,
-    justifyContent: "space-between",
     marginLeft: -150,
     paddingLeft: 160,
   },
