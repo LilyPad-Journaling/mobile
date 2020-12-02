@@ -43,9 +43,10 @@ const Circle = (props) => {
     <View
       style={{
         backgroundColor: props.backgroundColor,
-        width: 50,
-        height: 50,
+        width: 70,
+        height: 70,
         borderRadius: 100 / 2,
+        marginRight: 5
       }}
     />
   );

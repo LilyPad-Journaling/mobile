@@ -27,6 +27,8 @@ const profileStyles = StyleSheet.create({
   colorsRectangle: {
     backgroundColor: "white",
     padding: 20,
+    marginLeft: -150,
+    paddingLeft: 160,
   },
   fieldRectangle: {
     width: 260,
