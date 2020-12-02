@@ -55,9 +55,9 @@ export default function Settings(props) {
   const { navigation } = props;
   const { color, setName, colorSchemes } = useContext(ColorContext);
   const { user, setUser, setUserID } = useContext(UserContext);
-  const [userName, setuName] = useState(user.name);
-  const [userPhone, setNumber] = useState(user.number.toString());
-  const [userPIN, setPIN] = useState(user.pin.toString());
+  const [userName, setuName] = useState('');
+  const [userPhone, setNumber] = useState('');
+  const [userPIN, setPIN] = useState('');
 
   const data = [
     {name: "original", color: colorSchemes.original.background}, 
@@ -79,21 +79,21 @@ export default function Settings(props) {
         <View style={styles.row}>
           <Text style={{...styles.text, color: color.primaryText}}>Name</Text>
           <View style={styles.fieldRectangle}>
-            <Input placeholder={data.name} keyboardType="default" value={userName} onChangeText={setuName} />
+            <Input placeholder={user.name} keyboardType="default" value={userName} onChangeText={setuName} />
           </View>
         </View>
 
         <View style={styles.row}>
           <Text style={{ ...styles.text, color: color.primaryText}}>Phone</Text>
           <View style={styles.fieldRectangle}>
-            <Input placeholder={data.number} keyboardType="phone-pad" value={userPhone} onChangeText={setNumber} />
+            <Input placeholder={user.number.toString()} keyboardType="phone-pad" value={userPhone} onChangeText={setNumber} />
           </View>
         </View>
 
         <View style={styles.row}>
           <Text style={{ ...styles.text, color: color.primaryText}}>PIN</Text>
           <View style={styles.fieldRectangle}>
-            <Input placeholder="****" keyboardType="number-pad" value={userPIN} onChangeText={setPIN} />
+            <Input placeholder={user.pin.toString()} keyboardType="number-pad" value={userPIN} onChangeText={setPIN} />
           </View>
         </View>
 
