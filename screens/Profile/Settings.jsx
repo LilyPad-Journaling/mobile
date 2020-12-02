@@ -52,11 +52,12 @@ const Circle = (props) => {
 };
 
 export default function Settings(props) {
+  const { navigation } = props;
   const { color, setName, colorSchemes } = useContext(ColorContext);
-  const { user } = useContext(UserContext);
+  const { user, setUser, setUserID } = useContext(UserContext);
   const [userName, setuName] = useState(user.name);
-  const [userPhone, setNumber] = useState(user.number);
-  const [userPIN, setPIN] = useState(user.pin);
+  const [userPhone, setNumber] = useState(user.number.toString());
+  const [userPIN, setPIN] = useState(user.pin.toString());
 
   const data = [
     {name: "original", color: colorSchemes.original.background}, 
@@ -72,7 +73,6 @@ export default function Settings(props) {
     {name: "blue", color: colorSchemes.blue.background}
   ];
 
-  const { navigation } = props;
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={[ {...styles.container, backgroundColor: color.background}]}>
@@ -105,11 +105,12 @@ export default function Settings(props) {
               source={image}
               style={{ marginLeft: 20, width: 50, height: 50 }}
             />
+            <View style={{ marginLeft: 20, borderRadius: 20, overflow: "hidden" }}>
             <FlatList
               contentContainerStyle={styles.colorsRectangle}
-              scrollEnabled={false}
               data={data}
-              keyExtractor={(item) => item}
+              horizontal
+              keyExtractor={(item) => item.name}
               renderItem={({ item }) => {
                 return (
                   <TouchableOpacity
@@ -122,12 +123,15 @@ export default function Settings(props) {
                 );
               }}
             />
+            </View>
           </View>
         </View>
 
         <TouchableOpacity
           onPress={async () => {
             // ugly solution to logout / rerender
+            setUser({});
+            setUserID("");
             await AsyncStorage.clear();
             navigation.push("LoadingScreen", {
               update: Math.random(),

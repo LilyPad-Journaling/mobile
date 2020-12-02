@@ -9,20 +9,21 @@ import {
 } from "react-native";
 import { FontAwesome as Icon } from "@expo/vector-icons";
 
-import { UserContext } from "../../functions/providers/UserContext";
-import { color } from "../../functions/providers/ColorContext";
 import styles from "../../styles/signInStyles";
+import { UserContext } from "../../functions/providers/UserContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 
 export default function Name(props) {
-  const [name, setName] = useState("");
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
   const { newUser, setNewUser } = useContext(UserContext);
+  const [name, setName] = useState("");
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <Text style={styles.headerText}>What's your name?</Text>
-        <Text style={styles.subHeaderText}>
+      <View style={{ ...styles.container, backgroundColor: color.primary}}>
+        <Text style={{ ...styles.headerText, color: color.primaryText}}>What's your name?</Text>
+        <Text style={{ ...styles.subHeaderText, color: color.primaryText}}>
           This is what we'll call you inside the app and it won’t be shared with
           anyone.
         </Text>
@@ -34,7 +35,7 @@ export default function Name(props) {
         />
         <TouchableOpacity
           style={[
-            styles.button,
+            { ...styles.button, backgroundColor: color.highlight}, 
             name.length > 2 ? {} : { backgroundColor: color.inactive },
           ]}
           onPress={() => {

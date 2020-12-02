@@ -1,26 +1,22 @@
 import React, { useEffect, useContext } from "react";
-import { View, Text, LogBox, AsyncStorage, Keyboard } from "react-native";
+import { View, Text, LogBox, Keyboard } from "react-native";
 
-import { container } from "../styles/signInStyles";
+import { ColorContext } from "../functions/providers/ColorContext";
 import { UserContext } from "../functions/providers/UserContext";
-import { NavigationActions } from "react-navigation";
 
-const LoadingScreen = props => {
-  const { user } = useContext(UserContext);
+const LoadingScreen = (props) => {
+  const { navigation } = props;
+  const { color } = useContext(ColorContext);
+  const { userID } = useContext(UserContext);
+
   const checkIfLoggedIn = () => {
     setTimeout(() => {
-      AsyncStorage.getItem("loggedIn", (err, loggedIn) => {
-        Keyboard.dismiss();
-        if (loggedIn == "true" && user !== null && user !== "") {
-          props.navigation.navigate("HomeStack", {}, NavigationActions.navigate({
-            routeName: "Recent"
-          }));
-        } else {
-          props.navigation.navigate("SignInStack", {}, NavigationActions.navigate({
-            routeName: "Intro"
-          }));
-        }
-      });
+      Keyboard.dismiss();
+      if (userID !== null && userID !== "") {
+        navigation.navigate("HomeStack", { screen: "Recent" });
+      } else {
+        navigation.navigate("SignInStack", { screen: "Intro" });
+      }
     }, 300);
   };
 
@@ -30,8 +26,8 @@ const LoadingScreen = props => {
   }, [props]);
 
   return (
-    <View style={container}>
-      <Text>Loading...</Text>
+    <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: color.primary, flex: 1 }}>
+      <Text style={{ fontFamily: "bold", fontSize: 28, color: color.primaryText }}>Loading...</Text>
     </View>
   );
 };

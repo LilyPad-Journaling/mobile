@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -12,15 +12,15 @@ import {
 import { FontAwesome as Icon } from "@expo/vector-icons";
 
 import { UserContext } from "../../functions/providers/UserContext";
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 import styles from "../../styles/signInStyles";
-import { useEffect } from "react";
 
 export default function Number(props) {
+  const { navigation } = props;
+  const { color } = useContext(ColorContext);
+  const { createUser } = useContext(UserContext);
   const secretCode = "123456";
   const [code, setCode] = useState("");
-  const { navigation } = props;
-  const { createUser } = useContext(UserContext);
 
   useEffect(() => {
     if (code === secretCode) {
@@ -33,9 +33,9 @@ export default function Number(props) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <Text style={styles.headerText}>What's your verification code?</Text>
-        <Text style={styles.subHeaderText}>
+      <View style={{ ...styles.container, backgroundColor: color.primary}}>
+        <Text style={{ ...styles.headerText, color: color.primaryText}}>What's your verification code?</Text>
+        <Text style={{ ...styles.subHeaderText, color: color.primaryText}}>
           You should receive an SMS verification code shortly.
         </Text>
         <TextInput
@@ -47,7 +47,7 @@ export default function Number(props) {
         />
         <TouchableOpacity
           style={[
-            styles.button,
+            { ...styles.button, backgroundColor: color.highlight},
             code.length > 5
               ? { backgroundColor: "red" }
               : { backgroundColor: color.inactive },

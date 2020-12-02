@@ -25,16 +25,8 @@ const profileStyles = StyleSheet.create({
     fontSize: 18,
   },
   colorsRectangle: {
-    width: 320,
-    height: 225,
-    borderRadius: 10,
     backgroundColor: "white",
-    marginLeft: 20,
-    flexDirection: "row",
-    paddingLeft: 5,
-    paddingRight: 5,
-    //alignItems: "center",
-    justifyContent: "space-between",
+    padding: 20,
   },
   fieldRectangle: {
     width: 260,

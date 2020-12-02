@@ -2,16 +2,17 @@ import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 
 import { UserContext } from "../../functions/providers/UserContext";
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 import JournalList from "./JournalList";
 import IconButton from "../../components/General/Button";
 
 export default function Recent(props) {
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
   const { userID, journals, createJournal } = useContext(UserContext);
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: color.background}}>
       <JournalList data={journals} navigation={navigation} />
       <IconButton
         onPress={() => {
@@ -31,14 +32,8 @@ export default function Recent(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-  },
-  button: {
-    height: 100,
-    width: 100,
-    backgroundColor: color.primary,
   },
 });

@@ -1,11 +1,13 @@
 import { createContext, useEffect, useState } from "react";
+// import { AsyncStorage } from "react-native";
 
 const original = {
     primary: "#ffffff",
     primaryText: "#555555",
     highlight: "#000099",
     inactive: "#999999",
-    background: "#89F1FF"
+    background: "#89F1FF",
+    shadow: "#444"
 }
 
 // Scott's dark mode from the google doc
@@ -15,7 +17,8 @@ const dark1 = {
 	primaryText: "#ffffff",
 	highlight: "#0f4c75",
 	inactive: "#3282b8",
-	background: "#1b262c"
+    background: "#1b262c",
+    shadow: "#444"
 }
 
 // VS Code style
@@ -24,7 +27,8 @@ const dark2 = {
 	primaryText: "#ffffff",
 	highlight: "#7abada",
 	inactive: "#aaaaaa",
-	background: "#1e1e1e"
+    background: "#1e1e1e",
+    shadow: "#444"
 }
 
 // Babb.io style
@@ -33,7 +37,8 @@ const dark3 = {
 	primaryText: "#ffffff",
 	highlight: "#0087f2",
 	inactive: "#7f8488",
-	background: "#131e2a"
+    background: "#131e2a",
+    shadow: "#444"
 }
 
 // needs some work, invisible header words
@@ -42,7 +47,8 @@ const cyberpunk = {
     primaryText: "red",
     highlight: "blue",
     inactive: "green",
-    background: "#007aff"
+    background: "#007aff",
+    shadow: "#444"
 }
 
 const green = {
@@ -50,7 +56,8 @@ const green = {
     primaryText: "#465448",
     highlight: "#004509",
     inactive: "#687c6b",
-    background: "#9fd984"
+    background: "#9fd984",
+    shadow: "#444"
 }
 
 const yellow = {
@@ -58,7 +65,8 @@ const yellow = {
     primaryText: "#42291A",
     highlight: "#c49609",
     inactive: "#a38561",
-    background: "#fff2cc"
+    background: "#fff2cc",
+    shadow: "#444"
 }
 
 const lavender = {
@@ -66,7 +74,8 @@ const lavender = {
 	primaryText: "#594063",
 	highlight: "#9851b1",
 	inactive: "#a68caf",
-	background: "#f2d8fc"
+    background: "#f2d8fc",
+    shadow: "#444"
 }
 
 const pink = {
@@ -74,7 +83,8 @@ const pink = {
     primaryText: "#59264b",
     highlight: "#b6408d",
     inactive: "#926787",
-    background: "#ffdcf6"
+    background: "#ffdcf6",
+    shadow: "#444"
 }
 
 const periwinkle = {
@@ -82,7 +92,8 @@ const periwinkle = {
     primaryText: "#0b0b55",
     highlight: "#000099",
     inactive: "#646483",
-    background: "#c1c1f5"
+    background: "#c1c1f5",
+    shadow: "#444"
 }
 
 const blue = {
@@ -90,7 +101,8 @@ const blue = {
     primaryText: "#0d2646",
     highlight: "#1561c0",
     inactive: "#536881",
-    background: "#c5dfff"
+    background: "#c5dfff",
+    shadow: "#444"
 }
 
 const colorSchemes = {
@@ -101,11 +113,22 @@ const useColor = () => {
     const [name, setName] = useState("original");
     const [color, setColor] = useState(original);
 
+    // useEffect(() => {
+    //     AsyncStorage.getItem("colorScheme", name => {
+    //         setName(name);
+    //     })
+    // }, [])
+
     useEffect(() => { 
-        setColor(colorSchemes[name])
+        setColor(colorSchemes[name]);
+        // AsyncStorage.setItem("colorScheme", name);
      },[name]);
 
-     return {color, setName, colorSchemes}
+     return {
+         color, 
+         setName, 
+         colorSchemes,
+    }
 
 }
 

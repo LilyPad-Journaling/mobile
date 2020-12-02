@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { FontAwesome as Icon } from "@expo/vector-icons/";
 import {
   Text,
@@ -11,9 +11,12 @@ import {
 import * as Linking from "expo-linking";
 
 import styles from "../../styles/resourceStyles";
-import { color } from "../../functions/providers/ColorContext";
+import generalStyles from "../../styles/generalStyles";
+import { ColorContext } from "../../functions/providers/ColorContext";
 
 export default function Resource(props) {
+  const { item } = props;
+  const { color } = useContext(ColorContext);
   const [open, setOpen] = useState(true);
   const spinValue = new Animated.Value(1);
   const spinValueRef = useRef(spinValue);
@@ -34,9 +37,15 @@ export default function Resource(props) {
     });
   };
 
-  const { item } = props;
   return (
-    <View style={styles.categoryContainer}>
+    <View
+      style={{
+        ...styles.categoryContainer,
+        backgroundColor: color.primary,
+        ...generalStyles.shadow,
+        shadowColor: color.shadow,
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -44,50 +53,66 @@ export default function Resource(props) {
           padding: 10,
         }}
       >
-        <Text style={styles.category}>{item.name}</Text>
+        <Text style={{ ...styles.category, color: color.primaryText }}>
+          {item.name}
+        </Text>
         <Animated.View style={{ transform: [{ rotate }] }}>
           <TouchableOpacity onPress={toggle}>
             <Icon name="chevron-up" color={color.primaryText} size={32} />
           </TouchableOpacity>
         </Animated.View>
       </View>
-      {open && <View style={styles.contentContainer}>
-        <FlatList
-          style={{ width: "99%" }}
-          data={item.contents}
-          keyExtractor={(item) => item.title}
-          renderItem={({ item }) => {
-            return (
-              <View
-                style={{
-                  flexDirection: "row",
-                }}
-              >
-                <TouchableOpacity
+      {open && (
+        <View
+          style={{
+            ...styles.contentContainer,
+            borderTopColor: color.primaryText,
+          }}
+        >
+          <FlatList
+            style={{ width: "99%" }}
+            data={item.contents}
+            keyExtractor={(item) => item.title}
+            renderItem={({ item }) => {
+              return (
+                <View
                   style={{
-                    justifyContent: "center",
-                    paddingRight: 5,
+                    flexDirection: "row",
                   }}
                 >
-                  <Icon name="star" color={color.primaryText} size={28} />
-                </TouchableOpacity>
-                <View style={styles.categoryContainer}>
-                  <TouchableOpacity>
-                    <Text
-                      style={styles.title}
-                      onPress={() => Linking.openURL(item.url)}
-                    >
-                      {item.title}
-                    </Text>
-                    <Text style={styles.source}>{item.source}</Text>
+                  <TouchableOpacity
+                    style={{
+                      justifyContent: "center",
+                      paddingRight: 5,
+                    }}
+                  >
+                    <Icon name="star" color={color.primaryText} size={28} />
                   </TouchableOpacity>
+                  <View
+                    style={{
+                      ...styles.categoryContainer,
+                      backgroundColor: color.primary,
+                    }}
+                  >
+                    <TouchableOpacity>
+                      <Text
+                        style={{ ...styles.title, color: color.primaryText }}
+                        onPress={() => Linking.openURL(item.url)}
+                      >
+                        {item.title}
+                      </Text>
+                      <Text style={{ ...styles.source, color: color.inactive }}>
+                        {item.source}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            );
-          }}
-        />
-        {/* <Text>see more...</Text> */}
-      </View>}
+              );
+            }}
+          />
+          {/* <Text>see more...</Text> */}
+        </View>
+      )}
     </View>
   );
 }

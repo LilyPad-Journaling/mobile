@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 
 export default function Onboarding(props) {
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: color.primary}}>
       <Text style={styles.headerText}>Onboarding Screen</Text>
       <View style={{ height: 50 }} />
       <TouchableOpacity onPress={() => navigation.navigate("HomeStack")}>
-        <View style={styles.button}>
+        <View style={{ ...styles.button, backgroundColor: color.background}}>
           <Text>Enter!</Text>
         </View>
       </TouchableOpacity>
@@ -22,14 +23,12 @@ export default function Onboarding(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.primary,
     alignItems: "center",
     justifyContent: "center",
   },
   button: {
     height: 50,
     width: 100,
-    backgroundColor: color.background,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10

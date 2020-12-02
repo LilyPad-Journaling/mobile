@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, FlatList } from "react-native";
 
 import styles from "../../styles/resourceStyles";
 import Resource from "./Resource";
+
+import { ColorContext } from "../../functions/providers/ColorContext";
 
 const categories = [
   {
@@ -68,8 +70,10 @@ const categories = [
 ];
 
 export default function General(props) {
+  const { color } = useContext(ColorContext);
+
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: color.background}}>
       <FlatList //flatlist of categories
         style={{ width: "95%" }}
         data={categories}

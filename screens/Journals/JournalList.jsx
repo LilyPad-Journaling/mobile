@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Text,
   TouchableOpacity,
@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { FontAwesome5 as FA5Icon } from "@expo/vector-icons/";
 
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 import generalStyles from "../../styles/generalStyles";
 import styles from "../../styles/journalListStyles";
 
@@ -42,8 +42,9 @@ function dateToMDY(date) {
 }
 
 function Entry(props) {
+  const { color } = useContext(ColorContext);
   const { data } = props;
-  let style = [styles.entry];
+  let style = [ {...styles.entry, backgroundColor: color.primary, borderColor: color.inactive}];
 
   if (props.style === "top") {
     style.push(styles.entryTop);
@@ -69,8 +70,8 @@ function Entry(props) {
       style={[style, styles.entryContent]}
     >
       <View>
-        <Text style={styles.entryTitle}>{props.title}</Text>
-        <Text style={styles.entryDescription}>{description}</Text>
+        <Text style={ {...styles.entryTitle, color: color.primaryText }}>{props.title}</Text>
+        <Text style={{ color: color.inactive}}>{description}</Text>
       </View>
       <FA5Icon name='chevron-right' color={color.inactive} size={36} />
     </TouchableOpacity>
@@ -79,6 +80,7 @@ function Entry(props) {
 
 function JournalList(props) {
   let journals = props.data;
+  const { color } = useContext(ColorContext);
 
   for (let i = 0; i < journals.length; ++i) {
     // If this is the first entry or its date comes before the previous entry's date

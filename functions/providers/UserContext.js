@@ -191,6 +191,8 @@ export const useUser = () => {
     journals,
     moods,
     newUser,
+    setUser,
+    setUserID,
     setNewUser,
     updateUser,
     createUser,
