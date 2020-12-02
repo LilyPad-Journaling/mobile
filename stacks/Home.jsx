@@ -9,7 +9,7 @@ import Journals from "./HomeStacks/Journals";
 import Moods from "./HomeStacks/Moods";
 import Resources from "./HomeStacks/Resources";
 import Profile from "./HomeStacks/Profile";
-import { color } from "../functions/providers/ColorContext";
+import { ColorContext, color } from "../functions/providers/ColorContext";
 import { navigationStyles } from "../styles/navigationStyles";
 import { showNav } from "../functions/util/navigation";
 import generalStyles from "../styles/generalStyles";
@@ -79,25 +79,26 @@ const Home = createMaterialTopTabNavigator(screens, {
   initialRouteName: "Journals",
   tabBarPosition: "bottom",
   timingConfig: 0,
-  tabBarOptions: /*() => {
-    const { color } = useContext(ColorContext);
-    return*/ {
-      activeTintColor: color.highlight,
-      inactiveTintColor: color.inactive,
-      style: [navigationStyles.footer, generalStyles.shadow, { backgroundColor: color.primary }],
-      indicatorStyle: {
-        height: 0,
+  tabBarOptions: {
+    activeTintColor: color.highlight,
+    inactiveTintColor: color.inactive,
+    style: [
+      navigationStyles.footer,
+      generalStyles.shadow,
+      { backgroundColor: color.primary },
+    ],
+    indicatorStyle: {
+      height: 0,
+    },
+    showIcon: true,
+    iconStyle: [
+      {
+        height: tabHeight,
+        alignItems: "center",
+        shadowRadius: 0.3,
+        width: 32,
       },
-      showIcon: true,
-      iconStyle: [
-        {
-          height: tabHeight,
-          alignItems: "center",
-          shadowRadius: 0.3,
-          width: 32,
-        },
-      ],
-    // };
+    ],
   },
   swipeEnabled: false,
 });

@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 
 import { UserContext } from "../../functions/providers/UserContext";
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 import JournalList from "./JournalList";
 import IconButton from "../../components/General/Button";
 
 export default function Recent(props) {
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
   const { userID, journals, createJournal } = useContext(UserContext);
 
   return (
@@ -34,11 +35,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-  },
-  // seems unused
-  button: {
-    height: 100,
-    width: 100,
-    backgroundColor: color.primary,
   },
 });

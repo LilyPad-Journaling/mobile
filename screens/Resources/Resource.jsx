@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { FontAwesome as Icon } from "@expo/vector-icons/";
 import {
   Text,
@@ -11,9 +11,11 @@ import {
 import * as Linking from "expo-linking";
 
 import styles from "../../styles/resourceStyles";
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 
 export default function Resource(props) {
+  const { item } = props;
+  const { color } = useContext(ColorContext);
   const [open, setOpen] = useState(true);
   const spinValue = new Animated.Value(1);
   const spinValueRef = useRef(spinValue);
@@ -34,7 +36,6 @@ export default function Resource(props) {
     });
   };
 
-  const { item } = props;
   return (
     <View style={{ ...styles.categoryContainer, backgroundColor: color.primary}}>
       <View

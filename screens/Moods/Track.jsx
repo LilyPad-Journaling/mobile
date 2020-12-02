@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Text, View, TouchableOpacity, StyleSheet, FlatList, SafeAreaView
 } from "react-native";
@@ -6,7 +6,7 @@ import {
 import { FontAwesome as Icon } from "@expo/vector-icons/";
 import Slider from "react-native-slider";
 
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 
 const data = [
   {
@@ -25,6 +25,8 @@ const data = [
 
 export default function Track(props) {
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
+
   return (
     <View style={{ ...styles.container, backgroundColor: color.background}}>
       <Header navigation={navigation} />
@@ -101,8 +103,9 @@ const styles = StyleSheet.create({
 });
 
 const SliderBar = () => {
+  const { color } = useContext(ColorContext);
   const [value, setValue] = useState(0);
-
+  
   return (
     <View>
       <Slider
@@ -112,10 +115,10 @@ const SliderBar = () => {
           height: 40,
           width: 40,
           borderRadius: 20,
-          backgroundColor: "#fff",
+          backgroundColor: color.highlight,
         }}
-        minimumTrackTintColor = "#000099"
-        maximumTrackTintColor="white"
+        minimumTrackTintColor ={color.primaryText}
+        maximumTrackTintColor={color.primary}
       />
     </View>
   )
@@ -123,6 +126,7 @@ const SliderBar = () => {
 
 const Header = props => {
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
 
   return (
     <View style={{ backgroundColor: color.primary, width: "100%" }}>

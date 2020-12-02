@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 
 export default function Onboarding(props) {
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
 
   return (
     <View style={{ ...styles.container, backgroundColor: color.primary}}>

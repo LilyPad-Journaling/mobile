@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -12,15 +12,15 @@ import {
 import { FontAwesome as Icon } from "@expo/vector-icons";
 
 import { UserContext } from "../../functions/providers/UserContext";
-import { color } from "../../functions/providers/ColorContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 import styles from "../../styles/signInStyles";
-import { useEffect } from "react";
 
 export default function Number(props) {
+  const { navigation } = props;
+  const { color } = useContext(ColorContext);
+  const { createUser } = useContext(UserContext);
   const secretCode = "123456";
   const [code, setCode] = useState("");
-  const { navigation } = props;
-  const { createUser } = useContext(UserContext);
 
   useEffect(() => {
     if (code === secretCode) {

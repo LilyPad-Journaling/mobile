@@ -9,14 +9,15 @@ import {
 } from "react-native";
 import { FontAwesome as Icon } from "@expo/vector-icons";
 
-import { UserContext } from "../../functions/providers/UserContext";
-import { color } from "../../functions/providers/ColorContext";
 import styles from "../../styles/signInStyles";
+import { UserContext } from "../../functions/providers/UserContext";
+import { ColorContext } from "../../functions/providers/ColorContext";
 
 export default function Name(props) {
-  const [name, setName] = useState("");
   const { navigation } = props;
+  const { color } = useContext(ColorContext);
   const { newUser, setNewUser } = useContext(UserContext);
+  const [name, setName] = useState("");
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
