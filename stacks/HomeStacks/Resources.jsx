@@ -27,6 +27,7 @@ const ResourcesTabs = () => {
         style: {
           backgroundColor: color.primary,
           ...generalStyles.shadow,
+          shadowColor: color.shadow
         },
         labelStyle: {
           fontSize: 22,

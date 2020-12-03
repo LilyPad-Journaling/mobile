@@ -70,7 +70,7 @@ export default function Resource(props) {
           }}
         >
           <FlatList
-            style={{ width: "99%" }}
+            style={{ width: "95%" }}
             data={item.contents}
             keyExtractor={(item) => item.title}
             renderItem={({ item }) => {

@@ -7,7 +7,7 @@ const original = {
     highlight: "#000099",
     inactive: "#999999",
     background: "#89F1FF",
-    shadow: "#444"
+    shadow: "#aaa"
 }
 
 // Scott's dark mode from the google doc

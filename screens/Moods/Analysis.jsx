@@ -38,7 +38,7 @@ export default function Analysis(props) {
           return (
             <View>
               <Text style={{ fontSize: 18, margin: 7, color: color.primaryText }}>{item.name}</Text>
-              <View style={[styles.graph, generalStyles.shadow, { backgroundColor: color.primary }]}>
+              <View style={[styles.graph, generalStyles.shadow, { backgroundColor: color.primary, shadowColor: color.shadow }]}>
                 <LineChart
                   data={{
                     labels: [

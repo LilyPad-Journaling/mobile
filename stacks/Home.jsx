@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   FontAwesome5 as FA5Icon,
   Feather as FEIcon,
@@ -16,9 +16,9 @@ import generalStyles from "../styles/generalStyles";
 import { ColorContext } from "../functions/providers/ColorContext";
 
 const tabHeight = Platform.OS === "ios" ? 40 : 25;
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-const HomeTabs = ({ navigation }) => {
+const HomeTabs = ({ route, navigation }) => {
   const { color } = useContext(ColorContext);
 
   const iconStyle = {
@@ -26,6 +26,7 @@ const HomeTabs = ({ navigation }) => {
     alignItems: "center",
     shadowRadius: 0.3,
     width: 32,
+    marginTop: 15
   };
 
   return (
@@ -33,78 +34,65 @@ const HomeTabs = ({ navigation }) => {
       initialRouteName="Journals"
       timingConfig={0}
       tabBarPosition={0}
-      activeColor={color.highlight}
-      inactiveColor={color.inactive}
-      barStyle={{
-        ...navigationStyles.footer,
-        ...generalStyles.shadow,
-        backgroundColor: color.primary,
-      }}
       screenOptions={{
         showIcon: true,
-        gestureEnabled: false,
       }}
       swipeEnabled={false}
-      labeled={false}
+      tabBarOptions={{
+        showLabel: false,
+        activeTintColor: color.highlight,
+        inactiveTintColor: color.inactive,
+        style: {
+          ...navigationStyles.footer,
+          ...generalStyles.shadow,
+          backgroundColor: color.primary,
+          shadowColor: color.shadow,
+          borderTopColor: "transparent"
+        },
+      }}
     >
       <Tab.Screen
         name="Journals"
         component={Journals}
-        navigationOptions={() => ({
-          headerShown: showNav(navigation),
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FA5Icon name="pen-nib" style={iconStyle} color={color} size={30} />
+          ),
           tabBarVisible: showNav(navigation),
-          gestureEnabled: false,
-        })}
-      options={{
-        tabBarIcon: ({ color }) => (
-          <FA5Icon name="pen-nib" style={iconStyle} color={color} size={30} />
-        )
-      }}
+        }}
       />
       <Tab.Screen
         name="Moods"
         component={Moods}
-        navigationOptions={() => ({
-          headerShown: showNav(navigation),
-          tabBarVisible: showNav(navigation),
-          gestureEnabled: false,
-        })}
         options={{
           tabBarIcon: ({ color }) => (
             <FEIcon name="smile" style={iconStyle} color={color} size={30} />
-          )
+          ),
+          tabBarVisible: showNav(navigation),
         }}
       />
       <Tab.Screen
         name="Resources"
         component={Resources}
-        navigationOptions={{
-          headerShown: showNav(navigation),
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FA5Icon name="link" style={iconStyle} color={color} size={30} />
+          ),
           tabBarVisible: showNav(navigation),
-          gestureEnabled: false,
-      }}
-      options={{
-        tabBarIcon: ({ color }) => (
-          <FA5Icon name="link" style={iconStyle} color={color} size={30} />
-        )
-      }}
+        }}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
-        navigationOptions={{
-            headerShown: showNav(navigation),
-            tabBarVisible: showNav(navigation),
-            gestureEnabled: false,
-        }}
         options={{
           tabBarIcon: ({ color }) => (
             <FA5Icon name="user" style={iconStyle} color={color} size={30} />
-          )
+          ),
+          tabBarVisible: showNav(navigation),
         }}
       />
     </Tab.Navigator>
   );
-}
+};
 
 export default HomeTabs;

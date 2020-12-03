@@ -75,7 +75,8 @@ export default function General(props) {
   return (
     <View style={{ ...styles.container, backgroundColor: color.background}}>
       <FlatList //flatlist of categories
-        style={{ width: "95%" }}
+        style={{ width: "100%" }}
+        contentContainerStyle={{ width: "95%", marginLeft: "2.5%", paddingBottom: 20 }}
         data={categories}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => {

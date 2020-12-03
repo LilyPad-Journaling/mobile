@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import {
   Text,
   TouchableOpacity,
@@ -44,7 +44,7 @@ function dateToMDY(date) {
 function Entry(props) {
   const { color } = useContext(ColorContext);
   const { data } = props;
-  let style = [ {...styles.entry, backgroundColor: color.primary, borderColor: color.inactive}];
+  let style = [{...styles.entry, backgroundColor: color.primary, borderColor: color.inactive}];
 
   if (props.style === "top") {
     style.push(styles.entryTop);
@@ -66,7 +66,7 @@ function Entry(props) {
 
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate("Journal", { data })}
+      onPress={() => props.navigation.navigate("Journal", { data: { ...data, lastUpdated: dateToMDY(data.lastUpdated), timeCreated: dateToMDY(data.timeCreated) }})}
       style={[style, styles.entryContent]}
     >
       <View>
@@ -148,7 +148,7 @@ function JournalList(props) {
             </Text>
           </Text>
           <FlatList
-            style={generalStyles.shadow}
+            style={{ ...generalStyles.shadow, shadowColor: color.shadow }}
             data={item}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (

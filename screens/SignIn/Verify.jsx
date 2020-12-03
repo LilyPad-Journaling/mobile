@@ -24,7 +24,6 @@ export default function Number(props) {
 
   useEffect(() => {
     if (code === secretCode) {
-      console.log("verify page");
       createUser();
       AsyncStorage.setItem("loggedIn", "true");
       navigation.navigate("Onboarding");

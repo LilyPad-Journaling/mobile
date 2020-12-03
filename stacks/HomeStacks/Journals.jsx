@@ -64,7 +64,6 @@ const Journals = () => {
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
       initialRouteName="Journals"
-      headerShown={false}
       defaultNavigationOptions={{
         ...TransitionPresets.FadeFromBottomAndroid,
       }}

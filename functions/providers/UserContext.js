@@ -39,10 +39,6 @@ export const useUser = () => {
     });
   }, []);
 
- useEffect(() => {
-   console.log(newUser);
- }, [newUser]);
-
   // Gets user by id
   const getUser = (id) => {
     db.collection("users")
@@ -70,12 +66,13 @@ export const useUser = () => {
             ...snapshot.data() 
           });
         });
+        let journalData = journalsData.map(journal => ({
+          ...journal,
+          timeCreated: journal.timeCreated ? journal.timeCreated.toDate() : new Date(),
+          lastUpdated: journal.lastUpdated ? journal.lastUpdated.toDate() : new Date(),
+        }));
         setJournals(
-          journalsData.map((journal) => ({
-            ...journal,
-            timeCreated: journal.timeCreated.toDate(),
-            lastUpdated: journal.lastUpdated.toDate(),
-          }))
+          journalData.sort((a, b) => b.timeCreated - a.timeCreated)
         );
       });
   };
@@ -94,7 +91,7 @@ export const useUser = () => {
         setMoods(
           moodsData.map((mood) => ({
             ...mood,
-            timeCreated: mood.timeCreated.toDate(),
+            timeCreated: mood.timeCreated ? mood.timeCreated.toDate() : new Date(),
           }))
         );
       });
@@ -102,7 +99,6 @@ export const useUser = () => {
 
   // Creates user document in users collection on firebase (can use hardcoded data to test!)
   const createUser = () => {
-    console.log("create user");
     const userData = {
       ...newUser,
       pin: 1234,
@@ -170,7 +166,6 @@ export const useUser = () => {
 
   // Updates journal object by userID and journalID with new partial object, new fields can look like { private: true, body: "something different" }
   const updateJournal = (userID, journalID, title, body) => {
-    console.log(userID, journalID, title, body)
     db.collection("users")
       .doc(userID)
       .collection("journals")

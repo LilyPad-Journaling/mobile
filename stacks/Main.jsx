@@ -6,7 +6,7 @@ import _ from "lodash";
 import SignInStack from "./SignIn";
 import HomeStack from "./Home";
 import LoadingScreen from "../screens/LoadingScreen";
-import { showHeader } from "../functions/util/navigation";
+import { showNav } from "../functions/util/navigation";
 
 import { ColorContext } from "../functions/providers/ColorContext";
 import generalStyles from "../styles/generalStyles";
@@ -15,25 +15,6 @@ const Stack = createStackNavigator();
 
 const Main = () => {
   const { color } = useContext(ColorContext);
-  const [title, setTitle] = useState("");
-  const route = "howdy";
-
-  // const getRoute = state => {
-  //   let i = state;
-  //   console.log(i)
-  //   while ((_.has(i, "index") && _.has(i, "routes")) || _.has(i, "state")) {
-  //     if (_.has(i, "state")) {
-  //       i = i.state;
-  //     } else {
-  //       i = i.routes[i.index];
-  //     }
-  //   }
-  //   if (_.has(i, "params.screen")) {
-  //     setTitle(i.params.screen);
-  //   } else {
-  //     setTitle("");
-  //   }
-  // }
 
   return (
     <Stack.Navigator>
@@ -57,7 +38,6 @@ const Main = () => {
       <Stack.Screen
         name="HomeStack"
         component={HomeStack}
-        headerShown={showHeader(route) ? "none" : "screen"}
         screenOptions={{
           gestureEnabled: false,
           headerTransparent: true,
@@ -85,6 +65,7 @@ const Main = () => {
             },
             headerTitleAlign: "left",
             headerLeft: () => null,
+            headerShown: showNav(navigation)
           };
         }}
       />

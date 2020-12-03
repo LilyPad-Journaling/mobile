@@ -26,13 +26,6 @@ import { UserContext } from "../../functions/providers/UserContext";
 import { color } from "../../functions/providers/ColorContext";
 const { SlideInMenu } = renderers;
 
-const dateToMDY = date => {
-  let month = date.getUTCMonth() + 1;
-  let day = date.getUTCDate();
-  let year = date.getUTCFullYear();
-  return month + "/" + day + "/" + year;
-}
-
 export default function Journal(props) {
   const { navigation, route } = props;
   const { data } = route.params;
@@ -103,8 +96,8 @@ export default function Journal(props) {
               value={title}
               onChangeText={setTitle}
             />
-            <Text style={styles.regtext}>{'Created: ' + dateToMDY(data.timeCreated)}</Text>
-            <Text style={styles.regtext}>{'Updated: ' + dateToMDY(data.lastUpdated)}</Text>
+            <Text style={styles.regtext}>{'Created: ' + data.timeCreated}</Text>
+            <Text style={styles.regtext}>{'Updated: ' + data.lastUpdated}</Text>
           </View>
           <View style={styles.notesui}>
             <TextInput
