@@ -44,6 +44,7 @@ const App = () => {
     Text.defaultProps.fontFamily = "regular";
     TextInput.defaultProps = TextInput.defaultProps || {};
     TextInput.defaultProps.allowFontScaling = false;
+    // AsyncStorage.setItem("userID", "BCRMMati2vuQ3Mlfq01m")
   }, []);
 
   const loadFonts = () => {

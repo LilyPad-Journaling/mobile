@@ -30,7 +30,7 @@ const ResourcesTabs = () => {
           shadowColor: color.shadow
         },
         labelStyle: {
-          fontSize: 22,
+          fontSize: 18,
           fontFamily: "medium",
           textTransform: "none",
         },
