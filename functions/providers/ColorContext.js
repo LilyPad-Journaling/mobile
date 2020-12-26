@@ -113,15 +113,8 @@ const useColor = () => {
     const [name, setName] = useState("original");
     const [color, setColor] = useState(original);
 
-    // useEffect(() => {
-    //     AsyncStorage.getItem("colorScheme", name => {
-    //         setName(name);
-    //     })
-    // }, [])
-
     useEffect(() => { 
         setColor(colorSchemes[name]);
-        // AsyncStorage.setItem("colorScheme", name);
      },[name]);
 
      return {
