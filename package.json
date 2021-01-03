@@ -6,7 +6,8 @@
         "ios": "expo start --ios",
         "web": "expo start --web",
         "eject": "expo eject",
-        "format": "npx prettier --write **/*.{js,jsx,json} && npx prettier --write *.{js,jsx,json}"
+        "format": "npx prettier --write **/*.{js,jsx,json} && npx prettier --write *.{js,jsx,json}",
+        "test": "jest"
     },
     "dependencies": {
         "@benawad/expo-mixpanel-analytics": "^0.1.7",
@@ -47,7 +48,8 @@
         "rsuite": "^4.8.4"
     },
     "devDependencies": {
-        "@babel/core": "~7.9.0"
+        "@babel/core": "~7.9.0",
+        "jest": "^26.6.3"
     },
     "private": true
 }
