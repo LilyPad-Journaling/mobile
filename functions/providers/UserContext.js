@@ -189,6 +189,7 @@ export const useUser = () => {
     setUser,
     setUserID,
     setNewUser,
+    getUser,
     updateUser,
     createUser,
     updateJournal,
