@@ -35,7 +35,9 @@ const App = () => {
         updateUser,
         createUser,
         updateJournal,
-        createJournal
+        createJournal,
+        auth,
+        authCode
     } = useUser();
     const { color, setName, colorSchemes } = useColor();
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -52,7 +54,9 @@ const App = () => {
             updateUser,
             createUser,
             updateJournal,
-            createJournal
+            createJournal,
+            auth,
+            authCode
         }),
         [
             user,
@@ -66,7 +70,9 @@ const App = () => {
             updateUser,
             createUser,
             updateJournal,
-            createJournal
+            createJournal,
+            auth,
+            authCode
         ]
     );
     const colorProvider = useMemo(() => ({ color, setName, colorSchemes }), [

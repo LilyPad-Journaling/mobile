@@ -11,7 +11,7 @@ import styles from "../../styles/signInStyles";
 export default function Number(props) {
     const { navigation } = props;
     const { color } = useContext(ColorContext);
-    const { newUser, setNewUser } = useContext(UserContext);
+    const { newUser, setNewUser, auth } = useContext(UserContext);
     const [number, setNumber] = useState("");
 
     return (
@@ -38,6 +38,7 @@ export default function Number(props) {
                 onPress={() => {
                     if (number.length > 9) {
                         setNewUser({ ...newUser, number });
+                        auth(number);
                         navigation.navigate("Verify");
                     }
                 }}

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
     FontAwesome5 as FA5Icon,

@@ -28,6 +28,7 @@ export const useUser = () => {
   const [newUser, setNewUser] = useState({});
   const [journals, setJournals] = useState([]);
   const [moods, setMoods] = useState([]); 
+  const [authCode, setAuthCode] = useState(9999999);
 
   // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
   useEffect(() => {
@@ -180,6 +181,24 @@ export const useUser = () => {
       })
   };
 
+  const auth = number => {
+    const url = "https://us-central1-hodas-f14c5.cloudfunctions.net/widgets/auth";
+
+    let formData = JSON.stringify({ number: `+1${number}` })
+
+    fetch(url, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: formData,
+      method: "POST"
+    }).then(data => { 
+      return data.json() 
+    })
+    .then(res => setAuthCode(res.code))
+    .catch(error => console.log(error))
+  };
+
   return {
     user,
     userID,
@@ -192,7 +211,9 @@ export const useUser = () => {
     updateUser,
     createUser,
     updateJournal,
-    createJournal
+    createJournal,
+    auth,
+    authCode
   };
 };
 

@@ -18,12 +18,11 @@ import styles from "../../styles/signInStyles";
 export default function Number(props) {
   const { navigation } = props;
   const { color } = useContext(ColorContext);
-  const { createUser } = useContext(UserContext);
-  const secretCode = "123456";
+  const { createUser, authCode } = useContext(UserContext);
   const [code, setCode] = useState("");
 
   useEffect(() => {
-    if (code === secretCode) {
+    if (code == authCode) {
       createUser();
       AsyncStorage.setItem("loggedIn", "true");
       navigation.navigate("Onboarding");
@@ -52,7 +51,7 @@ export default function Number(props) {
               : { backgroundColor: color.inactive },
           ]}
           onPress={() => {
-            if (code.length > 5 && code !== secretCode) {
+            if (code.length > 5 && code !== authCode) {
               Alert.alert("Invalid Code");
             }
           }}

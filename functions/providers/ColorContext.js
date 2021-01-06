@@ -115,7 +115,7 @@ const useColor = () => {
 
     useEffect(() => { 
         setColor(colorSchemes[name]);
-     },[name]);
+     }, [name]);
 
      return {
          color, 
