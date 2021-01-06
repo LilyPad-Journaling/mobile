@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import _ from 'lodash';
@@ -22,9 +22,9 @@ const Main = () => {
                 name="LoadingScreen"
                 component={LoadingScreen}
                 screenOptions={{
-                    gestureEnabled: false,
-                    headerShown: false
+                    gestureEnabled: false
                 }}
+                options={{ headerShown: false }}
             />
             <Stack.Screen
                 name="SignInStack"
@@ -45,7 +45,10 @@ const Main = () => {
                 options={({ route, navigation }) => {
                     const title = getFocusedRouteNameFromRoute(route);
                     return {
-                        title,
+                        title:
+                            title === 'HomeStack' || title === 'Recent'
+                                ? 'Journals'
+                                : title,
                         headerStyle: [
                             {
                                 backgroundColor: color.primary,

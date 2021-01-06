@@ -1,27 +1,26 @@
 import React, { useEffect, useContext } from 'react';
-import { View, Text, LogBox, Keyboard } from 'react-native';
+import { View, Text, LogBox, Keyboard, AsyncStorage } from 'react-native';
 
 import { ColorContext } from '../functions/providers/ColorContext';
-import { UserContext } from '../functions/providers/UserContext';
 
 const LoadingScreen = (props) => {
     const { navigation } = props;
     const { color } = useContext(ColorContext);
-    const { userID } = useContext(UserContext);
 
     const checkIfLoggedIn = () => {
-        setTimeout(() => {
-            Keyboard.dismiss();
-            if (userID !== null && userID !== '') {
+        Keyboard.dismiss();
+        AsyncStorage.getItem('userID', (err, id) => {
+            if (id !== null && id !== '') {
                 navigation.navigate('HomeStack', { screen: 'Recent' });
             } else {
                 navigation.navigate('SignInStack', { screen: 'Intro' });
             }
-        }, 300);
+        });
     };
 
     useEffect(() => {
         LogBox.ignoreLogs(['Warning: ...']);
+        LogBox.ignoreAllLogs(true);
         checkIfLoggedIn();
     }, [props]);
 

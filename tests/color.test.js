@@ -3,19 +3,29 @@ import { mountReactHook } from './mockHook';
 import { waitFor, act } from '@testing-library/react-native';
 
 const original = {
-    primary: "#ffffff",
-    primaryText: "#555555",
-    highlight: "#000099",
-    inactive: "#999999",
-    background: "#89F1FF",
-    shadow: "#aaa"
-}
+    primary: '#ffffff',
+    primaryText: '#555555',
+    highlight: '#000099',
+    inactive: '#999999',
+    background: '#89F1FF',
+    shadow: '#aaa'
+};
 
 const colorSchemes = [
-    'blue', 'periwinkle', 'pink', 'lavender', 'yellow', 'green', 'cyberpunk', 'dark3', 'dark2', 'dark1', 'original'
-]
+    'blue',
+    'periwinkle',
+    'pink',
+    'lavender',
+    'yellow',
+    'green',
+    'cyberpunk',
+    'dark3',
+    'dark2',
+    'dark1',
+    'original'
+];
 
-describe("Color Tests", () => {
+describe('Color Tests', () => {
     let setupComponent;
     let hook;
 
@@ -34,10 +44,10 @@ describe("Color Tests", () => {
 
     // it('Changes color', async () => {
     //     await act(async () => {
-    //         hook.setName('dark3');   
-    //         await waitFor(() => {});       
+    //         hook.setName('dark3');
+    //         await waitFor(() => {});
     //     });
-    
+
     //     expect(hook.color).toEqual(hook.colorSchemes['dark3']);
     // });
 });

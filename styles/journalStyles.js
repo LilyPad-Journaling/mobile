@@ -9,7 +9,11 @@ const journalStyles = StyleSheet.create({
         paddingVertical: 45,
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: 70
+        marginBottom: 70,
+        justifyContent: 'space-between'
+    },
+    topnavLeft: {
+        flexDirection: 'row'
     },
     middle: {
         textAlign: 'left',

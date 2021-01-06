@@ -1,5 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-// import { AsyncStorage } from "react-native";
+import React from 'react'
+import { createContext, useEffect, useState, useMemo } from "react";
 
 const original = {
     primary: "#ffffff",
@@ -109,7 +109,7 @@ const colorSchemes = {
     blue, periwinkle, pink, lavender, yellow, green, cyberpunk, dark3, dark2, dark1, original
 }
 
-const useColor = () => {
+export const useColor = () => {
     const [name, setName] = useState("original");
     const [color, setColor] = useState(original);
 
@@ -125,6 +125,21 @@ const useColor = () => {
 
 }
 
-exports.useColor = useColor;
-exports.color = dark2
-exports.ColorContext = createContext("");
+export const color = dark2;
+export const ColorContext = createContext("");
+
+export const Color = ({ children }) => {
+    const { color, setName, colorSchemes } = useColor();
+
+    const colorProvider = useMemo(() => ({ color, setName, colorSchemes }), [
+        color,
+        setName,
+        colorSchemes
+    ]);
+
+    return (
+        <ColorContext.Provider value={colorProvider}>
+            {children}
+        </ColorContext.Provider>
+    );
+}

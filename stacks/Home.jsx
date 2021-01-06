@@ -17,7 +17,7 @@ import { ColorContext } from '../functions/providers/ColorContext';
 const tabHeight = Platform.OS === 'ios' ? 40 : 25;
 const Tab = createBottomTabNavigator();
 
-const HomeTabs = ({ route, navigation }) => {
+const HomeTabs = ({ navigation }) => {
     const { color } = useContext(ColorContext);
 
     const iconStyle = {

@@ -60,30 +60,29 @@ export default function Journal(props) {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <FAIcon name="chevron-left" color={color.inactive} size={32} />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("TrackJournal")}
-              style={{ marginLeft: 290 }}
-            >
-              <FEIcon name="smile" color={color.inactive} size={32} />
-            </TouchableOpacity>
-
-            <Menu name="numbers" renderer={SlideInMenu} onSelect={value => this.selectNumber(value)}>
-              <MenuTrigger customStyles={{ triggerOuterWrapper: styles.trigger }} >
-                <EIcon
-                  style={{ marginTop: -5, marginLeft: 10 }}
-                  name="dots-three-vertical"
-                  size={36}
-                  color={color.inactive}
-                />
-              </MenuTrigger>
-              <MenuOptions>
-                <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={1} text='Pin' />
-                <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={2} text='Lock' />
-                <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={3} text='Share' />
-                <MenuOption customStyles={{ optionText: [styles.redtext] }} value={4} text='Delete' />
-              </MenuOptions>
-            </Menu>
-
+            <View style={styles.topnavLeft}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("TrackJournal")}
+              >
+                <FEIcon name="smile" color={color.inactive} size={32} />
+              </TouchableOpacity>
+              <Menu name="numbers" renderer={SlideInMenu} onSelect={value => this.selectNumber(value)}>
+                <MenuTrigger customStyles={{ triggerOuterWrapper: styles.trigger }} >
+                  <EIcon
+                    style={{ marginTop: -5 }}
+                    name="dots-three-vertical"
+                    size={36}
+                    color={color.inactive}
+                  />
+                </MenuTrigger>
+                <MenuOptions>
+                  <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={1} text='Pin' />
+                  <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={2} text='Lock' />
+                  <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={3} text='Share' />
+                  <MenuOption customStyles={{ optionText: [styles.redtext] }} value={4} text='Delete' />
+                </MenuOptions>
+              </Menu>
+            </View>
           </View>
           <View style={styles.middle}>
             <TextInput

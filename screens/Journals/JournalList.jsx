@@ -111,20 +111,26 @@ function JournalList(props) {
 
   let data = [];
 
-  for (entry of journals) {
+  for (let i = 0; i < journals.length; i++) {
     if (
       data.length === 0 ||
       data[data.length - 1][0].timeCreated.getTime() !==
-        entry.timeCreated.getTime()
+        journals[i].timeCreated.getTime()
     ) {
-      data.push([entry]);
+      data.push([journals[i]]);
     } else {
-      data[data.length - 1].push(entry);
+      data[data.length - 1].push(journals[i]);
     }
   }
 
   return (
-    <FlatList
+    <>
+    {data.length === 0 ? (
+      <View>
+        <Text>No journals yet, add one below!</Text>
+      </View>
+    ) : (
+      <FlatList
       data={data}
       style={styles.topList}
       contentContainerStyle={styles.entryList}
@@ -165,6 +171,8 @@ function JournalList(props) {
         </View>
       )}
     />
+    )}
+    </>
   );
 }
 

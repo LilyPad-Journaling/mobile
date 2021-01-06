@@ -15,11 +15,11 @@
 
 //     it('read user from firebase by id', async () => {
 //         const expectedID = "2pTQcu7osPch3JnKPcAf";
-        
+
 //         await act(async () => {
-//             hook.getUser(expectedID);            
+//             hook.getUser(expectedID);
 //         });
-    
+
 //         console.log('User', hook.user);
 //         // expect(actualID.toBe(expectedID));
 //         const expectedName = "Hayden";
@@ -29,11 +29,7 @@
 //         expect(expectedName).toEqual(expectedName);
 //     });
 // });
- 
+
 // Update
 
-
-
 // Delete
-
-

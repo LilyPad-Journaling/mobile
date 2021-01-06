@@ -31,14 +31,15 @@ export default function Analysis(props) {
     <View style={[styles.container, { backgroundColor: color.background }]}>
       <FlatList
         data={data}
-        contentContainerStyle={{ marginTop: 5, paddingBottom: 20 }}
+        style={{width: '100%'}}
+        contentContainerStyle={{ marginTop: 5, paddingBottom: 20, justifyContent: 'center', marginLeft: Dimensions.get("window").width*.0375 }}
         keyExtractor={(item) => item.name}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
             <View>
               <Text style={{ fontSize: 18, margin: 7, color: color.primaryText }}>{item.name}</Text>
-              <View style={[styles.graph, generalStyles.shadow, { backgroundColor: color.primary, shadowColor: color.shadow }]}>
+              <View style={[generalStyles.shadow, styles.graph, { backgroundColor: color.primary, shadowColor: color.shadow }]}>
                 <LineChart
                   data={{
                     labels: [
