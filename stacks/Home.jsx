@@ -2,13 +2,15 @@ import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
     FontAwesome5 as FA5Icon,
-    Feather as FEIcon
+    Feather as FEIcon,
+    MaterialCommunityIcons as MCIcon
 } from '@expo/vector-icons/';
 
 import Journals from './HomeStacks/Journals';
 import Moods from './HomeStacks/Moods';
 import Resources from './HomeStacks/Resources';
 import Profile from './HomeStacks/Profile';
+import Collection from './HomeStacks/Collection';
 import { navigationStyles } from '../styles/navigationStyles';
 import { showNav } from '../functions/util/navigation';
 import generalStyles from '../styles/generalStyles';
@@ -59,7 +61,7 @@ const HomeTabs = ({ navigation }) => {
                             name="pen-nib"
                             style={iconStyle}
                             color={color}
-                            size={30}
+                            size={28}
                         />
                     ),
                     tabBarVisible: showNav(navigation)
@@ -74,7 +76,22 @@ const HomeTabs = ({ navigation }) => {
                             name="smile"
                             style={iconStyle}
                             color={color}
-                            size={30}
+                            size={28}
+                        />
+                    ),
+                    tabBarVisible: showNav(navigation)
+                }}
+            />
+            <Tab.Screen
+                name="Collection"
+                component={Collection}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MCIcon
+                            name="flower-tulip-outline"
+                            style={{ ...iconStyle, marginBottom: 4 }}
+                            color={color}
+                            size={34}
                         />
                     ),
                     tabBarVisible: showNav(navigation)
@@ -89,7 +106,7 @@ const HomeTabs = ({ navigation }) => {
                             name="link"
                             style={iconStyle}
                             color={color}
-                            size={30}
+                            size={28}
                         />
                     ),
                     tabBarVisible: showNav(navigation)
@@ -104,7 +121,7 @@ const HomeTabs = ({ navigation }) => {
                             name="user"
                             style={iconStyle}
                             color={color}
-                            size={30}
+                            size={28}
                         />
                     ),
                     tabBarVisible: showNav(navigation)

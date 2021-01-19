@@ -78,12 +78,12 @@ export default function Analysis(props) {
                     labelColor: (opacity = 1) => color.primaryText,
                     style: {
                       borderRadius: 16,
-                      backgroundColor: "none"
+                      backgroundColor: "none",
                     },
                     propsForDots: {
                       r: "6",
-                      strokeWidth: "2",
-                      stroke: color.highlight,
+                      strokeWidth: "6",
+                      stroke: "green",
                     },
                   }}
                   bezier

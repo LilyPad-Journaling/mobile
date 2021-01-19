@@ -6,7 +6,6 @@ import 'firebase/firestore';
 
 import { firebase } from '../util/firebase';
 
-
 const db = firebase.firestore();
 const getTimestamp = () => fb.firestore.FieldValue.serverTimestamp();
 
@@ -19,7 +18,8 @@ export const useUser = () => {
     const [newUser, setNewUser] = useState({});
     const [journals, setJournals] = useState([]);
     const [moods, setMoods] = useState([]);
-    const [authCode, setAuthCode] = useState(9999999);
+    const [awards, setAwards] = useState([]);
+    const [authCode, setAuthCode] = useState("hello");
 
     // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
     useEffect(() => {
@@ -28,6 +28,7 @@ export const useUser = () => {
             getUser(id);
             getJournals(id);
             getMoods(id);
+            getAwards(id);
         });
     }, []);
 
@@ -92,6 +93,21 @@ export const useUser = () => {
                             : new Date()
                     }))
                 );
+            });
+    };
+
+    // Gets moods by user id
+    const getAwards = (id) => {
+        db.collection('users')
+            .doc(id)
+            .collection('awards')
+            .get()
+            .then((querySnapshot) => {
+                let awardsData = [];
+                querySnapshot.forEach((snapshot) => {
+                    awardsData.push(snapshot.data());
+                });
+                setAwards(awardsData);
             });
     };
 
@@ -211,7 +227,8 @@ export const useUser = () => {
         updateJournal,
         createJournal,
         auth,
-        authCode
+        authCode,
+        awards,
     };
 };
 
@@ -232,7 +249,8 @@ export const User = ({ children }) => {
         updateJournal,
         createJournal,
         auth,
-        authCode
+        authCode,
+        awards,
     } = useUser();
 
     const userProvider = useMemo(
@@ -250,7 +268,8 @@ export const User = ({ children }) => {
             updateJournal,
             createJournal,
             auth,
-            authCode
+            authCode,
+            awards,
         }),
         [
             user,
@@ -266,7 +285,8 @@ export const User = ({ children }) => {
             updateJournal,
             createJournal,
             auth,
-            authCode
+            authCode,
+            awards,
         ]
     );
 
