@@ -15,39 +15,23 @@ import { UserContext } from "../../functions/providers/UserContext";
 import { ColorContext } from "../../functions/providers/ColorContext";
 import styles from "../../styles/signInStyles";
 
-export default function Number(props) {
-  const { navigation } = props;
-  const { color } = useContext(ColorContext);
-  const { createUser, authCode, newUser, doesUserExist, login } = useContext(UserContext);
-  const [code, setCode] = useState("");
-
-  useEffect(() => {
-    if (code == authCode) {
-      doesUserExist(newUser.number, (data) => {
-        if (data.length > 0) {
-          login(data[0]);
-        } else {
-          createUser();
-        }
-        AsyncStorage.setItem("loggedIn", "true");
-        navigation.navigate("Onboarding");
-      })
-    }
-  }, [code]);
+const SignIn = () => {
+  const { pin } = useContext(UserContext)
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={{ ...styles.container, backgroundColor: color.primary}}>
-        <Text style={{ ...styles.headerText, color: color.primaryText}}>What's your verification code?</Text>
+        <Text style={{ ...styles.headerText, color: color.primaryText}}>What's your PIN number?</Text>
         <Text style={{ ...styles.subHeaderText, color: color.primaryText}}>
-          You should receive an SMS verification code shortly.
+          Please enter the PIN number associated with your account
         </Text>
         <TextInput
           placeholder="123456"
           placeholderTextColor={color.inactive}
           keyboardType="number-pad"
           style={{ fontSize: 20 }}
-          onChangeText={setCode}
+          //read the pin that is entered
+          onChangeText={setCode} 
         />
         <TouchableOpacity
           style={[
@@ -57,8 +41,8 @@ export default function Number(props) {
               : { backgroundColor: color.inactive },
           ]}
           onPress={() => {
-            if (code.length > 5 && code !== authCode) {
-              Alert.alert("Invalid Code");
+            if (code.length > 5 && code !== pin) {
+              Alert.alert("Not correct pin");
             }
           }}
         >
@@ -73,3 +57,5 @@ export default function Number(props) {
     </TouchableWithoutFeedback>
   );
 }
+
+export default SignIn

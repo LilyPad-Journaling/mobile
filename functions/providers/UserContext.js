@@ -19,6 +19,7 @@ export const useUser = () => {
     const [journals, setJournals] = useState([]);
     const [moods, setMoods] = useState([]);
     const [awards, setAwards] = useState([]);
+    const [pin, setPin] = useState({});
     const [authCode, setAuthCode] = useState("hello");
 
     // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
@@ -29,6 +30,7 @@ export const useUser = () => {
             getJournals(id);
             getMoods(id);
             getAwards(id);
+            getPin(id);
         });
     }, []);
 
@@ -43,6 +45,21 @@ export const useUser = () => {
                     setUser(userData);
                 }
             });
+    };
+
+    // Gets user by id
+    const doesUserExist = (number, callback) => {
+        db.collection('users')
+            .where('number', '==', number)
+            .get()
+            .then(async (querySnapshot) => {
+                let users = []
+                await querySnapshot.forEach(snapshot => {
+                    users.push({ ...snapshot.data(), id: snapshot.id })
+                })
+                callback(users)
+            })
+            .catch(err => console.log("ERR", err))
     };
 
     // Gets journals by user id
@@ -128,6 +145,12 @@ export const useUser = () => {
             });
     };
 
+    const login = (data) => {
+        setUserID(data.id);
+        AsyncStorage.setItem('userID', data.id);
+        setUser(data);
+    }
+
     // Creates journal document in userID's journal collection on firebase (can use hardcoded data to test!)
     const createJournal = (id, callback) => {
         const data = {
@@ -212,6 +235,19 @@ export const useUser = () => {
             .catch((error) => console.log(error));
     };
 
+    //get the PIN tied to user
+    const getPin = (id) => {
+        db.collection('users')
+            .doc(id)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    const userPin = doc.data();
+                    setPin(userPin);
+                }
+            })
+    };
+
     return {
         user,
         userID,
@@ -229,6 +265,9 @@ export const useUser = () => {
         auth,
         authCode,
         awards,
+        pin,
+        doesUserExist,
+        login
     };
 };
 
@@ -251,6 +290,9 @@ export const User = ({ children }) => {
         auth,
         authCode,
         awards,
+        pin,
+        doesUserExist,
+        login
     } = useUser();
 
     const userProvider = useMemo(
@@ -270,6 +312,9 @@ export const User = ({ children }) => {
             auth,
             authCode,
             awards,
+            pin,
+            doesUserExist,
+            login
         }),
         [
             user,
@@ -287,6 +332,9 @@ export const User = ({ children }) => {
             auth,
             authCode,
             awards,
+            pin,
+            doesUserExist,
+            login
         ]
     );
 

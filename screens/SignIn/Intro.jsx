@@ -19,6 +19,9 @@ export default function Intro(props) {
           <Text>Enter!</Text>
         </View>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Number")}>
+        <Text style={styles.underlineText}>Already have an account, login</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -46,5 +49,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     width: '75%'
+  },
+  underlineText: {
+    textDecorationLine: 'underline'
   }
 });
