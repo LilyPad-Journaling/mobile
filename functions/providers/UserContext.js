@@ -47,6 +47,21 @@ export const useUser = () => {
             });
     };
 
+    // Gets user by id
+    const doesUserExist = (number, callback) => {
+        db.collection('users')
+            .where('number', '==', number)
+            .get()
+            .then(async (querySnapshot) => {
+                let users = []
+                await querySnapshot.forEach(snapshot => {
+                    users.push({ ...snapshot.data(), id: snapshot.id })
+                })
+                callback(users)
+            })
+            .catch(err => console.log("ERR", err))
+    };
+
     // Gets journals by user id
     const getJournals = (id) => {
         db.collection('users')
@@ -129,6 +144,12 @@ export const useUser = () => {
                 setUser(userData);
             });
     };
+
+    const login = (data) => {
+        setUserID(data.id);
+        AsyncStorage.setItem('userID', data.id);
+        setUser(data);
+    }
 
     // Creates journal document in userID's journal collection on firebase (can use hardcoded data to test!)
     const createJournal = (id, callback) => {
@@ -245,6 +266,8 @@ export const useUser = () => {
         authCode,
         awards,
         pin,
+        doesUserExist,
+        login
     };
 };
 
@@ -268,6 +291,8 @@ export const User = ({ children }) => {
         authCode,
         awards,
         pin,
+        doesUserExist,
+        login
     } = useUser();
 
     const userProvider = useMemo(
@@ -288,6 +313,8 @@ export const User = ({ children }) => {
             authCode,
             awards,
             pin,
+            doesUserExist,
+            login
         }),
         [
             user,
@@ -306,6 +333,8 @@ export const User = ({ children }) => {
             authCode,
             awards,
             pin,
+            doesUserExist,
+            login
         ]
     );
 

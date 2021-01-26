@@ -52,7 +52,7 @@ export default function Name(props) {
             style={{ marginLeft: 3, marginTop: 2 }}
           />
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           //onPress={() => navigation.goBack()}
           style={{ ...styles.signIn, backgroundColor: color.primary, marginLeft: 2, marginTop: 2}}
         >
@@ -62,7 +62,7 @@ export default function Name(props) {
             }}>
               Sign In Here!
             </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </TouchableWithoutFeedback>
   );

@@ -87,14 +87,14 @@ export default function Settings(props) {
         <View style={styles.row}>
           <Text style={{ ...styles.text, color: color.primaryText}}>Phone</Text>
           <View style={styles.fieldRectangle}>
-            <Input placeholder={user.number.toString()} keyboardType="phone-pad" value={userPhone} onChangeText={setNumber} />
+            <Input placeholder={user.number ? user.number.toString() : user.number} keyboardType="phone-pad" value={userPhone} onChangeText={setNumber} />
           </View>
         </View>
 
         <View style={styles.row}>
           <Text style={{ ...styles.text, color: color.primaryText}}>PIN</Text>
           <View style={styles.fieldRectangle}>
-            <Input placeholder={user.pin.toString()} keyboardType="number-pad" value={userPIN} onChangeText={setPIN} />
+            <Input placeholder={user.pin ? user.pin.toString() : user.pin} keyboardType="number-pad" value={userPIN} onChangeText={setPIN} />
           </View>
         </View>
 

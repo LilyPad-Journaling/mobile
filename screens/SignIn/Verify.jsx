@@ -18,14 +18,20 @@ import styles from "../../styles/signInStyles";
 export default function Number(props) {
   const { navigation } = props;
   const { color } = useContext(ColorContext);
-  const { createUser, authCode } = useContext(UserContext);
+  const { createUser, authCode, newUser, doesUserExist, login } = useContext(UserContext);
   const [code, setCode] = useState("");
 
   useEffect(() => {
     if (code == authCode) {
-      createUser();
-      AsyncStorage.setItem("loggedIn", "true");
-      navigation.navigate("Onboarding");
+      doesUserExist(newUser.number, (data) => {
+        if (data.length > 0) {
+          login(data[0]);
+        } else {
+          createUser();
+        }
+        AsyncStorage.setItem("loggedIn", "true");
+        navigation.navigate("Onboarding");
+      })
     }
   }, [code]);
 

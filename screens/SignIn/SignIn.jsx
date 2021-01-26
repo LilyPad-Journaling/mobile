@@ -1,4 +1,4 @@
-mport React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -15,10 +15,8 @@ import { UserContext } from "../../functions/providers/UserContext";
 import { ColorContext } from "../../functions/providers/ColorContext";
 import styles from "../../styles/signInStyles";
 
-const Collection = () => {
-    const { pin } = useContext(UserContext)
-
-
+const SignIn = () => {
+  const { pin } = useContext(UserContext)
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -59,3 +57,5 @@ const Collection = () => {
     </TouchableWithoutFeedback>
   );
 }
+
+export default SignIn
