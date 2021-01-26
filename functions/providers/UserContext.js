@@ -19,6 +19,7 @@ export const useUser = () => {
     const [journals, setJournals] = useState([]);
     const [moods, setMoods] = useState([]);
     const [awards, setAwards] = useState([]);
+    const [pin, setPin] = useState({});
     const [authCode, setAuthCode] = useState("hello");
 
     // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
@@ -29,6 +30,7 @@ export const useUser = () => {
             getJournals(id);
             getMoods(id);
             getAwards(id);
+            getPin(id);
         });
     }, []);
 
@@ -212,6 +214,19 @@ export const useUser = () => {
             .catch((error) => console.log(error));
     };
 
+    //get the PIN tied to user
+    const getPin = (id) => {
+        db.collection('users')
+            .doc(id)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    const userPin = doc.data();
+                    setPin(userPin);
+                }
+            })
+    };
+
     return {
         user,
         userID,
@@ -229,6 +244,7 @@ export const useUser = () => {
         auth,
         authCode,
         awards,
+        pin,
     };
 };
 
@@ -251,6 +267,7 @@ export const User = ({ children }) => {
         auth,
         authCode,
         awards,
+        pin,
     } = useUser();
 
     const userProvider = useMemo(
@@ -270,6 +287,7 @@ export const User = ({ children }) => {
             auth,
             authCode,
             awards,
+            pin,
         }),
         [
             user,
@@ -287,6 +305,7 @@ export const User = ({ children }) => {
             auth,
             authCode,
             awards,
+            pin,
         ]
     );
 
