@@ -19,6 +19,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    signIn: {
+        height: 55,
+        width: 100,
+        borderRadius: 10,
+        position: 'absolute',
+        bottom: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     headerText: {
         fontSize: 24,
         marginBottom: 30
