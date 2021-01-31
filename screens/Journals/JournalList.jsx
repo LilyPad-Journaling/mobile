@@ -66,7 +66,7 @@ function Entry(props) {
 
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate("Journal", { data: { ...data, lastUpdated: dateToMDY(data.lastUpdated), timeCreated: dateToMDY(data.timeCreated) }})}
+      onPress={() => props.navigation.navigate("Journal", { data: { ...data, lastUpdated: data.lastUpdated, timeCreated: data.timeCreated }})}
       style={[style, styles.entryContent]}
     >
       <View>

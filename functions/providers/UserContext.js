@@ -3,11 +3,14 @@ import { useState, useEffect, createContext, useMemo } from 'react';
 import { AsyncStorage } from 'react-native';
 import * as fb from 'firebase';
 import 'firebase/firestore';
+import * as dayjs from 'dayjs';
+//import utc from 'dayjs/plugin/utc';
+//dayjs.extend(utc);
 
 import { firebase } from '../util/firebase';
 
 const db = firebase.firestore();
-const getTimestamp = () => fb.firestore.FieldValue.serverTimestamp();
+const getTimestamp = dayjs.dayjs().format('hh:mm DD/MM/YY');
 
 export const useUser = () => {
     // store userID
@@ -188,7 +191,7 @@ export const useUser = () => {
                     energy: 6,
                     stress: 8.3
                 },
-                timeCreated: timeStamp.now()
+                timeCreated: getTimestamp()
             });
     };
 
