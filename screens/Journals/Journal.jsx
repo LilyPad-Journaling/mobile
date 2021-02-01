@@ -21,6 +21,10 @@ import {
   renderers
 } from 'react-native-popup-menu';
 
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
+
 import styles from "../../styles/journalStyles";
 import { UserContext } from "../../functions/providers/UserContext";
 import { color } from "../../functions/providers/ColorContext";
@@ -95,8 +99,9 @@ export default function Journal(props) {
               value={title}
               onChangeText={setTitle}
             />
-            <Text style={styles.regtext}>{'Created: ' + data.timeCreated}</Text>
-            <Text style={styles.regtext}>{'Updated: ' + data.lastUpdated}</Text>
+            {/* EB: two constants are aqcuired from firebase storage, simply displays two timestamps in journal UI */}
+            <Text style={styles.regtext}>{'Created: ' + dayjs(data.timeCreated).format('dddd MM/DD/YY hh:mm a')}</Text>
+            <Text style={styles.regtext}>{'Updated: ' + dayjs(data.lastUpdated).format('dddd MM/DD/YY hh:mm a')}</Text>
           </View>
           <View style={styles.notesui}>
             <TextInput
