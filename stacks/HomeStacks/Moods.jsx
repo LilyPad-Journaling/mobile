@@ -20,16 +20,12 @@ const Moods = ({ navigation }) => {
       <Stack.Screen
         name="Analysis"
         component={Analysis}
-        options={{
-          gestureEnabled: false,
-        }}
+        gestureEnabled={false}
       />
       <Stack.Screen
         name="Track"
         component={Track}
-        options={{
-          gestureEnabled: false,
-        }}
+        gestureEnabled={false}
       />
     </Stack.Navigator>
   );

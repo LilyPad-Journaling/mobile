@@ -42,11 +42,7 @@ export default function Track(props) {
               marginBottom: 10}}>
                 {item.name}
               </Text>
-              <SliderBar >
-                {/* <View style={styles.graph}>
-                <Text>Graph</Text>
-              </View> */}
-              </SliderBar>
+              <SliderBar />
             </View>
           );
         }}
@@ -105,12 +101,16 @@ const styles = StyleSheet.create({
 const SliderBar = () => {
   const { color } = useContext(ColorContext);
   const [value, setValue] = useState(0);
+  const [valueView, setViewValue] = useState(0);
   
   return (
     <View>
       <Slider
         value={value}
-        onValueChange={setValue}
+        onValueChange={val => { 
+          setViewValue(Math.round(val * 10));
+          setValue(val);
+        }}
         thumbStyle={{
           height: 40,
           width: 40,
