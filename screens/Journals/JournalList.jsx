@@ -11,35 +11,41 @@ import { ColorContext } from "../../functions/providers/ColorContext";
 import generalStyles from "../../styles/generalStyles";
 import styles from "../../styles/journalListStyles";
 
-function dateToDay(date) {
-  if (new Date().toDateString() === date.toDateString()) {
-    return "Today";
-  } else {
-    switch (date.getDay()) {
-      case 1:
-        return "Monday";
-      case 2:
-        return "Tuesday";
-      case 3:
-        return "Wednesday";
-      case 4:
-        return "Thursday";
-      case 5:
-        return "Friday";
-      case 6:
-        return "Saturday";
-      default:
-        return "Sunday";
-    }
-  }
-}
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
-function dateToMDY(date) {
-  let month = date.getUTCMonth() + 1;
-  let day = date.getUTCDate();
-  let year = date.getUTCFullYear();
-  return month + "/" + day + "/" + year;
-}
+// 1EB: OLD function compares today's date to the stored date for a given journal entry, then if false also checks which day of week the journal was created, returns string
+// function dateToDay(date) {
+//   if (new Date().toDateString() === date.toDateString()) {
+//     return "Today";
+//   } else {
+//     switch (date.getDay()) {
+//       case 1:
+//         return "Monday";
+//       case 2:
+//         return "Tuesday";
+//       case 3:
+//         return "Wednesday";
+//       case 4:
+//         return "Thursday";
+//       case 5:
+//         return "Friday";
+//       case 6:
+//         return "Saturday";
+//       default:
+//         return "Sunday";
+//     }
+//   }
+// }
+
+// 2EB: OLD function used to convert firebase-stored timestamp to MDY format for journal list UI
+// function dateToMDY(date) {
+//   let month = date.getUTCMonth() + 1;
+//   let day = date.getUTCDate();
+//   let year = date.getUTCFullYear();
+//   return month + "/" + day + "/" + year;
+// }
 
 function Entry(props) {
   const { color } = useContext(ColorContext);
@@ -66,7 +72,7 @@ function Entry(props) {
 
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate("Journal", { data: { ...data, lastUpdated: dateToMDY(data.lastUpdated), timeCreated: dateToMDY(data.timeCreated) }})}
+      onPress={() => props.navigation.navigate("Journal", { data: { ...data }})}
       style={[style, styles.entryContent]}
     >
       <View>
@@ -86,14 +92,14 @@ function JournalList(props) {
     // If this is the first entry or its date comes before the previous entry's date
     if (
       i === 0 ||
-      journals[i].timeCreated.getTime() !==
-        journals[i - 1].timeCreated.getTime()
+      dayjs(journals[i].timeCreated).format('MMDDYY') !==
+      dayjs(journals[i - 1].timeCreated).format('MMDDYY')
     ) {
       // If this is the last entry or its date comes before the next entry's date
       if (
         i === journals.length - 1 ||
-        journals[i + 1].timeCreated.getTime() !==
-          journals[i].timeCreated.getTime()
+        dayjs(journals[i + 1].timeCreated).format('MMDDYY') !==
+        dayjs(journals[i].timeCreated).format('MMDDYY')
       ) {
         journals[i].style = "both";
       } else {
@@ -102,8 +108,8 @@ function JournalList(props) {
       // Otherwise, if this is the last entry or its date comes before the next entry's date
     } else if (
       i === journals.length - 1 ||
-      journals[i + 1].timeCreated.getTime() !==
-        journals[i].timeCreated.getTime()
+      dayjs(journals[i + 1].timeCreated).format('MMDDYY') !==
+      dayjs(journals[i].timeCreated).format('MMDDYY')
     ) {
       journals[i].style = "bottom";
     }
@@ -114,8 +120,8 @@ function JournalList(props) {
   for (let i = 0; i < journals.length; i++) {
     if (
       data.length === 0 ||
-      data[data.length - 1][0].timeCreated.getTime() !==
-        journals[i].timeCreated.getTime()
+      dayjs(data[data.length - 1][0].timeCreated).format('MMDDYY') !==
+      dayjs(journals[i].timeCreated).format('MMDDYY')
     ) {
       data.push([journals[i]]);
     } else {
@@ -134,7 +140,7 @@ function JournalList(props) {
       data={data}
       style={styles.topList}
       contentContainerStyle={styles.entryList}
-      keyExtractor={(item) => item[0].timeCreated.toString() + item[0].id}
+      keyExtractor={(item) => item[0].timeCreated + item[0].id}
       renderItem={({ item }) => (
         <View>
           <Text
@@ -146,11 +152,13 @@ function JournalList(props) {
             }}
           >
             <Text>
-              {dateToDay(item[0].timeCreated)}
+             {/* 3EB: display day of journal entry */}
+              {dayjs(item[0].timeCreated).format('dddd')}
               {"  "}
             </Text>
             <Text style={{ color: color.inactive, fontSize: 14 }}>
-              {dateToMDY(item[0].timeCreated)}
+            {/* 4EB: display MDY of journal entry */}
+              {dayjs(item[0].timeCreated).format('MM/DD/YY')}
             </Text>
           </Text>
           <FlatList
