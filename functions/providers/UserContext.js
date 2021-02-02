@@ -3,11 +3,17 @@ import { useState, useEffect, createContext, useMemo } from 'react';
 import { AsyncStorage } from 'react-native';
 import * as fb from 'firebase';
 import 'firebase/firestore';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 import { firebase } from '../util/firebase';
 
+// 1EB: getTimestamp function creates timestamp upon creation of new journal entry, stores in firebase as timezone sensitive date in ISO 8601 format
+
 const db = firebase.firestore();
-const getTimestamp = () => fb.firestore.FieldValue.serverTimestamp();
+const getTimestamp = () => dayjs().local().format();
+//OLD: const getTimestamp = () => fb.firestore.FieldValue.serverTimestamp();
 
 export const useUser = () => {
     // store userID
@@ -79,11 +85,13 @@ export const useUser = () => {
                 let journalData = journalsData.map((journal) => ({
                     ...journal,
                     timeCreated: journal.timeCreated
-                        ? journal.timeCreated.toDate()
-                        : new Date(),
+                    // 2EB: Checks whether timestamp for timeCreated exists
+                        ? journal.timeCreated
+                        : getTimestamp(),
                     lastUpdated: journal.lastUpdated
-                        ? journal.lastUpdated.toDate()
-                        : new Date()
+                    // 3EB: Checks whether timestamp for lastUpdated exists
+                        ? journal.lastUpdated
+                        : getTimestamp()
                 }));
                 setJournals(
                     journalData.sort((a, b) => b.timeCreated - a.timeCreated)
@@ -106,8 +114,9 @@ export const useUser = () => {
                     moodsData.map((mood) => ({
                         ...mood,
                         timeCreated: mood.timeCreated
-                            ? mood.timeCreated.toDate()
-                            : new Date()
+                        // 4EB: Checks whether timestamp for timeCreated exists
+                            ? mood.timeCreated
+                            : getTimestamp()
                     }))
                 );
             });
@@ -169,9 +178,10 @@ export const useUser = () => {
                 callback({
                     id: doc.id,
                     ...data,
-                    // New date() just for now
-                    lastUpdated: new Date(),
-                    timeCreated: new Date()
+                    // OLD: New date() 
+                    // 5EB: two constants store timestamp in firebase aqcuired from top function getTimestamp(), displayed in journal UI
+                    lastUpdated: getTimestamp(),
+                    timeCreated: getTimestamp()
                 });
             });
     };
@@ -188,7 +198,7 @@ export const useUser = () => {
                     energy: 6,
                     stress: 8.3
                 },
-                timeCreated: timeStamp.now()
+                timeCreated: getTimestamp()
             });
     };
 
