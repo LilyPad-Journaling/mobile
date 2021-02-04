@@ -1,17 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Text, View, StyleSheet, FlatList, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
 import { ColorContext } from "../../functions/providers/ColorContext";
+import { UserContext } from "../../functions/providers/UserContext";
 import IconButton from "../../components/General/Button";
 import generalStyles from "../../styles/generalStyles";
 
 const windowWidth = Dimensions.get("window").width;
 
 const data = [
-  {
-    name: "Mood",
-  },
   {
     name: "Anxiety",
   },
@@ -21,11 +19,32 @@ const data = [
   {
     name: "Activity",
   },
+  {
+    name: "Stress",
+  },
 ];
 
 export default function Analysis(props) {
   const { navigation } = props;
   const { color } = useContext(ColorContext);
+  const { moods } = useContext(UserContext);
+  // const [interval, setInterval] = useState(5); //useState? set weekly/monthly
+  // weekly - 7 days
+  // monthly - 6 months or diff btwn first and last entry if < 6, use avg of entries from that month
+
+  // moods.map((mood) => ({
+  //   ...mood,
+  //   difference: new Date().toDateString()-mood.timeCreated
+  // }))
+
+  //c/p for reference
+//   moodsData.map((mood) => ({
+//     ...mood,
+//     timeCreated: mood.timeCreated
+//     // 4EB: Checks whether timestamp for timeCreated exists
+//         ? mood.timeCreated
+//         : getTimestamp()
+// }))
 
   return (
     <View style={[styles.container, { backgroundColor: color.background }]}>

@@ -188,19 +188,20 @@ export const useUser = () => {
     };
 
     // Creates mood document in userID's mood collection on firebase (can use hardcoded data to test!)
-    const createMood = (id) => {
+    const createMood = (userID, anxiety, energy, activity, stress, callback) => {
         db.collection('users')
-            .doc(id)
+            .doc(userID)
             .collection('moods')
             .add({
-                metrics: {
-                    mood: 5,
-                    anxiety: 9,
-                    energy: 6,
-                    stress: 8.3
-                },
+                activity, 
+                anxiety, 
+                energy, 
+                stress,
                 timeCreated: getTimestamp()
-            });
+            }).then(() => {
+                getMoods(userID)
+                callback()
+            })
     };
 
     // Updates user object by userID with new partial object, new fields can look like { color: "red", phoneNumber: "newnumberlol" }
@@ -225,6 +226,22 @@ export const useUser = () => {
                 getJournals(userID);
             });
     };
+
+    // const updateMood = (userID, moodID, activity, anxiety, energy, stress) => {
+    //     db.collection('users')
+    //         .doc(userID)
+    //         .collection('moods')
+    //         .doc(moodID)
+    //         .update({
+    //             activity, 
+    //             anxiety, 
+    //             energy, 
+    //             stress
+    //         })
+    //         .then(() => {
+    //             getMoods(userID);
+    //         });
+    // };
 
     const auth = (number) => {
         const url =
@@ -278,7 +295,8 @@ export const useUser = () => {
         awards,
         pin,
         doesUserExist,
-        login
+        login,
+        createMood
     };
 };
 
@@ -303,7 +321,8 @@ export const User = ({ children }) => {
         awards,
         pin,
         doesUserExist,
-        login
+        login,
+        createMood
     } = useUser();
 
     const userProvider = useMemo(
@@ -325,7 +344,8 @@ export const User = ({ children }) => {
             awards,
             pin,
             doesUserExist,
-            login
+            login,
+            createMood
         }),
         [
             user,
@@ -345,7 +365,8 @@ export const User = ({ children }) => {
             awards,
             pin,
             doesUserExist,
-            login
+            login,
+            createMood
         ]
     );
 
