@@ -17,7 +17,7 @@ const getTimestamp = () => dayjs().local().format();
 
 export const useUser = () => {
     // store userID
-    const [userID, setUserID] = useState('');
+    const [userID, setUserID] = useState('none');
     // stores user object
     const [user, setUser] = useState({});
     // storing user fields for sign in sequence
@@ -31,6 +31,7 @@ export const useUser = () => {
     // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
     useEffect(() => {
         AsyncStorage.getItem('userID', (err, id) => {
+            id = id ? id : 'none';
             setUserID(id);
             getUser(id);
             getJournals(id);
