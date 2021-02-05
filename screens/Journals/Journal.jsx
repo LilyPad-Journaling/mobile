@@ -18,11 +18,11 @@ import {
   MenuOption,
   MenuTrigger,
   MenuProvider,
-  renderers
-} from 'react-native-popup-menu';
+  renderers,
+} from "react-native-popup-menu";
 
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 
 import styles from "../../styles/journalStyles";
@@ -33,7 +33,13 @@ const { SlideInMenu } = renderers;
 export default function Journal(props) {
   const { navigation, route } = props;
   const { data } = route.params;
-  const { userID, updateJournal } = useContext(UserContext);
+  const {
+    userID,
+    updateJournal,
+    starJournal,
+    lockJournal,
+    deleteJournal,
+  } = useContext(UserContext);
 
   const [title, setTitle] = useState(data.title);
   const [body, setBody] = useState(data.body);
@@ -51,15 +57,20 @@ export default function Journal(props) {
   // Called when Journal is closed
   // componentWillUnmount equivalent https://stackoverflow.com/questions/55139386/componentwillunmount-with-react-useeffect-hook
   useEffect(() => {
-      return () => {
-        updateJournal(userID, data.id, titleRef.current, bodyRef.current);
-      };
+    return () => {
+      updateJournal(userID, data.id, titleRef.current, bodyRef.current);
+    };
   }, [props.current]);
 
   return (
     <MenuProvider>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={{ ...styles.container, backgroundColor: color.backgroundColor}}>
+        <View
+          style={{
+            ...styles.container,
+            backgroundColor: color.backgroundColor,
+          }}
+        >
           <View style={styles.topnav}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <FAIcon name="chevron-left" color={color.inactive} size={32} />
@@ -70,8 +81,10 @@ export default function Journal(props) {
               >
                 <FEIcon name="smile" color={color.inactive} size={32} />
               </TouchableOpacity>
-              <Menu name="numbers" renderer={SlideInMenu} onSelect={value => this.selectNumber(value)}>
-                <MenuTrigger customStyles={{ triggerOuterWrapper: styles.trigger }} >
+              <Menu name="numbers" renderer={SlideInMenu}>
+                <MenuTrigger
+                  customStyles={{ triggerOuterWrapper: styles.trigger }}
+                >
                   <EIcon
                     style={{ marginTop: -5 }}
                     name="dots-three-vertical"
@@ -80,10 +93,41 @@ export default function Journal(props) {
                   />
                 </MenuTrigger>
                 <MenuOptions>
-                  <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={1} text='Pin' />
-                  <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={2} text='Lock' />
-                  <MenuOption customStyles={{ optionText: [styles.bluetext] }} value={3} text='Share' />
-                  <MenuOption customStyles={{ optionText: [styles.redtext] }} value={4} text='Delete' />
+                  <MenuOption
+                    onSelect={() => {
+                      starJournal(userID, data.id, !data.starred),
+                        alert(data.starred ? `Unstarred` : "Starred"),
+                        (data.starred = !data.starred);
+                    }}
+                    customStyles={{ optionText: [styles.bluetext] }}
+                    value={1}
+                    text={data.starred ? "Unstar" : "Star"}
+                  />
+                  <MenuOption
+                    onSelect={() => {
+                      lockJournal(userID, data.id, !data.private),
+                        alert(data.private ? `Unlocked` : "Locked"),
+                        (data.private = !data.private);
+                    }}
+                    customStyles={{ optionText: [styles.bluetext] }}
+                    value={2}
+                    text={data.private ? "Unlock" : "Lock"}
+                  />
+                  <MenuOption
+                    customStyles={{ optionText: [styles.bluetext] }}
+                    value={3}
+                    text="Share"
+                  />
+                  <MenuOption
+                    onSelect={() => {
+                      deleteJournal(userID, data.id),
+                        alert(`Deleted`),
+                        navigation.goBack();
+                    }}
+                    customStyles={{ optionText: [styles.redtext] }}
+                    value={4}
+                    text="Delete"
+                  />
                 </MenuOptions>
               </Menu>
             </View>
@@ -100,8 +144,14 @@ export default function Journal(props) {
               onChangeText={setTitle}
             />
             {/* EB: two constants are aqcuired from firebase storage, simply displays two timestamps in journal UI */}
-            <Text style={styles.regtext}>{'Created: ' + dayjs(data.timeCreated).format('dddd MM/DD/YY hh:mm a')}</Text>
-            <Text style={styles.regtext}>{'Updated: ' + dayjs(data.lastUpdated).format('dddd MM/DD/YY hh:mm a')}</Text>
+            <Text style={styles.regtext}>
+              {"Created: " +
+                dayjs(data.timeCreated).format("dddd MM/DD/YY hh:mm a")}
+            </Text>
+            <Text style={styles.regtext}>
+              {"Updated: " +
+                dayjs(data.lastUpdated).format("dddd MM/DD/YY hh:mm a")}
+            </Text>
           </View>
           <View style={styles.notesui}>
             <TextInput
@@ -119,7 +169,6 @@ export default function Journal(props) {
           </View>
         </View>
       </TouchableWithoutFeedback>
-
     </MenuProvider>
   );
 }
