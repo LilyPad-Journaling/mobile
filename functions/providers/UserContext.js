@@ -185,22 +185,6 @@ export const useUser = () => {
       });
   };
 
-  // Creates mood document in userID's mood collection on firebase (can use hardcoded data to test!)
-  const createMood = (id) => {
-    db.collection("users")
-      .doc(id)
-      .collection("moods")
-      .add({
-        metrics: {
-          mood: 5,
-          anxiety: 9,
-          energy: 6,
-          stress: 8.3,
-        },
-        timeCreated: getTimestamp(),
-      });
-  };
-
   // Updates user object by userID with new partial object, new fields can look like { color: "red", phoneNumber: "newnumberlol" }
   const updateUser = (id, newFields) => {
     db.collection("users").doc(id).update({
