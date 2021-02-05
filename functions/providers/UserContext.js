@@ -224,6 +224,23 @@ export const useUser = () => {
       });
   };
 
+  // Creates mood document in userID's mood collection on firebase (can use hardcoded data to test!)
+  const createMood = (userID, anxiety, energy, activity, stress, callback) => {
+      db.collection('users')
+          .doc(userID)
+          .collection('moods')
+          .add({
+              activity, 
+              anxiety, 
+              energy, 
+              stress,
+              timeCreated: getTimestamp()
+          }).then(() => {
+              getMoods(userID)
+              callback()
+          })
+  };
+
   const auth = (number) => {
     const url =
       "https://us-central1-hodas-f14c5.cloudfunctions.net/widgets/auth";
@@ -317,6 +334,7 @@ export const useUser = () => {
     pin,
     doesUserExist,
     login,
+    createMood
   };
 };
 
@@ -345,6 +363,7 @@ export const User = ({ children }) => {
     pin,
     doesUserExist,
     login,
+    createMood
   } = useUser();
 
   const userProvider = useMemo(
@@ -370,6 +389,7 @@ export const User = ({ children }) => {
       pin,
       doesUserExist,
       login,
+      createMood
     }),
     [
       user,

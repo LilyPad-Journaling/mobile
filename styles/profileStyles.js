@@ -28,11 +28,25 @@ const profileStyles = StyleSheet.create({
         marginLeft: -150,
         paddingLeft: 160
     },
+    section: {
+        width: '95%',
+        marginLeft: '2.5%',
+        marginTop: 10,
+        height: 70,
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: '5%',
+        alignItems: 'center'
+    },
+    sectionHeader: {
+        fontSize: 18,
+        fontFamily: 'medium'
+    },
     fieldRectangle: {
         width: 260,
         height: 30,
         borderRadius: 10,
-        backgroundColor: 'white',
         alignItems: 'flex-start',
         marginLeft: 100,
         position: 'absolute'
