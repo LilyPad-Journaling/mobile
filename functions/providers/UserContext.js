@@ -15,6 +15,8 @@ const db = firebase.firestore();
 const getTimestamp = () => dayjs().local().format();
 //OLD: const getTimestamp = () => fb.firestore.FieldValue.serverTimestamp();
 
+
+
 export const useUser = () => {
   // store userID
   const [userID, setUserID] = useState("none");
@@ -87,11 +89,11 @@ export const useUser = () => {
           ...journal,
           timeCreated: journal.timeCreated
             ? // 2EB: Checks whether timestamp for timeCreated exists
-              journal.timeCreated
+            journal.timeCreated
             : getTimestamp(),
           lastUpdated: journal.lastUpdated
             ? // 3EB: Checks whether timestamp for lastUpdated exists
-              journal.lastUpdated
+            journal.lastUpdated
             : getTimestamp(),
         }));
         setJournals(journalData.sort((a, b) => b.timeCreated - a.timeCreated));
@@ -114,14 +116,28 @@ export const useUser = () => {
             ...mood,
             timeCreated: mood.timeCreated
               ? // 4EB: Checks whether timestamp for timeCreated exists
-                mood.timeCreated
+              mood.timeCreated
               : getTimestamp(),
           }))
         );
       });
   };
 
-  // Gets moods by user id
+  // create awards -- pass award gained through this function and into the db
+  const createAward = (award, id) => {
+    for (a of awards) {
+      if (a.id == award.id) return;
+    }
+    db.collection("users")
+      .doc(id)
+      .collection("awards")
+      .add(award)
+      .then(() => {
+        getAwards(id)
+      })
+  }
+
+  // Gets awards by user id
   const getAwards = (id) => {
     db.collection("users")
       .doc(id)
@@ -174,6 +190,9 @@ export const useUser = () => {
       .collection("journals")
       .add(data)
       .then((doc) => {
+        // if(journals.length == 0) { 
+        //   createAward(id, description, image)
+        // }
         callback({
           id: doc.id,
           ...data,
@@ -210,19 +229,19 @@ export const useUser = () => {
 
   // Creates mood document in userID's mood collection on firebase (can use hardcoded data to test!)
   const createMood = (userID, anxiety, energy, activity, stress, callback) => {
-      db.collection('users')
-          .doc(userID)
-          .collection('moods')
-          .add({
-              activity, 
-              anxiety, 
-              energy, 
-              stress,
-              timeCreated: getTimestamp()
-          }).then(() => {
-              getMoods(userID)
-              callback()
-          })
+    db.collection('users')
+      .doc(userID)
+      .collection('moods')
+      .add({
+        activity,
+        anxiety,
+        energy,
+        stress,
+        timeCreated: getTimestamp()
+      }).then(() => {
+        getMoods(userID)
+        callback()
+      })
   };
 
   const auth = (number) => {
@@ -318,7 +337,9 @@ export const useUser = () => {
     pin,
     doesUserExist,
     login,
-    createMood
+    createMood,
+    getAwards,
+    createAward
   };
 };
 
@@ -347,7 +368,9 @@ export const User = ({ children }) => {
     pin,
     doesUserExist,
     login,
-    createMood
+    createMood,
+    getAwards,
+    createAward
   } = useUser();
 
   const userProvider = useMemo(
@@ -373,7 +396,9 @@ export const User = ({ children }) => {
       pin,
       doesUserExist,
       login,
-      createMood
+      createMood,
+      getAwards,
+      createAward
     }),
     [
       user,
@@ -397,6 +422,8 @@ export const User = ({ children }) => {
       pin,
       doesUserExist,
       login,
+      getAwards,
+      createAward
     ]
   );
 
