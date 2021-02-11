@@ -12,17 +12,16 @@ const original = {
 };
 
 const colorSchemes = [
+    'green',
     'blue',
-    'periwinkle',
+    'yellow',
     'pink',
     'lavender',
-    'yellow',
-    'green',
-    'cyberpunk',
-    'dark3',
+    'periwinkle',
+    'original',
     'dark2',
-    'dark1',
-    'original'
+    'dark3',
+    'dark1'
 ];
 
 describe('Color Tests', () => {
