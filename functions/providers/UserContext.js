@@ -4,6 +4,8 @@ import * as fb from "firebase";
 import "firebase/firestore";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+const { mp } = require("../util/mixpanel");
+
 dayjs.extend(utc);
 
 import { firebase } from "../util/firebase";
@@ -49,6 +51,9 @@ export const useUser = () => {
         if (doc.exists) {
           const userData = doc.data();
           setUser(userData);
+
+          mp.identify(id);
+          mp.people_set(userData);
         }
       });
   };
