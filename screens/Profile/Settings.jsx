@@ -34,7 +34,13 @@ const Section = ({
                     shadowColor: color.shadow
                 }}
             >
-                <Text style={styles.sectionHeader}>{section}</Text>
+                <Text style={{
+                        ...styles.sectionHeader, 
+                        color: color.primaryText
+                    }}
+                >
+                    {section}
+                </Text>
                 <TextInput
                     placeholder={placeholder}
                     keyboardType={keyboardType}
@@ -75,17 +81,17 @@ export default function Settings(props) {
     const [userPIN, setPIN] = useState('');
 
     const data = [
+        // TODO: ... colorSchemes //convert object to array, set = to data    
+        { name: 'green', color: colorSchemes.green.background },
+        { name: 'blue', color: colorSchemes.blue.background },
+        { name: 'yellow', color: colorSchemes.yellow.background },
+        { name: 'pink', color: colorSchemes.pink.background },
+        { name: 'lavender', color: colorSchemes.lavender.background },
+        { name: 'periwinkle', color: colorSchemes.periwinkle.background },
         { name: 'original', color: colorSchemes.original.background },
-        { name: 'dark1', color: colorSchemes.dark1.background },
         { name: 'dark2', color: colorSchemes.dark2.background },
         { name: 'dark3', color: colorSchemes.dark3.background },
-        { name: 'cyberpunk', color: colorSchemes.cyberpunk.background },
-        { name: 'green', color: colorSchemes.green.background },
-        { name: 'yellow', color: colorSchemes.yellow.background },
-        { name: 'lavender', color: colorSchemes.lavender.background },
-        { name: 'pink', color: colorSchemes.pink.background },
-        { name: 'periwinkle', color: colorSchemes.periwinkle.background },
-        { name: 'blue', color: colorSchemes.blue.background }
+        { name: 'dark1', color: colorSchemes.dark1.background },
     ];
 
     return (
@@ -96,7 +102,7 @@ export default function Settings(props) {
                 ]}
             >
                 <Section
-                    section="Name"
+                    section={"Name"}
                     placeholder={user.name}
                     keyboardType="default"
                     value={userName}
@@ -119,12 +125,21 @@ export default function Settings(props) {
                     onChangeText={setPIN}
                 />
                 <View
-                    style={{
-                        ...styles.row,
-                        borderRadius: 20,
-                        overflow: 'hidden'
+                    style={{ 
+                        ...styles.rowColor,                     
+                        backgroundColor: color.primary,
+                        ...generalStyles.shadow,
+                        shadowColor: color.shadow 
                     }}
-                >
+                >                    
+                    <Text 
+                        style={{
+                            ...styles.colorHeader,
+                            color: color.primaryText
+                        }}
+                    >
+                        Color
+                    </Text>
                     <FlatList
                         contentContainerStyle={styles.colorsRectangle}
                         data={data}
@@ -143,7 +158,6 @@ export default function Settings(props) {
                         }}
                     />
                 </View>
-
                 <TouchableOpacity
                     onPress={async () => {
                         // ugly solution to logout / rerender
