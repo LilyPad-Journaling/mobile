@@ -3,6 +3,7 @@ import { View, Text, FlatList, Image } from "react-native"
 
 import { UserContext } from "../../functions/providers/UserContext"
 
+
 const Collection = () => {
     const { awards } = useContext(UserContext)
 
