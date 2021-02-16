@@ -101,6 +101,9 @@ export default function Journal(props) {
                       starJournal(userID, data.id, !data.starred),
                         alert(data.starred ? `Unstarred` : "Starred"),
                         (data.starred = !data.starred);
+                      if (data.starred && data.private){
+                        createAward(awardsSchemes.privateAndStarredEntry, userID);
+                      } 
                     }}
                     customStyles={{ optionText: [styles.bluetext] }}
                     value={1}
@@ -112,6 +115,9 @@ export default function Journal(props) {
                       lockJournal(userID, data.id, !data.private),
                         alert(data.private ? `Unlocked` : "Locked"),
                         (data.private = !data.private);
+                      if (data.starred && data.private){
+                        createAward(awardsSchemes.privateAndStarredEntry, userID);
+                      } 
                     }}
                     customStyles={{ optionText: [styles.bluetext] }}
                     value={2}

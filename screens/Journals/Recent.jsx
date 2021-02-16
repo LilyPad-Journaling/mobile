@@ -21,6 +21,9 @@ export default function Recent(props) {
           if (journals.length >= 0){
             createAward(awardsSchemes.firstEntry, userID)
           }
+          if (journals.length >= 9){
+            createAward(awardsSchemes.tenEntries, userID)
+          }
           createJournal(userID, data => {
             navigation.navigate("Journal", { data });
           });        
