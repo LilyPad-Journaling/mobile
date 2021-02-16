@@ -3,6 +3,7 @@ import React, { useContext, createContext, useEffect, useState, useMemo } from "
 import { UserContext } from "../../functions/providers/UserContext";
 
 
+
 // all the possible awards a user can recieve
 // accounted for
 const firstEntry = {
@@ -28,14 +29,16 @@ const tenEntries = {
 const privateEntry = {
     id: 4,
     description: "You made a journal entry private",
-    image: "https://lh3.googleusercontent.com/proxy/N4W5XAS1zavWlil8V8G8eP7cJOJb66p69-Dv580EQJsfHH96JW9wNmGgcYwvMTu1VmYwvrva1w7np0A8nnkbjnEFSAqxBWaWjwBghGvQXYxOsKnZUWIhx7H5cP_pfJaKHQ0oMG47qfLJZA"
+    image: "https://www.clipartqueen.com/image-files/koi-fish-drawing-color-2.png"
 }
 
+//accounted for
 const privateAndStarredEntry = {
     id: 5,
     description: "You made a single journal entry private and starred it",
     image: "https://www.pinclipart.com/picdir/big/278-2781225_dragonfly-clipart-transparent-background-png-download.png"
 }
+
 
 export const awardsSchemes = {
     firstEntry, starredEntry, tenEntries, privateEntry, privateAndStarredEntry
