@@ -26,9 +26,9 @@ const Collection = () => {
                 data={allAwards}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View style={{ width: '100%', height: 70, flexDirection: 'row', justifyContent: 'flex-start' }}>
+                    <View style={{ width: '95%', height: 70, flexDirection: 'row', justifyContent: 'flex-start' }}>
                         <Image style={{ height: 50, width: 50, marginHorizontal: 20, marginVertical: 10 }} source={{ uri: item.image}} />
-                        <Text style={{ marginVertical: 27, color: color.primaryText }}>{item.description}</Text>
+                        <Text style={{ marginTop: 23, fontSize: 16, color: color.primaryText }}>{item.description}</Text>
                     </View>
                 )}
             />

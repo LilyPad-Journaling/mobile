@@ -35,7 +35,7 @@ const privateEntry = {
 //accounted for
 const privateAndStarredEntry = {
     id: 5,
-    description: "You made a single journal entry private and starred it",
+    description: "You made a single journal entry\nprivate and starred it",
     image: "https://www.pinclipart.com/picdir/big/278-2781225_dragonfly-clipart-transparent-background-png-download.png"
 }
 
