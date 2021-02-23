@@ -80,14 +80,14 @@ export default function Resource(props) {
                     flexDirection: "row",
                   }}
                 >
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     style={{
                       justifyContent: "center",
                       paddingRight: 5,
                     }}
                   >
                     <Icon name="star" color={color.primaryText} size={28} />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <View
                     style={{
                       ...styles.categoryContainer,
@@ -110,7 +110,6 @@ export default function Resource(props) {
               );
             }}
           />
-          {/* <Text>see more...</Text> */}
         </View>
       )}
     </View>
