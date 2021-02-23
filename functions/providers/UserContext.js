@@ -16,138 +16,29 @@ const db = firebase.firestore();
 const getTimestamp = () => dayjs().local().format();
 //OLD: const getTimestamp = () => fb.firestore.FieldValue.serverTimestamp();
 
-
-
 export const useUser = () => {
-  // store userID
-  const [userID, setUserID] = useState("none");
-  // stores user object
-  const [user, setUser] = useState({});
-  // storing user fields for sign in sequence
-  const [newUser, setNewUser] = useState({});
-  const [journals, setJournals] = useState([]);
-  const [moods, setMoods] = useState([]);
-  const [awards, setAwards] = useState([]);
-  const [pin, setPin] = useState({});
-  const [authCode, setAuthCode] = useState("hello");
+    // store userID
+    const [userID, setUserID] = useState('none');
+    // stores user object
+    const [user, setUser] = useState({});
+    // storing user fields for sign in sequence
+    const [newUser, setNewUser] = useState({});
+    const [journals, setJournals] = useState([]);
+    const [moods, setMoods] = useState([]);
+    const [awards, setAwards] = useState([]);
+    const [pin, setPin] = useState({});
+    const [authCode, setAuthCode] = useState('hello');
 
-  // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
-  useEffect(() => {
-    AsyncStorage.getItem("userID", (err, id) => {
-      id = id ? id : "none";
-      setUserID(id);
-      getUser(id);
-      getJournals(id);
-      getMoods(id);
-      getAwards(id);
-      getPin(id);
-    });
-  }, []);
-
-  // Gets user by id
-  const getUser = (id) => {
-    db.collection("users")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const userData = doc.data();
-          setUser(userData);
-        }
-      });
-  };
-
-  // Gets user by id
-  const doesUserExist = (number, callback) => {
-    db.collection("users")
-      .where("number", "==", number)
-      .get()
-      .then(async (querySnapshot) => {
-        let users = [];
-        await querySnapshot.forEach((snapshot) => {
-          users.push({ ...snapshot.data(), id: snapshot.id });
-        });
-        callback(users);
-      })
-      .catch((err) => console.log("ERR", err));
-  };
-
-  // Gets journals by user id
-  const getJournals = (id) => {
-    db.collection("users")
-      .doc(id)
-      .collection("journals")
-      .get()
-      .then((querySnapshot) => {
-        let journalsData = [];
-        querySnapshot.forEach((snapshot) => {
-          journalsData.push({
-            id: snapshot.id,
-            ...snapshot.data(),
-          });
-        });
-        let journalData = journalsData.map((journal) => ({
-          ...journal,
-          timeCreated: journal.timeCreated
-            ? // 2EB: Checks whether timestamp for timeCreated exists
-            journal.timeCreated
-            : getTimestamp(),
-          lastUpdated: journal.lastUpdated
-            ? // 3EB: Checks whether timestamp for lastUpdated exists
-            journal.lastUpdated
-            : getTimestamp(),
-        }));
-        setJournals(journalData.sort((a, b) => b.timeCreated - a.timeCreated));
-      });
-  };
-
-  // Gets moods by user id
-  const getMoods = (id) => {
-    db.collection("users")
-      .doc(id)
-      .collection("moods")
-      .get()
-      .then((querySnapshot) => {
-        let moodsData = [];
-        querySnapshot.forEach((snapshot) => {
-          moodsData.push(snapshot.data());
-        });
-        setMoods(
-          moodsData.map((mood) => ({
-            ...mood,
-            timeCreated: mood.timeCreated
-              ? // 4EB: Checks whether timestamp for timeCreated exists
-              mood.timeCreated
-              : getTimestamp(),
-          }))
-        );
-      });
-  };
-
-  // create awards -- pass award gained through this function and into the db
-  const createAward = (award, id) => {
-    for (a of awards) {
-      if (a.id == award.id) return;
-    }
-    db.collection("users")
-      .doc(id)
-      .collection("awards")
-      .add(award)
-      .then(() => {
-        getAwards(id)
-      })
-  }
-
-  // Gets awards by user id
-  const getAwards = (id) => {
-    db.collection("users")
-      .doc(id)
-      .collection("awards")
-      .get()
-      .then((querySnapshot) => {
-        let awardsData = [];
-        querySnapshot.forEach((snapshot) => {
-          awardsData.push(snapshot.data());
+    // Gets userID from phone's storage (we just use hardcoded rn) and calls getUser, getJournals, getMoods
+    useEffect(() => {
+        AsyncStorage.getItem('userID', (err, id) => {
+            id = id ? id : 'none';
+            setUserID(id);
+            getUser(id);
+            getJournals(id);
+            getMoods(id);
+            getAwards(id);
+            getPin(id);
         });
     }, []);
 
@@ -432,122 +323,115 @@ export const useUser = () => {
                 getJournals(userID);
             });
     };
-    
+
     return {
-      user,
-      userID,
-      journals,
-      moods,
-      newUser,
-      setUser,
-      setUserID,
-      setNewUser,
-      getUser,
-      updateUser,
-      createUser,
-      updateJournal,
-      createJournal,
-      starJournal,
-      lockJournal,
-      deleteJournal,
-      auth,
-      authCode,
-      awards,
-      pin,
-      doesUserExist,
-      login,
-      createMood,
-      getAwards,
-      createAward
+        user,
+        userID,
+        journals,
+        moods,
+        newUser,
+        setUser,
+        setUserID,
+        setNewUser,
+        getUser,
+        updateUser,
+        createUser,
+        updateJournal,
+        createJournal,
+        starJournal,
+        lockJournal,
+        deleteJournal,
+        auth,
+        authCode,
+        awards,
+        pin,
+        doesUserExist,
+        login,
+        createMood
     };
 };
 
 export const UserContext = createContext('');
 
 export const User = ({ children }) => {
-  const {
-    user,
-    userID,
-    journals,
-    moods,
-    newUser,
-    setUser,
-    setUserID,
-    setNewUser,
-    updateUser,
-    createUser,
-    updateJournal,
-    createJournal,
-    starJournal,
-    lockJournal,
-    deleteJournal,
-    auth,
-    authCode,
-    awards,
-    pin,
-    doesUserExist,
-    login,
-    createMood,
-    getAwards,
-    createAward
-  } = useUser();
+    const {
+        user,
+        userID,
+        journals,
+        moods,
+        newUser,
+        setUser,
+        setUserID,
+        setNewUser,
+        updateUser,
+        createUser,
+        updateJournal,
+        createJournal,
+        starJournal,
+        lockJournal,
+        deleteJournal,
+        auth,
+        authCode,
+        awards,
+        pin,
+        doesUserExist,
+        login,
+        createMood
+    } = useUser();
 
-  const userProvider = useMemo(
-    () => ({
-      user,
-      userID,
-      journals,
-      moods,
-      newUser,
-      setUser,
-      setUserID,
-      setNewUser,
-      updateUser,
-      createUser,
-      updateJournal,
-      createJournal,
-      starJournal,
-      lockJournal,
-      deleteJournal,
-      auth,
-      authCode,
-      awards,
-      pin,
-      doesUserExist,
-      login,
-      createMood,
-      getAwards,
-      createAward
-    }),
-    [
-      user,
-      userID,
-      journals,
-      moods,
-      newUser,
-      setUser,
-      setUserID,
-      setNewUser,
-      updateUser,
-      createUser,
-      updateJournal,
-      createJournal,
-      starJournal,
-      lockJournal,
-      deleteJournal,
-      auth,
-      authCode,
-      awards,
-      pin,
-      doesUserExist,
-      login,
-      getAwards,
-      createAward
-    ]
-  );
+    const userProvider = useMemo(
+        () => ({
+            user,
+            userID,
+            journals,
+            moods,
+            newUser,
+            setUser,
+            setUserID,
+            setNewUser,
+            updateUser,
+            createUser,
+            updateJournal,
+            createJournal,
+            starJournal,
+            lockJournal,
+            deleteJournal,
+            auth,
+            authCode,
+            awards,
+            pin,
+            doesUserExist,
+            login,
+            createMood
+        }),
+        [
+            user,
+            userID,
+            journals,
+            moods,
+            newUser,
+            setUser,
+            setUserID,
+            setNewUser,
+            updateUser,
+            createUser,
+            updateJournal,
+            createJournal,
+            starJournal,
+            lockJournal,
+            deleteJournal,
+            auth,
+            authCode,
+            awards,
+            pin,
+            doesUserExist,
+            login
+        ]
+    );
 
-  return (
-    <UserContext.Provider value={userProvider}>{children}</UserContext.Provider>
-  );
-
+    return (
+        <UserContext.Provider value={userProvider}>
+            {children}
+        </UserContext.Provider>
+    );
 };
