@@ -1,5 +1,5 @@
-import React from 'react'
-import { createContext, useEffect, useState, useMemo } from "react";
+import React, { createContext, useEffect, useState, useMemo } from "react";
+import { AsyncStorage } from "react-native";
 
 const original = {
     primary: "#ffffff",
@@ -38,16 +38,6 @@ const dark3 = {
 	highlight: "#0087f2",
 	inactive: "#7f8488",
     background: "#131e2a",
-    shadow: "#444"
-}
-
-// needs some work, invisible header words
-const cyberpunk = {
-    primary: "#000000",
-    primaryText: "red",
-    highlight: "blue",
-    inactive: "green",
-    background: "#007aff",
     shadow: "#444"
 }
 
@@ -101,19 +91,28 @@ const blue = {
     primaryText: "#0d2646",
     highlight: "#1561c0",
     inactive: "#536881",
-    background: "#c5dfff",
+    background: "#c5eaff",
     shadow: "#444"
 }
 
 const colorSchemes = {
-    blue, periwinkle, pink, lavender, yellow, green, cyberpunk, dark3, dark2, dark1, original
+    green, blue, yellow, pink, lavender, periwinkle, original, dark2, dark3, dark1
 }
 
 export const useColor = () => {
     const [name, setName] = useState("original");
     const [color, setColor] = useState(original);
 
-    useEffect(() => { 
+    useEffect(() => {
+        AsyncStorage.getItem('color-scheme', (err, val) => {
+            if (val in colorSchemes) {
+                setName(val);
+            }
+        })
+    }, []);
+
+    useEffect(() => {
+        AsyncStorage.setItem('color-scheme', name)
         setColor(colorSchemes[name]);
      }, [name]);
 
