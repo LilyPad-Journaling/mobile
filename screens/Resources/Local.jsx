@@ -11,21 +11,21 @@ const categories = [
     name: "Stress Relief",
     contents: [
       {
-        title: "8 ways to calm anxious thoughts",
-        source: "Medical News Today",
+        title: "Axe Throwing",
+        source: "the roof",
         url: "https://www.medicalnewstoday.com/articles/326115",
         starred: true,
       },
       {
-        title: "8 Breathing Exercises to Try When You Feel Anxious",
-        source: "Healthline",
+        title: "Kung Fu Tea",
+        source: "6th and Wash",
         url:
           "https://www.healthline.com/health/breathing-exercises-for-anxiety",
         starred: false,
       },
       {
-        title: "50 Surprisingly Simple Coping Mechanisms To Chase Away Anxiety",
-        source: "Thought Catalog",
+        title: "Screaming into the Void",
+        source: "anywhere you want",
         url:
           "https://thoughtcatalog.com/january-nelson/2019/01/50-surprisingly-simple-coping-mechanisms-to-chase-away-anxiety/",
         starred: false,
@@ -33,11 +33,18 @@ const categories = [
     ],
   },
   {
-    name: "Motivation",
+    name: "Exercise",
     contents: [
       {
-        title: "Woo you can do it",
-        source: "The Sportsball Motivator",
+        title: "Planet Fitness",
+        source: "600ish Washington Street",
+        url:
+          "https://www.google.com/search?sxsrf=ALeKk00HdKw6tszuba8PcHJP2gxt40ZlqQ%3A1604820779370&source=hp&ei=K5-nX8GaEPKg_QaZy4ywBQ&q=sports&oq=sports&gs_lcp=CgZwc3ktYWIQAzIECAAQQzIECAAQQzIECAAQQzIECAAQQzIHCAAQsQMQQzIECAAQQzIECAAQQzIECAAQQzIKCC4QxwEQowIQQzIECAAQQzoECCMQJzoFCAAQkQI6CAgAELEDEIMBOggILhCxAxCDAToCCAA6BAguECc6BwguECcQkwI6BAguEENQ7ARYjAtg9wxoAHAAeACAAaUCiAGDCpIBBTAuMy4zmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwiB3Oejt_LsAhVyUN8KHZklA1YQ4dUDCAk&uact=5",
+        starred: false,
+      },
+      {
+        title: "Gravity Vault Rock Climbing",
+        source: "the other end of hoboken",
         url:
           "https://www.google.com/search?sxsrf=ALeKk00HdKw6tszuba8PcHJP2gxt40ZlqQ%3A1604820779370&source=hp&ei=K5-nX8GaEPKg_QaZy4ywBQ&q=sports&oq=sports&gs_lcp=CgZwc3ktYWIQAzIECAAQQzIECAAQQzIECAAQQzIECAAQQzIHCAAQsQMQQzIECAAQQzIECAAQQzIECAAQQzIKCC4QxwEQowIQQzIECAAQQzoECCMQJzoFCAAQkQI6CAgAELEDEIMBOggILhCxAxCDAToCCAA6BAguECc6BwguECcQkwI6BAguEENQ7ARYjAtg9wxoAHAAeACAAaUCiAGDCpIBBTAuMy4zmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwiB3Oejt_LsAhVyUN8KHZklA1YQ4dUDCAk&uact=5",
         starred: false,
@@ -48,8 +55,8 @@ const categories = [
     name: "Meditation",
     contents: [
       {
-        title: "Ohmmmmmmm",
-        source: "Resistance is Futile",
+        title: "bwè kafe",
+        source: "10th i think",
         url: "https://en.wikipedia.org/wiki/Ohm",
         starred: false,
       },
@@ -59,8 +66,8 @@ const categories = [
     name: "Yoga",
     contents: [
       {
-        title: "16 Yoga Poses to Find Instant Calm and Peace",
-        source: "yoga journal",
+        title: "Yoga Class from Home",
+        source: "your living room",
         url:
           "https://www.yogajournal.com/practice/16-yoga-poses-find-instant-calm-peace",
         starred: false,
