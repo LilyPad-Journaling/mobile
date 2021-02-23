@@ -10,6 +10,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-view';
 import MainStack from './stacks/Main';
 import { User } from './functions/providers/UserContext';
 import { Color } from './functions/providers/ColorContext';
+import { Awards } from './functions/providers/AwardContext';
+// const { mp } = require("./functions/util/mixpanel");
+
 
 const globalAny = global;
 
@@ -54,9 +57,11 @@ const App = () => {
         return (
             <User>
                 <Color>
-                    <NavigationContainer>
-                        <MainStack />
-                    </NavigationContainer>
+                    <Awards>
+                        <NavigationContainer>
+                            <MainStack />
+                        </NavigationContainer>
+                    </Awards>
                 </Color>
             </User>
         );
