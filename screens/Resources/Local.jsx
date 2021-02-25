@@ -11,17 +11,17 @@ const categories = [
     name: "Stress Relief",
     contents: [
       {
-        title: "Axe Throwing",
-        source: "the roof",
-        url: "https://www.medicalnewstoday.com/articles/326115",
-        starred: true,
-      },
-      {
         title: "Kung Fu Tea",
         source: "6th and Wash",
         url:
           "https://www.healthline.com/health/breathing-exercises-for-anxiety",
         starred: false,
+      },
+      {
+        title: "Axe Throwing",
+        source: "the roof",
+        url: "https://www.medicalnewstoday.com/articles/326115",
+        starred: true,
       },
       {
         title: "Screaming into the Void",
