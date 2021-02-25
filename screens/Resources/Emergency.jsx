@@ -1,92 +1,79 @@
-import React, { useContext } from "react";
-import { View, FlatList } from "react-native";
-
-import styles from "../../styles/resourceStyles";
-import Resource from "./Resource";
+import React, { useContext } from 'react';
+import {
+    Text, View, TouchableOpacity, StyleSheet, FlatList, Linking
+} from 'react-native';
+import { FontAwesome as Icon } from "@expo/vector-icons/";
 
 import { ColorContext } from "../../functions/providers/ColorContext";
+import styles from "../../styles/resourceStyles";
+import generalStyles from "../../styles/generalStyles";
+import Resource from "./Resource";
 
-const categories = [
+const emergency_resources = [
   {
-    name: "Stress Relief",
-    contents: [
-      {
-        title: "8 ways to calm anxious thoughts",
-        source: "Medical News Today",
-        url: "https://www.medicalnewstoday.com/articles/326115",
-        starred: true,
-      },
-      {
-        title: "8 Breathing Exercises to Try When You Feel Anxious",
-        source: "Healthline",
-        url:
-          "https://www.healthline.com/health/breathing-exercises-for-anxiety",
-        starred: false,
-      },
-      {
-        title: "50 Surprisingly Simple Coping Mechanisms To Chase Away Anxiety",
-        source: "Thought Catalog",
-        url:
-          "https://thoughtcatalog.com/january-nelson/2019/01/50-surprisingly-simple-coping-mechanisms-to-chase-away-anxiety/",
-        starred: false,
-      },
-    ],
+    name: "National Suicide Prevention Lifeline",
+    details: "Call 1-800-273-TALK (8255)",
+    url: "tel:18002738255",
   },
   {
-    name: "Motivation",
-    contents: [
-      {
-        title: "Woo you can do it",
-        source: "The Sportsball Motivator",
-        url:
-          "https://www.google.com/search?sxsrf=ALeKk00HdKw6tszuba8PcHJP2gxt40ZlqQ%3A1604820779370&source=hp&ei=K5-nX8GaEPKg_QaZy4ywBQ&q=sports&oq=sports&gs_lcp=CgZwc3ktYWIQAzIECAAQQzIECAAQQzIECAAQQzIECAAQQzIHCAAQsQMQQzIECAAQQzIECAAQQzIECAAQQzIKCC4QxwEQowIQQzIECAAQQzoECCMQJzoFCAAQkQI6CAgAELEDEIMBOggILhCxAxCDAToCCAA6BAguECc6BwguECcQkwI6BAguEENQ7ARYjAtg9wxoAHAAeACAAaUCiAGDCpIBBTAuMy4zmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwiB3Oejt_LsAhVyUN8KHZklA1YQ4dUDCAk&uact=5",
-        starred: false,
-      },
-    ],
+    name: "SAMHSA's National Helpline",
+    details: "Call 1-800-661-HELP (4357)",
+    url: "tel:18006614357",
   },
   {
-    name: "Meditation",
-    contents: [
-      {
-        title: "Ohmmmmmmm",
-        source: "Resistance is Futile",
-        url: "https://en.wikipedia.org/wiki/Ohm",
-        starred: false,
-      },
-    ],
+    name: "Crisis Text Line",
+    details: "Text \"HELLO\" to 741741",
+    url: "sms:741741&body=HELLO",
   },
   {
-    name: "Yoga",
-    contents: [
-      {
-        title: "16 Yoga Poses to Find Instant Calm and Peace",
-        source: "yoga journal",
-        url:
-          "https://www.yogajournal.com/practice/16-yoga-poses-find-instant-calm-peace",
-        starred: false,
-      },
-    ],
+    name: "Disaster Distress Helpline",
+    details: "Text \"TalkWithUs\" to 66746", 
+    url: "sms:66746&body=TalkWithUs",
+    // or Call 1-800-985-5990
   },
 ];
 
 export default function Emergency(props) {
-  const { color } = useContext(ColorContext);
+    const { color } = useContext(ColorContext);
+    const { navigation } = props;
 
-  return (
-    <View style={{ ...styles.container, backgroundColor: color.background }}>
-      <FlatList //flatlist of categories
-        style={{ width: "100%" }}
-        contentContainerStyle={{
-          width: "95%",
-          marginLeft: "2.5%",
-          paddingBottom: 20,
-        }}
-        data={categories}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item }) => {
-          return <Resource item={item} />;
-        }}
-      />
-    </View>
-  );
+    return (
+      <View style={{ ...styles.container, backgroundColor: color.background}}>
+        <FlatList //flatlist of categories
+          style={{ width: "100%" }}
+          contentContainerStyle={{ width: "95%", marginLeft: "2.5%", paddingBottom: 20 }}
+          data={emergency_resources}
+          renderItem={({ item }) => {
+            return (
+              <View 
+                style={{
+                  width: "100%", 
+                  height: 75, 
+                  backgroundColor: color.primary, 
+                  borderRadius: 10, 
+                  marginTop: 10,
+                  ...generalStyles.shadow,
+                  shadowColor: color.shadow,
+                  padding: 10,
+                  justifyContent: 'center'
+                  // flexDirection: "row"
+                }}
+              >
+                <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
+                  <Text
+                    style={{ ...styles.title, color: color.primaryText }}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text style={{ ...styles.source, color: color.inactive }}>
+                    <Icon name="phone" color={color.primaryText} size={16} />&nbsp;
+                    {item.details}&nbsp;<Icon name="chevron-right" color={color.primaryText} size={16} />
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        />
+      </View>
+    );
 }

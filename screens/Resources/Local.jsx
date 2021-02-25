@@ -11,35 +11,42 @@ const categories = [
     name: "Stress Relief",
     contents: [
       {
-        title: "8 ways to calm anxious thoughts",
-        source: "Medical News Today",
-        url: "https://www.medicalnewstoday.com/articles/326115",
-        starred: true,
-      },
-      {
-        title: "8 Breathing Exercises to Try When You Feel Anxious",
-        source: "Healthline",
+        title: "Kung Fu Tea",
+        source: "536 Washington Street, Hoboken",
         url:
-          "https://www.healthline.com/health/breathing-exercises-for-anxiety",
+          "https://goo.gl/maps/bfadht7MFXAPRPmZ9",
         starred: false,
       },
       {
-        title: "50 Surprisingly Simple Coping Mechanisms To Chase Away Anxiety",
-        source: "Thought Catalog",
+        title: "Tomahawks - Axe Throwing",
+        source: "Sherman Ave, Jersey City",
+        url: "https://goo.gl/maps/dPkGNBcx1p9SZhAPA",
+        starred: true,
+      },
+      {
+        title: "Screaming into the Void",
+        source: "anywhere you want",
         url:
-          "https://thoughtcatalog.com/january-nelson/2019/01/50-surprisingly-simple-coping-mechanisms-to-chase-away-anxiety/",
+          "https://screamintothevoid.com/",
         starred: false,
       },
     ],
   },
   {
-    name: "Motivation",
+    name: "Exercise",
     contents: [
       {
-        title: "Woo you can do it",
-        source: "The Sportsball Motivator",
+        title: "Planet Fitness",
+        source: "605 Washington Street, Hoboken",
         url:
-          "https://www.google.com/search?sxsrf=ALeKk00HdKw6tszuba8PcHJP2gxt40ZlqQ%3A1604820779370&source=hp&ei=K5-nX8GaEPKg_QaZy4ywBQ&q=sports&oq=sports&gs_lcp=CgZwc3ktYWIQAzIECAAQQzIECAAQQzIECAAQQzIECAAQQzIHCAAQsQMQQzIECAAQQzIECAAQQzIECAAQQzIKCC4QxwEQowIQQzIECAAQQzoECCMQJzoFCAAQkQI6CAgAELEDEIMBOggILhCxAxCDAToCCAA6BAguECc6BwguECcQkwI6BAguEENQ7ARYjAtg9wxoAHAAeACAAaUCiAGDCpIBBTAuMy4zmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwiB3Oejt_LsAhVyUN8KHZklA1YQ4dUDCAk&uact=5",
+          "https://goo.gl/maps/ihCZvtSVtnuyFG2V7",
+        starred: false,
+      },
+      {
+        title: "The Gravity Vault - Rock Climbing",
+        source: "1423 Clinton Street, Hoboken",
+        url:
+          "https://g.page/gravityvaulthoboken?share",
         starred: false,
       },
     ],
@@ -48,21 +55,9 @@ const categories = [
     name: "Meditation",
     contents: [
       {
-        title: "Ohmmmmmmm",
-        source: "Resistance is Futile",
-        url: "https://en.wikipedia.org/wiki/Ohm",
-        starred: false,
-      },
-    ],
-  },
-  {
-    name: "Yoga",
-    contents: [
-      {
-        title: "16 Yoga Poses to Find Instant Calm and Peace",
-        source: "yoga journal",
-        url:
-          "https://www.yogajournal.com/practice/16-yoga-poses-find-instant-calm-peace",
+        title: "Trader Joe's",
+        source: "1350 Willow Ave, Hoboken",
+        url: "https://goo.gl/maps/WCYS4m6FmcwK9om87",
         starred: false,
       },
     ],
