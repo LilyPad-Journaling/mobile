@@ -59,10 +59,9 @@ export default function Emergency(props) {
                   // flexDirection: "row"
                 }}
               >
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
                   <Text
                     style={{ ...styles.title, color: color.primaryText }}
-                    onPress={() => Linking.openURL(item.url)}
                   >
                     {item.name}
                   </Text>
