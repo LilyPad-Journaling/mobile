@@ -30,6 +30,8 @@ import { UserContext } from "../../functions/providers/UserContext";
 import { color } from "../../functions/providers/ColorContext";
 const { SlideInMenu } = renderers;
 
+const now = dayjs().local().format('DDMMYYYY');
+
 export default function Journal(props) {
   const { navigation, route } = props;
   const { data } = route.params;
@@ -76,11 +78,13 @@ export default function Journal(props) {
               <FAIcon name="chevron-left" color={color.inactive} size={32} />
             </TouchableOpacity>
             <View style={styles.topnavLeft}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("TrackJournal")}
-              >
-                <FEIcon name="smile" color={color.inactive} size={32} />
-              </TouchableOpacity>
+              {now == dayjs(data.timeCreated).format('DDMMYYYY') && (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("TrackJournal")}
+                >
+                  <FEIcon name="smile" color={color.inactive} size={32} />
+                </TouchableOpacity>
+              )}
               <Menu name="numbers" renderer={SlideInMenu}>
                 <MenuTrigger
                   customStyles={{ triggerOuterWrapper: styles.trigger }}

@@ -7,22 +7,19 @@ import { UserContext } from "../../functions/providers/UserContext";
 import IconButton from "../../components/General/Button";
 import generalStyles from "../../styles/generalStyles";
 
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
+
 const windowWidth = Dimensions.get("window").width;
 
 const data = [
   {
     name: "Anxiety",
   },
-  {
-    name: "Energy",
-  },
-  {
-    name: "Activity",
-  },
-  {
-    name: "Stress",
-  },
 ];
+
+const now = dayjs().local();
 
 export default function Analysis(props) {
   const { navigation } = props;
@@ -49,6 +46,7 @@ export default function Analysis(props) {
   return (
     <View style={[styles.container, { backgroundColor: color.background }]}>
       <FlatList
+      // Manipulate here?
         data={data}
         style={{width: '100%'}}
         contentContainerStyle={{ marginTop: 5, paddingBottom: 20, justifyContent: 'center', marginLeft: Dimensions.get("window").width*.0375 }}
@@ -61,26 +59,31 @@ export default function Analysis(props) {
               <View style={[generalStyles.shadow, styles.graph, { backgroundColor: color.primary, shadowColor: color.shadow }]}>
                 <LineChart
                   data={{
+                    // EB NOTES: Can get the correct day of week label for each day for past 7 days using dayjs(now-x) calls for each day
                     labels: [
-                      "Thurs.",
-                      "Fri.",
-                      "Sat.",
-                      "Sun.",
-                      "Mon.",
-                      "Tues.",
-                      "Wed."
+                      dayjs(now).subtract(6, 'day').format('ddd'),
+                      dayjs(now).subtract(5, 'day').format('ddd'),
+                      dayjs(now).subtract(4, 'day').format('ddd'),
+                      dayjs(now).subtract(3, 'day').format('ddd'),
+                      dayjs(now).subtract(2, 'day').format('ddd'),
+                      dayjs(now).subtract(1, 'day').format('ddd'),
+                      dayjs(now).format('ddd')
                     ],
                     datasets: [
+                      // EB: Need to import correct mood data for each day of week, can get moods from UserContext
+                      // EB NOTES: Need a way to grab a weekly snapshot
+                      // Can we manipulate each item in the data array individually? Like data[1], data[2], etc?
                       {
                         data: [
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
+                          moods[moods.length-1].anxiety,
+                          //moods[moods.length-2].anxiety,
+                          //moods[moods.length-3].anxiety,
+                          //moods[moods.length-4].anxiety,
+                          //moods[moods.length-5].anxiety,
+                          //moods[moods.length-6].anxiety,
+                          //moods[moods.length-7].anxiety,
                         ],
+
                       },
                     ],
                   }}

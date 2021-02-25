@@ -8,7 +8,7 @@ dayjs.extend(utc);
 
 import { firebase } from "../util/firebase";
 
-// 1EB: getTimestamp function creates timestamp upon creation of new journal entry, stores in firebase as timezone sensitive date in ISO 8601 format
+// getTimestamp function creates timestamp upon creation of new journal entry, stores in firebase as timezone sensitive date in ISO 8601 format
 
 const db = firebase.firestore();
 const getTimestamp = () => dayjs().local().format();
@@ -19,6 +19,7 @@ export const useUser = () => {
   const [userID, setUserID] = useState("none");
   // stores user object
   const [user, setUser] = useState({});
+
   // storing user fields for sign in sequence
   const [newUser, setNewUser] = useState({});
   const [journals, setJournals] = useState([]);
@@ -85,11 +86,11 @@ export const useUser = () => {
         let journalData = journalsData.map((journal) => ({
           ...journal,
           timeCreated: journal.timeCreated
-            ? // 2EB: Checks whether timestamp for timeCreated exists
+            ? // Checks whether timestamp for timeCreated exists
               journal.timeCreated
             : getTimestamp(),
           lastUpdated: journal.lastUpdated
-            ? // 3EB: Checks whether timestamp for lastUpdated exists
+            ? // Checks whether timestamp for lastUpdated exists
               journal.lastUpdated
             : getTimestamp(),
         }));
@@ -106,13 +107,14 @@ export const useUser = () => {
       .then((querySnapshot) => {
         let moodsData = [];
         querySnapshot.forEach((snapshot) => {
-          moodsData.push(snapshot.data());
+          let moodData = snapshot.data();
+          moodsData.push({...moodData, id: snapshot.id});
         });
         setMoods(
           moodsData.map((mood) => ({
             ...mood,
             timeCreated: mood.timeCreated
-              ? // 4EB: Checks whether timestamp for timeCreated exists
+              ? // Checks whether timestamp for timeCreated exists
                 mood.timeCreated
               : getTimestamp(),
           }))
@@ -120,7 +122,23 @@ export const useUser = () => {
       });
   };
 
-  // Gets moods by user id
+  // Gets mood by id
+  const getMood = (id, moodID, callback) => {
+    db.collection("users")
+      .doc(id)
+      .collection("moods")
+      .doc(moodID)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const moodData = doc.data();
+          callback({ ...moodData, id: doc.id })
+        }
+        callback({})
+      });
+  };
+
+  // Gets awards by user id
   const getAwards = (id) => {
     db.collection("users")
       .doc(id)
@@ -159,6 +177,12 @@ export const useUser = () => {
   };
 
   // Creates journal document in userID's journal collection on firebase (can use hardcoded data to test!)
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+  // EB NOTES: Maybe we can add a method call within createJournal that calls a custom createMood method, which instead of using anxiety, stress, etc as parameters, it will just use 
+  // 5's for each by default
+
   const createJournal = (id, callback) => {
     const data = {
       title: "",
@@ -176,13 +200,32 @@ export const useUser = () => {
         callback({
           id: doc.id,
           ...data,
-          // OLD: New date()
-          // 5EB: two constants store timestamp in firebase aqcuired from top function getTimestamp(), displayed in journal UI
+          // Two constants store timestamp in firebase aqcuired from top function getTimestamp(), displayed in journal UI
           lastUpdated: getTimestamp(),
           timeCreated: getTimestamp(),
         });
       });
+    // newCreateMood(id);
   };
+
+//   const newCreateMood = (userID, callback) => {
+//     db.collection('users')
+//         .doc(userID)
+//         .collection('moods')
+//         .add({
+//           activity: 5, 
+//           anxiety: 5, 
+//           energy: 5, 
+//           stress: 5,
+//           timeCreated: getTimestamp()
+//       })
+//         .then(() => {
+//             getMoods(userID)
+//             callback()
+//         })
+// };
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
   // Updates user object by userID with new partial object, new fields can look like { color: "red", phoneNumber: "newnumberlol" }
   const updateUser = (id, newFields) => {
@@ -213,16 +256,33 @@ export const useUser = () => {
           .doc(userID)
           .collection('moods')
           .add({
-              activity, 
-              anxiety, 
-              energy, 
-              stress,
-              timeCreated: getTimestamp()
-          }).then(() => {
+            activity, 
+            anxiety, 
+            energy, 
+            stress,
+            timeCreated: getTimestamp()
+        })
+          .then(() => {
               getMoods(userID)
               callback()
           })
   };
+
+  const updateMood = (userID, moodID, anxiety, energy, activity, stress) => {
+    db.collection('users')
+        .doc(userID)
+        .collection('moods')
+        .doc(moodID)
+        .update({
+          activity, 
+          anxiety, 
+          energy, 
+          stress
+      })
+        .then(() => {
+            getMoods(userID)
+        })
+};
 
   const auth = (number) => {
     const url =
@@ -301,6 +361,7 @@ export const useUser = () => {
     moods,
     newUser,
     setUser,
+    getMood,
     setUserID,
     setNewUser,
     getUser,
@@ -317,7 +378,8 @@ export const useUser = () => {
     pin,
     doesUserExist,
     login,
-    createMood
+    createMood,
+    updateMood
   };
 };
 
@@ -331,6 +393,7 @@ export const User = ({ children }) => {
     moods,
     newUser,
     setUser,
+    getMood,
     setUserID,
     setNewUser,
     updateUser,
@@ -346,7 +409,8 @@ export const User = ({ children }) => {
     pin,
     doesUserExist,
     login,
-    createMood
+    createMood,
+    updateMood
   } = useUser();
 
   const userProvider = useMemo(
@@ -357,6 +421,7 @@ export const User = ({ children }) => {
       moods,
       newUser,
       setUser,
+      getMood,
       setUserID,
       setNewUser,
       updateUser,
@@ -372,7 +437,8 @@ export const User = ({ children }) => {
       pin,
       doesUserExist,
       login,
-      createMood
+      createMood,
+      updateMood
     }),
     [
       user,
@@ -381,6 +447,7 @@ export const User = ({ children }) => {
       moods,
       newUser,
       setUser,
+      getMood,
       setUserID,
       setNewUser,
       updateUser,
