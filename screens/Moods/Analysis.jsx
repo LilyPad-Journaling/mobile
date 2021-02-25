@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Text, View, StyleSheet, FlatList, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
@@ -13,18 +13,108 @@ dayjs.extend(utc);
 
 const windowWidth = Dimensions.get("window").width;
 
-const data = [
+const graphTypes = [
   {
-    name: "Anxiety",
+    name: "anxiety",
+  },
+  {
+    name: "stress",
+  },
+  {
+    name: "energy",
+  },
+  {
+    name: "activity",
   },
 ];
 
 const now = dayjs().local();
 
+const tempData = [
+  {
+    anxiety: 5,
+    stress: 5,
+    energy: 5,
+    activity: 5
+  },
+  {
+    anxiety: 5,
+    stress: 5,
+    energy: 5,
+    activity: 5
+  },
+  {
+    anxiety: 5,
+    stress: 5,
+    energy: 5,
+    activity: 5
+  },
+  {
+    anxiety: 5,
+    stress: 5,
+    energy: 5,
+    activity: 5
+  },
+  {
+    anxiety: 5,
+    stress: 5,
+    energy: 5,
+    activity: 5
+  },
+  {
+    anxiety: 5,
+    stress: 5,
+    energy: 5,
+    activity: 5
+  },
+  {
+    anxiety: 5,
+    stress: 5,
+    energy: 5,
+    activity: 5
+  }
+]
+
 export default function Analysis(props) {
   const { navigation } = props;
   const { color } = useContext(ColorContext);
   const { moods } = useContext(UserContext);
+
+  const [graphData, setGraphData] = useState(tempData)
+
+  useEffect(() => {
+    const formattedMoods = moods.map(o => ({ ...o, day: dayjs(o.timeCreated).format('DDMMYYYY')}))
+    let moodsDict = {};
+    
+    formattedMoods.forEach(o => {
+      moodsDict[o.day] = o
+    })
+
+    let newGraphData = [
+      dayjs(now).subtract(6, 'day').format('DDMMYYYY'),
+      dayjs(now).subtract(5, 'day').format('DDMMYYYY'),
+      dayjs(now).subtract(4, 'day').format('DDMMYYYY'),
+      dayjs(now).subtract(3, 'day').format('DDMMYYYY'),
+      dayjs(now).subtract(2, 'day').format('DDMMYYYY'),
+      dayjs(now).subtract(1, 'day').format('DDMMYYYY'),
+      dayjs(now).format('DDMMYYYY')
+    ]
+
+    newGraphData = newGraphData.map(o => {
+      if (o in moodsDict) {
+        return moodsDict[o]
+      }
+      return {
+        anxiety: 5,
+        stress: 5,
+        energy: 5,
+        activity: 5
+      }
+    })
+
+    setGraphData(graphData)
+
+  }, [moods])
   // const [interval, setInterval] = useState(5); //useState? set weekly/monthly
   // weekly - 7 days
   // monthly - 6 months or diff btwn first and last entry if < 6, use avg of entries from that month
@@ -43,21 +133,12 @@ export default function Analysis(props) {
 //         : getTimestamp()
 // }))
 
-  const fakeData = [
-    {y: Math.round(Math.random() * 10), x: 1},
-    {y: Math.round(Math.random() * 10), x: 2},
-    {y: Math.round(Math.random() * 10), x: 3},
-    {y: Math.round(Math.random() * 10), x: 4},
-    {y: Math.round(Math.random() * 10), x: 5},
-    {y: Math.round(Math.random() * 10), x: 6},
-    {y: Math.round(Math.random() * 10), x: 7},
-  ]
+
 
   return (
     <View style={[styles.container, { backgroundColor: color.background }]}>
       <FlatList
-      // Manipulate here?
-        data={data}
+        data={graphTypes}
         style={{width: '100%'}}
         contentContainerStyle={{ marginTop: 5, paddingBottom: 20, justifyContent: 'center', marginLeft: Dimensions.get("window").width*.0375 }}
         keyExtractor={(item) => item.name}
@@ -69,7 +150,7 @@ export default function Analysis(props) {
               <View style={[generalStyles.shadow, styles.graph, { backgroundColor: color.primary, shadowColor: color.shadow }]}>
                 <LineChart
                   data={{
-                    // EB NOTES: Can get the correct day of week label for each day for past 7 days using dayjs(now-x) calls for each day
+                    // EB NOTES: Can get the correct day of week label for each day for past 7 days using dayjs(now).subtract calls for each day
                     labels: [
                       dayjs(now).subtract(6, 'day').format('ddd'),
                       dayjs(now).subtract(5, 'day').format('ddd'),
@@ -81,7 +162,7 @@ export default function Analysis(props) {
                     ],
                     datasets: [
                       {
-                        data: fakeData.map(o => o.y)
+                        data: graphData.map(o => o[item.name])
                       },
                     ],
                   }}
