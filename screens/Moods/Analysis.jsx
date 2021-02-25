@@ -43,6 +43,16 @@ export default function Analysis(props) {
 //         : getTimestamp()
 // }))
 
+  const fakeData = [
+    {y: Math.round(Math.random() * 10), x: 1},
+    {y: Math.round(Math.random() * 10), x: 2},
+    {y: Math.round(Math.random() * 10), x: 3},
+    {y: Math.round(Math.random() * 10), x: 4},
+    {y: Math.round(Math.random() * 10), x: 5},
+    {y: Math.round(Math.random() * 10), x: 6},
+    {y: Math.round(Math.random() * 10), x: 7},
+  ]
+
   return (
     <View style={[styles.container, { backgroundColor: color.background }]}>
       <FlatList
@@ -70,20 +80,8 @@ export default function Analysis(props) {
                       dayjs(now).format('ddd')
                     ],
                     datasets: [
-                      // EB: Need to import correct mood data for each day of week, can get moods from UserContext
-                      // EB NOTES: Need a way to grab a weekly snapshot
-                      // Can we manipulate each item in the data array individually? Like data[1], data[2], etc?
                       {
-                        data: [
-                          moods[moods.length-1].anxiety,
-                          //moods[moods.length-2].anxiety,
-                          //moods[moods.length-3].anxiety,
-                          //moods[moods.length-4].anxiety,
-                          //moods[moods.length-5].anxiety,
-                          //moods[moods.length-6].anxiety,
-                          //moods[moods.length-7].anxiety,
-                        ],
-
+                        data: fakeData.map(o => o.y)
                       },
                     ],
                   }}
@@ -103,9 +101,10 @@ export default function Analysis(props) {
                       backgroundColor: "none",
                     },
                     propsForDots: {
-                      r: "6",
-                      strokeWidth: "6",
-                      stroke: "green",
+                      r: "10",
+                      strokeWidth: "4",
+                      stroke: "#006400",
+                      fill: "green"
                     },
                   }}
                   bezier

@@ -3,19 +3,27 @@ import { View, StyleSheet } from "react-native";
 
 import { UserContext } from "../../functions/providers/UserContext";
 import { ColorContext } from "../../functions/providers/ColorContext";
+import { awardsSchemes } from "../../functions/providers/AwardContext";
 import JournalList from "./JournalList";
 import IconButton from "../../components/General/Button";
+
 
 export default function Recent(props) {
   const { navigation } = props;
   const { color } = useContext(ColorContext);
-  const { userID, journals, createJournal } = useContext(UserContext);
+  const { userID, journals, createJournal, createAward } = useContext(UserContext);
 
   return (
     <View style={{ ...styles.container, backgroundColor: color.background}}>
       <JournalList data={journals} navigation={navigation} />
       <IconButton
         onPress={() => {
+          if (journals.length >= 0){
+            createAward(awardsSchemes.firstEntry, userID)
+          }
+          if (journals.length >= 9){
+            createAward(awardsSchemes.tenEntries, userID)
+          }
           createJournal(userID, data => {
             navigation.navigate("Journal", { data });
           });        

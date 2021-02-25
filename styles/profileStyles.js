@@ -22,12 +22,6 @@ const profileStyles = StyleSheet.create({
         textDecorationLine: 'underline',
         fontSize: 18
     },
-    colorsRectangle: {
-        backgroundColor: 'white',
-        padding: 20,
-        marginLeft: -150,
-        paddingLeft: 160
-    },
     section: {
         width: '95%',
         marginLeft: '2.5%',
@@ -54,6 +48,24 @@ const profileStyles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center'
+    },
+    rowColor: {
+        marginLeft: '2.5%',
+        marginRight: '2.5%',
+        borderRadius: 10,
+        marginTop: 10
+    },
+    colorHeader: {
+        fontSize: 18,
+        fontFamily: 'medium',
+        marginLeft: 20,
+        marginTop: 10
+    },
+    colorsRectangle: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        padding: 20,
+        paddingTop: 10
     }
 });
 

@@ -28,6 +28,7 @@ dayjs.extend(utc);
 import styles from "../../styles/journalStyles";
 import { UserContext } from "../../functions/providers/UserContext";
 import { color } from "../../functions/providers/ColorContext";
+import { awardsSchemes } from "../../functions/providers/AwardContext";
 const { SlideInMenu } = renderers;
 
 const now = dayjs().local().format('DDMMYYYY');
@@ -41,6 +42,7 @@ export default function Journal(props) {
     starJournal,
     lockJournal,
     deleteJournal,
+    createAward
   } = useContext(UserContext);
 
   const [title, setTitle] = useState(data.title);
@@ -99,9 +101,13 @@ export default function Journal(props) {
                 <MenuOptions>
                   <MenuOption
                     onSelect={() => {
+                      createAward(awardsSchemes.starredEntry, userID),
                       starJournal(userID, data.id, !data.starred),
                         alert(data.starred ? `Unstarred` : "Starred"),
                         (data.starred = !data.starred);
+                      if (data.starred && data.private){
+                        createAward(awardsSchemes.privateAndStarredEntry, userID);
+                      } 
                     }}
                     customStyles={{ optionText: [styles.bluetext] }}
                     value={1}
@@ -109,9 +115,13 @@ export default function Journal(props) {
                   />
                   <MenuOption
                     onSelect={() => {
+                      createAward(awardsSchemes.privateEntry, userID),
                       lockJournal(userID, data.id, !data.private),
                         alert(data.private ? `Unlocked` : "Locked"),
                         (data.private = !data.private);
+                      if (data.starred && data.private){
+                        createAward(awardsSchemes.privateAndStarredEntry, userID);
+                      } 
                     }}
                     customStyles={{ optionText: [styles.bluetext] }}
                     value={2}
