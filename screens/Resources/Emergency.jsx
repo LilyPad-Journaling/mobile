@@ -13,22 +13,23 @@ const emergency_resources = [
   {
     name: "National Suicide Prevention Lifeline",
     details: "Call 1-800-273-TALK (8255)",
-    url: "tel:2012863030",
+    url: "tel:18002738255",
   },
   {
     name: "SAMHSA's National Helpline",
     details: "Call 1-800-661-HELP (4357)",
-    url: "tel:2012863030",
+    url: "tel:18006614357",
   },
   {
     name: "Crisis Text Line",
     details: "Text \"HELLO\" to 741741",
-    url: "sms:2012863030",
+    url: "sms:741741&body=HELLO",
   },
   {
     name: "Disaster Distress Helpline",
-    details: "Call 1-800-985-5990 or text \"TalkWithUs\" to 66746",
-    url: "tel:2012863030:sms:66746",
+    details: "Text \"TalkWithUs\" to 66746", 
+    url: "sms:66746&body=TalkWithUs",
+    // or Call 1-800-985-5990
   },
 ];
 
@@ -64,11 +65,10 @@ export default function Emergency(props) {
                     onPress={() => Linking.openURL(item.url)}
                   >
                     {item.name}
-                    {/* <Icon name="chevron-right" color={color.primaryText} size={32} /> */}
                   </Text>
                   <Text style={{ ...styles.source, color: color.inactive }}>
                     <Icon name="phone" color={color.primaryText} size={16} />&nbsp;
-                    {item.details}
+                    {item.details}&nbsp;<Icon name="chevron-right" color={color.primaryText} size={16} />
                   </Text>
                 </TouchableOpacity>
               </View>
