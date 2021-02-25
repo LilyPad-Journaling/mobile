@@ -7,6 +7,7 @@ import { UserContext } from "../../functions/providers/UserContext";
 import IconButton from "../../components/General/Button";
 import generalStyles from "../../styles/generalStyles";
 
+
 const windowWidth = Dimensions.get("window").width;
 
 const data = [
@@ -46,6 +47,32 @@ export default function Analysis(props) {
 //         : getTimestamp()
 // }))
 
+  const fakeData = [
+    {y: Math.round(Math.random() * 10), x: 1},
+    {y: Math.round(Math.random() * 10), x: 2},
+    {y: Math.round(Math.random() * 10), x: 3},
+    {y: Math.round(Math.random() * 10), x: 4},
+    {y: Math.round(Math.random() * 10), x: 5},
+    {y: Math.round(Math.random() * 10), x: 6},
+    {y: Math.round(Math.random() * 10), x: 7},
+  ]
+
+  // const ChartPoints = ({x, y}) =>
+  //   fakeData.map((item, index) => (
+  //   <Image source = {{uri: 'https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/78037/lily-pad-clipart-md.png'}}/>
+  // ));
+    /* <AreaChart
+    style = {{height: '70%'}}
+    data = {fakeData}
+    yAccessor = {({item}) => item.y}
+    xAccessor = {({item}) => item.x}
+    svg = {{fill: '#003F5A'}}
+    numberOfTicks = {10}
+    yMin = {0}
+    yMax = {10}
+  >
+  </AreaChart> */
+
   return (
     <View style={[styles.container, { backgroundColor: color.background }]}>
       <FlatList
@@ -72,15 +99,7 @@ export default function Analysis(props) {
                     ],
                     datasets: [
                       {
-                        data: [
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                          Math.round(Math.random() * 10),
-                        ],
+                        data: fakeData.map(o => o.y)
                       },
                     ],
                   }}
@@ -100,9 +119,10 @@ export default function Analysis(props) {
                       backgroundColor: "none",
                     },
                     propsForDots: {
-                      r: "6",
-                      strokeWidth: "6",
-                      stroke: "green",
+                      r: "10",
+                      strokeWidth: "4",
+                      stroke: "#006400",
+                      fill: "green"
                     },
                   }}
                   bezier
