@@ -32,46 +32,46 @@ const now = dayjs().local();
 
 const tempData = [
   {
-    anxiety: 5,
-    stress: 5,
-    energy: 5,
-    activity: 5
+    anxiety: Math.round(Math.random() * 10),
+    stress: Math.round(Math.random() * 10),
+    energy: Math.round(Math.random() * 10),
+    activity: Math.round(Math.random() * 10)
   },
   {
-    anxiety: 5,
-    stress: 5,
-    energy: 5,
-    activity: 5
+    anxiety: Math.round(Math.random() * 10),
+    stress: Math.round(Math.random() * 10),
+    energy: Math.round(Math.random() * 10),
+    activity: Math.round(Math.random() * 10)
   },
   {
-    anxiety: 5,
-    stress: 5,
-    energy: 5,
-    activity: 5
+    anxiety: Math.round(Math.random() * 10),
+    stress: Math.round(Math.random() * 10),
+    energy: Math.round(Math.random() * 10),
+    activity: Math.round(Math.random() * 10)
   },
   {
-    anxiety: 5,
-    stress: 5,
-    energy: 5,
-    activity: 5
+    anxiety: Math.round(Math.random() * 10),
+    stress: Math.round(Math.random() * 10),
+    energy: Math.round(Math.random() * 10),
+    activity: Math.round(Math.random() * 10)
   },
   {
-    anxiety: 5,
-    stress: 5,
-    energy: 5,
-    activity: 5
+    anxiety: Math.round(Math.random() * 10),
+    stress: Math.round(Math.random() * 10),
+    energy: Math.round(Math.random() * 10),
+    activity: Math.round(Math.random() * 10)
   },
   {
-    anxiety: 5,
-    stress: 5,
-    energy: 5,
-    activity: 5
+    anxiety: Math.round(Math.random() * 10),
+    stress: Math.round(Math.random() * 10),
+    energy: Math.round(Math.random() * 10),
+    activity: Math.round(Math.random() * 10)
   },
   {
-    anxiety: 5,
-    stress: 5,
-    energy: 5,
-    activity: 5
+    anxiety: Math.round(Math.random() * 10),
+    stress: Math.round(Math.random() * 10),
+    energy: Math.round(Math.random() * 10),
+    activity: Math.round(Math.random() * 10)
   }
 ]
 
