@@ -1,17 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Text, View, StyleSheet, FlatList, Dimensions } from "react-native";
+import { Text, View, FlatList, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
 import { ColorContext } from "../../functions/providers/ColorContext";
 import { UserContext } from "../../functions/providers/UserContext";
 import IconButton from "../../components/General/Button";
 import generalStyles from "../../styles/generalStyles";
+import styles from "../../styles/analysisStyles";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
-
-const windowWidth = Dimensions.get("window").width;
 
 const graphTypes = [
   {
@@ -194,17 +193,3 @@ export default function Analysis(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  graph: {
-    width: windowWidth * 0.925,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 25,
-  },
-});

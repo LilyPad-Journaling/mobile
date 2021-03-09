@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 
+import styles from "../../styles/onboardingStyles";
 import { ColorContext } from "../../functions/providers/ColorContext";
 
 export default function Onboarding(props) {
@@ -19,21 +20,3 @@ export default function Onboarding(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    height: 50,
-    width: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10
-  },
-  headerText: {
-    fontSize: 24
-  },
-});
