@@ -25,8 +25,14 @@ function Entry(props) {
         }
     ];
 
-    style.push(styles.entryTop);
-    style.push(styles.entryBottom);
+    if (props.style === 'top') {
+        style.push(styles.entryTop);
+    } else if (props.style === 'bottom') {
+        style.push({ ...styles.entryBottom, borderBottomWidth: 0 });
+    } else if (props.style === 'both') {
+        style.push(styles.entryTop);
+        style.push(styles.entryBottom);
+    }
 
     let description;
     if (props.private === true) {
@@ -141,20 +147,69 @@ function Entry(props) {
 
 function JournalList(props) {
     let journals = props.data;
+    journals.sort((a,b) => {
+        if ( dayjs(a.timeCreated).isBefore( dayjs(b.timeCreated) ))   {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    });
     const { color } = useContext(ColorContext);
+
+    for (let i = 0; i < journals.length; ++i) {
+        // If this is the first entry or its date comes before the previous entry's date
+        if (
+            i === 0 ||
+            dayjs(journals[i].timeCreated).format('MMDDYY') !==
+                dayjs(journals[i - 1].timeCreated).format('MMDDYY')
+        ) {
+            // If this is the last entry or its date comes before the next entry's date
+            if (
+                i === journals.length - 1 ||
+                dayjs(journals[i + 1].timeCreated).format('MMDDYY') !==
+                    dayjs(journals[i].timeCreated).format('MMDDYY')
+            ) {
+                journals[i].style = 'both';
+            } else {
+                journals[i].style = 'top';
+            }
+            // Otherwise, if this is the last entry or its date comes before the next entry's date
+        } else if (
+            i === journals.length - 1 ||
+            dayjs(journals[i + 1].timeCreated).format('MMDDYY') !==
+                dayjs(journals[i].timeCreated).format('MMDDYY')
+        ) {
+            journals[i].style = 'bottom';
+        }
+    }
+
+    let data = [];
+
+    for (let i = 0; i < journals.length; i++) {
+        if (
+            data.length === 0 ||
+            dayjs(data[data.length - 1][0].timeCreated).format('MMDDYY') !==
+                dayjs(journals[i].timeCreated).format('MMDDYY')
+        ) {
+            data.push([journals[i]]);
+        } else {
+            data[data.length - 1].push(journals[i]);
+        }
+    }
 
     return (
         <>
-            {journals.length === 0 ? (
+            {data.length === 0 ? (
                 <View>
                     <Text>No journals yet, add one below!</Text>
                 </View>
             ) : (
                 <FlatList
-                    data={journals}
+                    data={data}
                     style={styles.topList}
                     contentContainerStyle={styles.entryList}
-                    keyExtractor={(item) => item.timeCreated + item.id}
+                    keyExtractor={(item) => item[0].timeCreated + item[0].id}
                     renderItem={({ item }) => (
                         <View>
                             <Text
@@ -166,7 +221,7 @@ function JournalList(props) {
                                 }}
                             >
                                 <Text>
-                                    {dayjs(item.timeCreated).format('dddd')}{'    '}
+                                    {dayjs(item[0].timeCreated).format('dddd')}{'  '}
                                 </Text>
                                 <Text
                                     style={{
@@ -174,16 +229,26 @@ function JournalList(props) {
                                         fontSize: 14
                                     }}
                                 >
-                                    {dayjs(item.timeCreated).format('MM/DD/YY')}
+                                    {dayjs(item[0].timeCreated).format('MM/DD/YY')}
                                 </Text>
                             </Text>
-                            <Entry
-                                title={item.title}
-                                body={item.body}
-                                private={item.private}
-                                navigation={props.navigation}
-                                style={item.style}
+                            <FlatList
+                                style={{
+                                    ...generalStyles.shadow,
+                                    shadowColor: color.shadow
+                                }}
                                 data={item}
+                                keyExtractor={(item) => item.id}
+                                renderItem={({ item }) => (
+                                    <Entry
+                                        title={item.title}
+                                        body={item.body}
+                                        private={item.private}
+                                        navigation={props.navigation}
+                                        style={item.style}
+                                        data={item}
+                                    />
+                                )}
                             />
                         </View>
                     )}
