@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const trackStyles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'center'
     },
     button: {
         height: 40,
