@@ -265,7 +265,6 @@ export const useUser = () => {
 
             if ("pin" in newFields) {
                 setPin(newFields.pin)
-                console.log({ newFields })
             }
 
             db.collection('users').doc(id).update({
