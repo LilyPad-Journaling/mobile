@@ -63,7 +63,6 @@ const profileStyles = StyleSheet.create({
     },
     colorsRectangle: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
         padding: 20,
         paddingTop: 10
     }

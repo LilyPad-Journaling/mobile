@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     Text,
     View,
@@ -48,7 +48,8 @@ const Section = ({
                     style={{
                         fontSize: 20,
                         height: '100%',
-                        marginLeft: 5
+                        marginLeft: 5,
+                        color: color.primaryText
                     }}
                     value={value}
                     onChangeText={onChangeText}
@@ -75,10 +76,10 @@ const Circle = (props) => {
 export default function Settings(props) {
     const { navigation } = props;
     const { color, setName, colorSchemes } = useContext(ColorContext);
-    const { user, setUser, setUserID } = useContext(UserContext);
-    const [userName, setuName] = useState('');
-    const [userPhone, setNumber] = useState('');
-    const [userPIN, setPIN] = useState('');
+    const { user, userID, setUser, setUserID, updateUser } = useContext(UserContext);
+
+    const [uname, setUname] = useState('');
+    const [pin, setPin] = useState('');
 
     const data = [
         // TODO: ... colorSchemes //convert object to array, set = to data    
@@ -105,8 +106,11 @@ export default function Settings(props) {
                     section={"Name"}
                     placeholder={user.name}
                     keyboardType="default"
-                    value={userName}
-                    onChangeText={setuName}
+                    value={uname}
+                    onChangeText={val => {
+                        setUname(val)
+                        updateUser(userID, { name: val })
+                    }}
                 />
                 <Section
                     section={'Number'}
@@ -114,15 +118,16 @@ export default function Settings(props) {
                         user.number ? user.number.toString() : user.number
                     }
                     keyboardType="phone-pad"
-                    value={userPhone}
-                    onChangeText={setNumber}
                 />
                 <Section
                     section={'Pin'}
                     placeholder={user.pin ? user.pin.toString() : user.pin}
                     keyboardType="number-pad"
-                    value={userPIN}
-                    onChangeText={setPIN}
+                    value={pin}
+                    onChangeText={val => {
+                        setPin(val)
+                        updateUser(userID, { pin: val })
+                    }}
                 />
                 <View
                     style={{ 
