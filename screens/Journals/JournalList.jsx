@@ -157,33 +157,6 @@ function JournalList(props) {
     });
     const { color } = useContext(ColorContext);
 
-    for (let i = 0; i < journals.length; ++i) {
-        // If this is the first entry or its date comes before the previous entry's date
-        if (
-            i === 0 ||
-            dayjs(journals[i].timeCreated).format('MMDDYY') !==
-                dayjs(journals[i - 1].timeCreated).format('MMDDYY')
-        ) {
-            // If this is the last entry or its date comes before the next entry's date
-            if (
-                i === journals.length - 1 ||
-                dayjs(journals[i + 1].timeCreated).format('MMDDYY') !==
-                    dayjs(journals[i].timeCreated).format('MMDDYY')
-            ) {
-                journals[i].style = 'both';
-            } else {
-                journals[i].style = 'top';
-            }
-            // Otherwise, if this is the last entry or its date comes before the next entry's date
-        } else if (
-            i === journals.length - 1 ||
-            dayjs(journals[i + 1].timeCreated).format('MMDDYY') !==
-                dayjs(journals[i].timeCreated).format('MMDDYY')
-        ) {
-            journals[i].style = 'bottom';
-        }
-    }
-
     let data = [];
 
     for (let i = 0; i < journals.length; i++) {
@@ -195,6 +168,15 @@ function JournalList(props) {
             data.push([journals[i]]);
         } else {
             data[data.length - 1].push(journals[i]);
+        }
+    }
+
+    for (list of data) {
+        if (list.length === 1) {
+            list[0].style = 'both';
+        } else {
+            list[0].style = 'top';
+            list[list.length-1].style = 'bottom';
         }
     }
 
