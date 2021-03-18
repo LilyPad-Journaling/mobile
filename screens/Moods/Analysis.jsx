@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Text, View, StyleSheet, FlatList, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-
+import { Image } from "react-native";
 import { ColorContext } from "../../functions/providers/ColorContext";
 import { UserContext } from "../../functions/providers/UserContext";
 import IconButton from "../../components/General/Button";
@@ -57,21 +57,6 @@ export default function Analysis(props) {
     {y: Math.round(Math.random() * 10), x: 7},
   ]
 
-  // const ChartPoints = ({x, y}) =>
-  //   fakeData.map((item, index) => (
-  //   <Image source = {{uri: 'https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/78037/lily-pad-clipart-md.png'}}/>
-  // ));
-    /* <AreaChart
-    style = {{height: '70%'}}
-    data = {fakeData}
-    yAccessor = {({item}) => item.y}
-    xAccessor = {({item}) => item.x}
-    svg = {{fill: '#003F5A'}}
-    numberOfTicks = {10}
-    yMin = {0}
-    yMax = {10}
-  >
-  </AreaChart> */
 
   return (
     <View style={[styles.container, { backgroundColor: color.background }]}>
@@ -119,10 +104,10 @@ export default function Analysis(props) {
                       backgroundColor: "none",
                     },
                     propsForDots: {
-                      r: "10",
-                      strokeWidth: "4",
-                      stroke: "#006400",
-                      fill: "green"
+                      r: "7",
+                      strokeWidth: "2",
+                      stroke: color.inactive,
+                      fill: color.background
                     },
                   }}
                   bezier
