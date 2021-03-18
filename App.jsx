@@ -10,6 +10,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-view';
 import MainStack from './stacks/Main';
 import { User } from './functions/providers/UserContext';
 import { Color } from './functions/providers/ColorContext';
+import { Awards } from './functions/providers/AwardContext';
 // const { mp } = require("./functions/util/mixpanel");
 
 const globalAny = global;
@@ -26,10 +27,6 @@ const App = () => {
     const [fontsLoaded, setFontsLoaded] = useState(false);
 
     useEffect(() => {
-        // mp.identify(user.id);
-        // mp.people_set(user.name);
-        // mp.track("Open application");
-
         BackHandler.addEventListener('hardwareBackPress', () => true);
 
         Text.defaultProps = Text.defaultProps || {};
@@ -59,9 +56,11 @@ const App = () => {
         return (
             <User>
                 <Color>
-                    <NavigationContainer>
-                        <MainStack />
-                    </NavigationContainer>
+                    <Awards>
+                        <NavigationContainer>
+                            <MainStack />
+                        </NavigationContainer>
+                    </Awards>
                 </Color>
             </User>
         );

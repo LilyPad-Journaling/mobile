@@ -30,7 +30,7 @@ export default function Number(props) {
           createUser();
         }
         AsyncStorage.setItem("loggedIn", "true");
-        navigation.navigate("Onboarding");
+        navigation.navigate("HomeStack");
       })
     }
   }, [code]);

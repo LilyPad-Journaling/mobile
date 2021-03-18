@@ -67,7 +67,12 @@ function Entry(props) {
     }
 
     return (
-        <View>
+        <View
+            style={{
+                ...generalStyles.shadow,
+                shadowColor: color.shadow
+            }}
+        >
             <TouchableOpacity
                 onPress={() => {
                     if (props.private) {
@@ -142,34 +147,15 @@ function Entry(props) {
 
 function JournalList(props) {
     let journals = props.data;
-    const { color } = useContext(ColorContext);
-
-    for (let i = 0; i < journals.length; ++i) {
-        // If this is the first entry or its date comes before the previous entry's date
-        if (
-            i === 0 ||
-            dayjs(journals[i].timeCreated).format('MMDDYY') !==
-                dayjs(journals[i - 1].timeCreated).format('MMDDYY')
-        ) {
-            // If this is the last entry or its date comes before the next entry's date
-            if (
-                i === journals.length - 1 ||
-                dayjs(journals[i + 1].timeCreated).format('MMDDYY') !==
-                    dayjs(journals[i].timeCreated).format('MMDDYY')
-            ) {
-                journals[i].style = 'both';
-            } else {
-                journals[i].style = 'top';
-            }
-            // Otherwise, if this is the last entry or its date comes before the next entry's date
-        } else if (
-            i === journals.length - 1 ||
-            dayjs(journals[i + 1].timeCreated).format('MMDDYY') !==
-                dayjs(journals[i].timeCreated).format('MMDDYY')
-        ) {
-            journals[i].style = 'bottom';
+    journals.sort((a,b) => {
+        if ( dayjs(a.timeCreated).isBefore( dayjs(b.timeCreated) ))   {
+            return 1;
         }
-    }
+        else {
+            return -1;
+        }
+    });
+    const { color } = useContext(ColorContext);
 
     let data = [];
 
@@ -182,6 +168,15 @@ function JournalList(props) {
             data.push([journals[i]]);
         } else {
             data[data.length - 1].push(journals[i]);
+        }
+    }
+
+    for (list of data) {
+        if (list.length === 1) {
+            list[0].style = 'both';
+        } else {
+            list[0].style = 'top';
+            list[list.length-1].style = 'bottom';
         }
     }
 
@@ -208,9 +203,7 @@ function JournalList(props) {
                                 }}
                             >
                                 <Text>
-                                    {/* 3EB: display day of journal entry */}
-                                    {dayjs(item[0].timeCreated).format('dddd')}
-                                    {'  '}
+                                    {dayjs(item[0].timeCreated).format('dddd')}{'  '}
                                 </Text>
                                 <Text
                                     style={{
@@ -218,10 +211,7 @@ function JournalList(props) {
                                         fontSize: 14
                                     }}
                                 >
-                                    {/* 4EB: display MDY of journal entry */}
-                                    {dayjs(item[0].timeCreated).format(
-                                        'MM/DD/YY'
-                                    )}
+                                    {dayjs(item[0].timeCreated).format('MM/DD/YY')}
                                 </Text>
                             </Text>
                             <FlatList

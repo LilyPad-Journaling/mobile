@@ -33,6 +33,8 @@ const ResourcesTabs = () => {
           fontSize: 18,
           fontFamily: "medium",
           textTransform: "none",
+          marginLeft: -5,
+          marginRight: -5
         },
         indicatorStyle: {
           backgroundColor: color.highlight,

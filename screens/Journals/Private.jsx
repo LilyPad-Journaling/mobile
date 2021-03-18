@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 
 import { UserContext } from "../../functions/providers/UserContext";
 import { ColorContext } from "../../functions/providers/ColorContext";
+import { awardsSchemes } from "../../functions/providers/AwardContext";
 import JournalList from "./JournalList";
 import IconButton from "../../components/General/Button";
+import styles from "../../styles/journalTabStyles";
 
 export default function Private(props) {
   const { navigation } = props;
   const { color } = useContext(ColorContext);
-  const { userID, journals, createJournal } = useContext(UserContext);
+  const { userID, journals, createJournal, createAward } = useContext(UserContext);
 
   return (
     <View style={{ ...styles.container, backgroundColor: color.background }}>
@@ -19,6 +21,12 @@ export default function Private(props) {
       />
       <IconButton
         onPress={() => {
+          if (journals.length >= 0){
+            createAward(awardsSchemes.firstEntry, userID)
+          }
+          if (journals.length >= 9){
+            createAward(awardsSchemes.tenEntries, userID)
+          }
           createJournal(userID, (data) => {
             navigation.navigate("Journal", { data });
           });
@@ -30,11 +38,3 @@ export default function Private(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
