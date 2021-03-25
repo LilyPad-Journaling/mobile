@@ -46,7 +46,7 @@ export default function Number(props) {
           placeholder="123456"
           placeholderTextColor={color.inactive}
           keyboardType="number-pad"
-          style={{ fontSize: 20 }}
+          style={{ fontSize: 20, padding: 20 }}
           onChangeText={setCode}
         />
         <TouchableOpacity

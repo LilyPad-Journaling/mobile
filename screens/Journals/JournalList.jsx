@@ -184,7 +184,7 @@ function JournalList(props) {
         <>
             {data.length === 0 ? (
                 <View>
-                    <Text>No journals yet, add one below!</Text>
+                    <Text style={{ color: color.primaryText }}>No journals yet, add one below!</Text>
                 </View>
             ) : (
                 <FlatList

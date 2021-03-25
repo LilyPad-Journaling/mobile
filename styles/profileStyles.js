@@ -18,7 +18,6 @@ const profileStyles = StyleSheet.create({
     },
     logoutText: {
         textAlign: 'center',
-        color: 'red',
         textDecorationLine: 'underline',
         fontSize: 18
     },

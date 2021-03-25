@@ -24,6 +24,12 @@ const Section = ({
 }) => {
     const { color } = useContext(ColorContext);
 
+    useEffect(() => {
+        if (section == 'Pin') {
+            onChangeText(placeholder)
+        }
+    }, [])
+
     return (
         <View style={styles.row}>
             <View
@@ -45,6 +51,7 @@ const Section = ({
                     placeholder={placeholder}
                     keyboardType={keyboardType}
                     placeholderTextColor={color.inactive}
+                    secureTextEntry={section == 'Pin'}
                     style={{
                         fontSize: 20,
                         height: '100%',
@@ -149,6 +156,7 @@ export default function Settings(props) {
                         contentContainerStyle={styles.colorsRectangle}
                         data={data}
                         horizontal
+                        persistentScrollbar
                         keyExtractor={(item) => item.name}
                         renderItem={({ item }) => {
                             return (
@@ -175,7 +183,7 @@ export default function Settings(props) {
                     }}
                     style={styles.logout}
                 >
-                    <Text style={styles.logoutText}>Logout</Text>
+                    <Text style={{ ...styles.logoutText, color: color.primaryText }}>Logout</Text>
                 </TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>

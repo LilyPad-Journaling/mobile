@@ -30,7 +30,7 @@ export default function Name(props) {
         <TextInput
           placeholder="Johnny Appleseed"
           placeholderTextColor={color.inactive}
-          style={{ fontSize: 20 }}
+          style={{ fontSize: 20, padding: 20 }}
           onChangeText={setName}
         />
         <TouchableOpacity
