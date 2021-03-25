@@ -44,6 +44,11 @@ function Entry(props) {
         description = props.body.slice(0, 40) + '...';
     }
 
+    let title = props.title;
+    if (title.length > 40) {
+        title = props.title.slice(0, 40) + '...';
+    }
+
     const [isModalVisible, setModalVisible] = useState(false);
 
     const toggleModal = () => {
@@ -94,7 +99,7 @@ function Entry(props) {
                             ...styles.entryTitle,
                             color: color.primaryText
                         }}>
-                            {props.title}
+                            {title}
                         </Text>
                         {props.private && 
                             <View style={{marginLeft: 5}}>
