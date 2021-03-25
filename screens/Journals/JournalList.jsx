@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Text, TouchableOpacity, FlatList, View, Button } from 'react-native';
 import { FontAwesome5 as FA5Icon } from '@expo/vector-icons/';
+import { FontAwesome as Icon } from "@expo/vector-icons/";
 import { TextInput } from 'react-native-gesture-handler';
 
 import { ColorContext } from '../../functions/providers/ColorContext';
@@ -86,14 +87,26 @@ function Entry(props) {
                 style={[style, styles.entryContent]}
             >
                 <View>
-                    <Text
-                        style={{
+                    <View
+                        style={{ flexDirection: 'row' }}
+                    >
+                        <Text style={{
                             ...styles.entryTitle,
                             color: color.primaryText
-                        }}
-                    >
-                        {props.title}
-                    </Text>
+                        }}>
+                            {props.title}
+                        </Text>
+                        {props.private && 
+                            <View style={{marginLeft: 5}}>
+                                <Icon name="lock" color={color.inactive} size={16} />
+                            </View>
+                        }
+                        {data.starred && 
+                            <View style={{marginLeft: 5}}>
+                                <Icon name="star" color={color.inactive} size={16} />
+                            </View>
+                        }
+                    </View>
                     <Text style={{ color: color.inactive }}>{description}</Text>
                 </View>
                 <FA5Icon
