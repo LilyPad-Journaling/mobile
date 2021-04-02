@@ -63,7 +63,9 @@ export default function Journal(props) {
   // componentWillUnmount equivalent https://stackoverflow.com/questions/55139386/componentwillunmount-with-react-useeffect-hook
   useEffect(() => {
     return () => {
-      updateJournal(userID, data.id, titleRef.current, bodyRef.current);
+      if (titleRef.current !== '' || bodyRef.current !== '') {
+        updateJournal(userID, data.id, titleRef.current, bodyRef.current);
+      }
     };
   }, [props.current]);
 
@@ -115,7 +117,7 @@ export default function Journal(props) {
                     onSelect={() => {
                       createAward(awardsSchemes.privateEntry, userID),
                       lockJournal(userID, data.id, !data.private),
-                        alert(data.private ? `Unlocked` : "Locked"),
+                        alert(data.private ? `Open` : "Private"),
                         (data.private = !data.private);
                       if (data.starred && data.private){
                         createAward(awardsSchemes.privateAndStarredEntry, userID);
