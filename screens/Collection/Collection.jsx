@@ -20,7 +20,7 @@ const Collection = () => {
     for(let key of Object.keys(awardsSchemes)){
         if(!awardIds.includes(awardsSchemes[key].id)){
             let newAward = { ...awardsSchemes[key] }
-            newAward.image = "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/78037/lily-pad-clipart-md.png"
+            newAward.image = "https://www.pixelscrapper.com/sites/default/files/styles/456_scale/public/s3fs-user-content/asset-image/user-310/node-38578/enchanted-painted-lilypad-asset-illustration-watercolor-green-white.png"
             unachievedAwards.push(newAward)
         }
     }
