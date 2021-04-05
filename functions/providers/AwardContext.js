@@ -9,34 +9,34 @@ import { UserContext } from "../../functions/providers/UserContext";
 const firstEntry = {
     id: 1,
     description: "You filled out your first journal entry",
-    image: "https://www.pngfind.com/pngs/m/46-464326_pink-lotus-png-in-watercolor-large-sacred-lotus.png"
+    image: "https://firebasestorage.googleapis.com/v0/b/hodas-f14c5.appspot.com/o/lily3.png?alt=media&token=1521c502-162f-4b31-a630-ca6fee02ec47"
 }
 
 // accounted for
 const starredEntry = {
     id: 2,
     description: "You starred a journal entry",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlb9AeSq5cy6I9_FyRM4BBQWLLxwFpC1Y-Cg&usqp=CAU"
+    image: "https://firebasestorage.googleapis.com/v0/b/hodas-f14c5.appspot.com/o/lily1.png?alt=media&token=4372ab5b-cc32-440e-932c-a80e1b04affe"
 }
 
 const tenEntries = {
     id: 3,
     description: "You created 10 journal entries",
-    image: "https://www.pngitem.com/pimgs/m/526-5268889_lotus-water-color-hd-png-download.png"
+    image: "https://firebasestorage.googleapis.com/v0/b/hodas-f14c5.appspot.com/o/lily2.png?alt=media&token=3c87cf74-0d7e-4a15-8184-edeea9ed30d7"
 }
 
 //accounted for
 const privateEntry = {
     id: 4,
     description: "You made a journal entry private",
-    image: "https://images.squarespace-cdn.com/content/v1/5b96f88f266c07dbd64e7abd/1599224636516-BZ2QTFL0JT9OTWT0KE0U/ke17ZwdGBToddI8pDm48kPH1dCwaWf2EWCHDd_SPsqR7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmp7z4I4wUUQuXS-oSoDNFmKDs0B2MQ1m8WkEG1Am3MBgd-B4fmEJBJsLGfWhOflkH/image-asset.png?format=500w"
+    image: "https://firebasestorage.googleapis.com/v0/b/hodas-f14c5.appspot.com/o/lily5.png?alt=media&token=9724a6a4-432d-40d6-800c-b4eedb555c72"
 }
 
 //accounted for
 const privateAndStarredEntry = {
     id: 5,
     description: "You made a single journal entry private and starred it",
-    image: "https://i.pinimg.com/originals/44/1a/1c/441a1ce6fc4fff5190bea20c7ee5b7bb.png"
+    image: "https://firebasestorage.googleapis.com/v0/b/hodas-f14c5.appspot.com/o/lily4.png?alt=media&token=7808eaf7-48e8-4bf6-bf86-9a13e9112a78"
 }
 
 
